@@ -6,6 +6,7 @@
   "scripts": {
     "client": "npm --prefix client start",
     "server": "npm --prefix server run dev",
+    "install": "npm --prefix client install & npm --prefix server install",
     "start": "npm run client & npm run server"
   },
   "repository": {
