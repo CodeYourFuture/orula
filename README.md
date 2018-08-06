@@ -25,4 +25,8 @@ If you're working on a feature for _adding a student_, then name the branch `add
 
 6.  Repeat.
 
+# Prettier linting
 
+- Go to `top level` folder, and run `npm run lint`
+
+In order to fix errors, run `npm run lint -- --fix`
