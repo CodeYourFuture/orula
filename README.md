@@ -6,6 +6,8 @@ Glasgow Graduation Project - Learning Platform
 
 1.  Go to `top level` folder, and run `npm install`
 2.  Go to `top level` folder, and run `npm start`
+3.  Go to `top level` folder, and run `npm run lint`
+    - In order to fix errors, run `npm run lint -- --fix`
 
 ## Workflow
 
@@ -25,8 +27,28 @@ If you're working on a feature for _adding a student_, then name the branch `add
 
 6.  Repeat.
 
-# Prettier linting
+# Database
 
-- Go to `top level` folder, and run `npm run lint`
+The first time you create the database, you will need to run these commands (three of them separately) in `postgres`
 
-In order to fix errors, run `npm run lint -- --fix`
+```sql
+DROP ROLE IF EXISTS cyf;
+```
+
+```sql
+CREATE USER cyf WITH PASSWORD 'password';
+```
+
+```sql
+CREATE DATABASE orula OWNER cyf;
+```
+
+## Migrations
+
+We use `knex` for migrations, but we created alias helpers on `package.json` to make it easier to run the commands.
+
+[knex](https://knexjs.org/)
+
+1.  Create a migration `npm run create-migration table_name`
+2.  Create a seed `npm run create-seed table_name`
+3.  To
