@@ -2,6 +2,11 @@
 
 Glasgow Graduation Project - Learning Platform
 
+# Get started
+
+1.  Go to `client` folder, and run `npm start`
+2.  Go to `server` folder, and run `npm run dev`
+
 ## Workflow
 
 Our workflow is a variation of [Gitflow](https://datasift.github.io/gitflow/IntroducingGitFlow.html)
