@@ -7,6 +7,7 @@
     "client": "npm --prefix client start",
     "server": "npm --prefix server run dev",
     "install": "npm --prefix client install & npm --prefix server install",
+    "lint": "npm --prefix client run lint & npm --prefix server run lint",
     "start": "npm run client & npm run server"
   },
   "repository": {
