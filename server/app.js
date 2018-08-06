@@ -25,5 +25,5 @@ app.get("/admin/courses", (req, res) => {
 app.get("/api/status", (req, res) => res.send({ status: "OK" }));
 
 app.listen(SERVER_PORT, () =>
-  console.log(`Orula server running on ${SERVER_PORT}`)
+  console.log(`Orula server running on http://localhost:${SERVER_PORT}`)
 );

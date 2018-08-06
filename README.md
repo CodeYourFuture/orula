@@ -4,8 +4,8 @@ Glasgow Graduation Project - Learning Platform
 
 # Get started
 
-1.  Go to `client` folder, and run `npm start`
-2.  Go to `server` folder, and run `npm run dev`
+1.  Go to `top level` folder, and run `npm install`
+2.  Go to `top level` folder, and run `npm start`
 
 ## Workflow
 
@@ -24,3 +24,5 @@ If you're working on a feature for _adding a student_, then name the branch `add
 5.  Create a Pull Request when you are finished.
 
 6.  Repeat.
+
+
