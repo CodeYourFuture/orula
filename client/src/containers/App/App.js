@@ -1,27 +1,26 @@
 import React, { Component } from "react";
-import "./App.css";
 import Header from "../../components/Header/Header";
-import { getStatus } from "../../helpers/api";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import Home from "../Home/Home";
+import Help from "../Help/Help";
+import MyProfile from "../MyProfile/MyProfile";
+import "./App.css";
+import Menu from "../../components/Menu/Menu";
 
 class App extends Component {
-  state = {
-    status: ""
-  };
-  componentDidMount() {
-    getStatus().then(data => {
-      this.setState({ status: JSON.stringify(data) });
-    });
-  }
   render() {
     return (
-      <div className="app">
-        <Header />
-        <p className="app-intro">
-          We're building this system to help CYF, and other organisations, to
-          manage a Classroom during the lifetime of a course.
-        </p>
-        <p>{this.state.status}</p>
-      </div>
+      <Router>
+        <div>
+          <Header />
+          <Menu />
+          <div className="main-content">
+            <Route exact path="/" component={Home} />
+            <Route path="/my-profile" component={MyProfile} />
+            <Route path="/help" component={Help} />
+          </div>
+        </div>
+      </Router>
     );
   }
 }
