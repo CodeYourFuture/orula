@@ -6,6 +6,8 @@ Glasgow Graduation Project - Learning Platform
 
 1.  Go to `top level` folder, and run `npm install`
 2.  Go to `top level` folder, and run `npm start`
+3.  Go to `top level` folder, and run `npm run lint`
+    - In order to fix errors, run `npm run lint -- --fix`
 
 ## Workflow
 
