@@ -15,7 +15,7 @@ app.engine(
   })
 );
 
-//let pg = require("pg");
+let pg = require("pg");
 
 var knex = require("knex")({
   client: "pg",
