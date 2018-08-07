@@ -43,7 +43,7 @@ const callBack = (error, classes) => {
     res.json(classes);
   }
 };
-// get '/classes/:id'
+// get '/classes/class_id/:id'
 app.get("/classes/class_id/:id", (req, res) => {
   const sqlStatement = `select * from classes where class_id =${req.params.id}`;
   knex.raw(sqlStatement).then(data => {
@@ -63,9 +63,9 @@ app.post("/classes", function(req, res) {
     res.send("successfully classes added");
   });
 });
-// put '/classes/:id'
-app.put("/classes/:id", function(req, res) {
-  const id = req.params.id;
+// put '/classes/class_id/:id'
+app.put("/classes/class_id/:id", function(req, res) {
+  const class_id = req.params.id;
   const body = req.body;
   const sqlStatement = `update classes
     set name= "${body.name}",created_at= "${
@@ -75,9 +75,9 @@ app.put("/classes/:id", function(req, res) {
     res.json(data);
   });
 });
-// delete '/classes/:id'
-app.delete("/classes/:id", function(req, res) {
-  const id = req.params.id;
+// delete '/classes/class_id/:id'
+app.delete("/classes/class_id/:id", function(req, res) {
+  const class_id = req.params.id;
   //const body = req.body
   const sqlStatement = `delete from classes
       where class_id = ${id}`;
