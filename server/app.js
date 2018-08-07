@@ -65,7 +65,7 @@ app.post("/classes", function(req, res) {
 });
 // put '/classes/class_id/:id'
 app.put("/classes/class_id/:id", function(req, res) {
-  const class_id = req.params.id;
+  const id = req.params.id;
   const body = req.body;
   const sqlStatement = `update classes
     set name= "${body.name}",created_at= "${
@@ -77,7 +77,7 @@ app.put("/classes/class_id/:id", function(req, res) {
 });
 // delete '/classes/class_id/:id'
 app.delete("/classes/class_id/:id", function(req, res) {
-  const class_id = req.params.id;
+  const id = req.params.id;
   //const body = req.body
   const sqlStatement = `delete from classes
       where class_id = ${id}`;
