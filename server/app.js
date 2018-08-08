@@ -4,7 +4,6 @@ const exphbs = require("express-handlebars");
 const cors = require("cors");
 const api = require("./api");
 const admin = require("./admin");
-
 const app = express();
 
 app.engine(
@@ -14,8 +13,6 @@ app.engine(
     extname: "hbs"
   })
 );
-
-const pg = require("pg");
 
 const knex = require("knex")({
     client: "pg",
@@ -28,66 +25,45 @@ const knex = require("knex")({
   }
 });
 
-// get '/classes'
-app.get("/classes", (req, res) => {
-  knex.select('*').from(
-    "classes").then(
-                 data => {
-                 res.json(data);
-              });
-});
-
-// get '/classes/:id'
-app.get("/classes/:id", (req, res) => {
-  const class_id = `${ req.params.id }`;
-  knex('classes').where(
-                  'class_id', '=', class_id).then(
-                    data => {
-                      res.json(data);
-                    });
-});
 
 // post '/classes/'
-app.post("/classes", function(req, res) {
-  const body = req.body;
-  knex('classes').insert([{
-      class_id:
-      `${ body.class_id }`,
-      name: `${body.name}`,
-      created_at: `${body.created_at}`,
-      updated_at:`${
-      body.updated_at}`
-  }]).then(
-            data => {
-            res.send("successfully classes added");
-      });
-});
+// app.post("/classes", (req, res) =>{
+//   const body = req.body;
+//   knex('classes').insert([{
+//       class_id:
+//       `${ body.class_id }`,
+//       name: `${body.name}`,
+//       created_at: `${body.created_at}`,
+//       updated_at:`${
+//       body.updated_at}`
+//   }]).then(
+//             data => {
+//             res.send("successfully classes added");
+//       });
+// });
 
-// put '/classes/:id'
-app.put("/classes/:id", function (req, res) {
-  const class_id = `${req.params.id}`;
-  const body = req.body;
-  knex('classes').where('class_id', '=', class_id).update({
-      name: `${ body.name }`,
-      created_at: `${body.created_at}`
-            }).then(data => {
-               res.json(data);
-           });
-});
+// // put '/classes/:id'
+// app.put("/classes/:id",  (req, res) => {
+//   const class_id = `${req.params.id}`;
+//   const body = req.body;
+//   knex('classes').where('class_id', '=', class_id).update({
+//       name: `${ body.name }`,
+//       created_at: `${body.created_at}`
+//             }).then(data => {
+//                res.json(data);
+//            });
+// });
 
-// delete '/classes/:id'
-app.delete("/classes/:id", function(req, res) {
-  const class_id = `${req.params.id}`;
-  knex(classes).where(
-                'class_id','=',class_id).del().then(
-                data => {
-                 res.json(data);
-                 });
-});
+// // delete '/classes/:id'
+// app.delete("/classes/:id", (req, res) =>{
+//   const class_id = `${req.params.id}`;
+//   knex(classes).where(
+//                 'class_id','=',class_id).del().then(
+//                 data => {
+//                  res.json(data);
+//                  });
+// });
 
-knex('accounts')
-  .where('activated', false)
-  .del()
 
 app.set("view engine", "hbs");
 
