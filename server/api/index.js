@@ -18,7 +18,7 @@ router.get("/classes/:id", (req, res) => {
     db.getClasses().where(
         'class_id', '=', class_id).then(
             data => {
-                res.json(data);
+                res.send(data);
             });
 });
 
