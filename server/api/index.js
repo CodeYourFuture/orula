@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
-let pg = require("pg");
+
+router.get("/status", (req, res) => res.send({ status: "OK" }));
 
 module.exports = router;
