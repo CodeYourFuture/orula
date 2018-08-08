@@ -19,8 +19,5 @@
   "bugs": {
     "url": "https://github.com/tiredsoldier/orula/issues"
   },
-  "homepage": "https://github.com/tiredsoldier/orula#readme",
-  "dependencies": {
-    "knex": "^0.15.2"
-  }
+  "homepage": "https://github.com/tiredsoldier/orula#readme"
 }
