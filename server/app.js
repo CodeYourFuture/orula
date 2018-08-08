@@ -22,14 +22,14 @@ app.use(cors());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get("/", (req, res) => {
-  res.render("home");
+  res.render("home", {
+    title: "Dashboard"
+  });
 });
 
 app.use("/admin", admin);
 
 app.use("/api", api);
-
-
 
 app.listen(SERVER_PORT, () =>
   console.log(`Orula server running on http://localhost:${SERVER_PORT}`)
