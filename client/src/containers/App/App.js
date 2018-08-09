@@ -13,8 +13,8 @@ class App extends Component {
     <Router>      
     <div id="wrapper">
     <Header />
-    <div className="navbar navbar-default navbar-static-top" role="navigation" style={{marginBottom: 0}}>
-        <div className="navbar-default sidebar" role="navigation">
+    <div className="navbar" role="navigation" style={{marginBottom: 0}}>
+        <div className="navbar-default sidebar1" style={{minHeight: 775}} role="navigation">
             <div className="sidebar-nav navbar-collapse">
                 <ul className="nav" id="side-menu">
                     <li className="sidebar-search">
@@ -22,7 +22,7 @@ class App extends Component {
                             <input type="text" className="form-control" placeholder="Search..."/>
                             <span className="input-group-btn">
                             <button className="btn btn-default" type="button">
-                                <i className="fa fa-search"></i>
+                                <i className="fa fa-search">Search</i>
                             </button>
                             </span>
                         </div>
@@ -36,7 +36,7 @@ class App extends Component {
         </div>
     </div>
 
-    <div id="page-wrapper">
+    <div id="page-wrapper" className="page-wrapper1">
         <div>
           
           <div className="main-content">
