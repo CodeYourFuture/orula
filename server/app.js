@@ -1,6 +1,7 @@
 const SERVER_PORT = process.env.PORT || 4000; // setup the server port number
 const express = require("express");
 const exphbs = require("express-handlebars");
+const path = require("path");
 const cors = require("cors");
 const api = require("./api");
 const admin = require("./admin");
@@ -13,6 +14,7 @@ app.engine(
     extname: "hbs"
   })
 );
+<<<<<<< HEAD
 
 const knex = require("knex")({
     client: "pg",
@@ -65,12 +67,18 @@ const knex = require("knex")({
 // });
 
 
+=======
+>>>>>>> bda0f8b856039c3c89d65207874b48d750d57850
 app.set("view engine", "hbs");
 
 app.use(cors());
 
+app.use(express.static(path.join(__dirname, 'public')));
+
 app.get("/", (req, res) => {
-  res.render("home");
+  res.render("home", {
+    title: "Dashboard"
+  });
 });
 
 app.use("/admin", admin);
