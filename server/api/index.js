@@ -44,8 +44,8 @@ router.put("/classes/:id", (req, res) => {
     const class_id = `${req.params.id}`;
     const body = req.body;
     db.getClasses().where('class_id', '=', class_id).update({
-        name: `${body.name}`,
-        created_at: `${body.created_at}`
+        name: "JavaScriptI",
+       // created_at: `${body.created_at}`
     }).then(data => {
         res.json(data);
     });
