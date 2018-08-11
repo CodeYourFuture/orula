@@ -5,7 +5,6 @@ const path = require("path");
 const cors = require("cors");
 const api = require("./api");
 const admin = require("./admin");
-
 const app = express();
 
 app.engine(
@@ -15,6 +14,7 @@ app.engine(
     extname: "hbs"
   })
 );
+
 app.set("view engine", "hbs");
 
 app.use(cors());
