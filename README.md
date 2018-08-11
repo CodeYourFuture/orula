@@ -51,4 +51,17 @@ We use `knex` for migrations, but we created alias helpers on `package.json` to 
 
 1.  Create a migration `npm run create-migration table_name`
 2.  Create a seed `npm run create-seed table_name`
-3.  To
+
+## Recrete DB
+
+From psql:
+
+- `/c postgres`
+-
+- `CREATE DATABASE orula OWNER cyf;`
+
+if it complains that there are active connections then run:
+
+```sql
+SELECT pg_terminate_backend(pg_stat_activity.pid) FROM pg_stat_activity WHERE pg_stat_activity.datname = 'orula'
+```
