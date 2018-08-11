@@ -6,7 +6,7 @@ const instance = axios.create({
 });
 
 export const getStatus = () => {
-  return instance.get("/api/status").then(res => res.json());
+  return instance.get("/api/status").then(res => res);
 };
 
 export const getStudents = () => {
