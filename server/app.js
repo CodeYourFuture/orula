@@ -5,7 +5,6 @@ const path = require("path");
 const cors = require("cors");
 const api = require("./api");
 const admin = require("./admin");
-
 const app = express();
 
 app.engine(
@@ -15,11 +14,12 @@ app.engine(
     extname: "hbs"
   })
 );
+
 app.set("view engine", "hbs");
 
 app.use(cors());
 
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, "public")));
 
 app.get("/", (req, res) => {
   res.render("home", {
