@@ -1,3 +1,24 @@
 .main-content {
   text-align: center;
 }
+.sidebar1 {
+  z-index: 1;
+  position: absolute;
+  max-width: 250px;
+  margin-top: 51px;
+}
+.page-wrapper1 {
+  min-height: 731px;
+  position: inherit;
+  margin: 0 0 0 250px;
+  padding: 0 30px;
+  border-left: 1px solid #e7e7e7;
+}
+.fa {
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
