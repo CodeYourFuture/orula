@@ -7,6 +7,7 @@ import MyProfile from "../MyProfile/MyProfile";
 import "./App.css";
 import Menu from "../../components/Menu/Menu";
 import Dashboard from "../Dashboard/Dashboard";
+import Courses from "../Courses/Courses";
 
 class App extends Component {
   render() {
@@ -51,6 +52,7 @@ class App extends Component {
                 <Route path="/my-profile" component={MyProfile} />
                 <Route path="/help" component={Help} />
                 <Route path="/dashboard" component={Dashboard} />
+                <Route path="/courses" component={Courses} />
               </div>
             </div>
           </div>
