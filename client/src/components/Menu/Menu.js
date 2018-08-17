@@ -16,7 +16,7 @@ class Menu extends Component {
             <Link to="/help">Help</Link>
           </li>
           <li>
-            <Link to="/courses">courses</Link>
+            <Link to="/courses">Courses</Link>
           </li>
         </ul>
       </div>
