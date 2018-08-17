@@ -1,7 +1,4 @@
 exports.up = async (knex, Promise) => {
-  await knex.schema.dropTableIfExists("classes");
-  await knex.schema.dropTableIfExists("status");
-
   await knex.schema.createTable("organisations", table => {
     table.increments("organisation_id");
     table.string("name");
@@ -84,4 +81,12 @@ exports.up = async (knex, Promise) => {
   });
 };
 
-exports.down = function(knex, Promise) {};
+exports.down = async (knex, Promise) => {
+  await knex.schema.dropTableIfExists("users_courses");
+  await knex.schema.dropTableIfExists("ratings");
+  await knex.schema.dropTableIfExists("topics");
+  await knex.schema.dropTableIfExists("lessons");
+  await knex.schema.dropTableIfExists("courses");
+  await knex.schema.dropTableIfExists("organisations");
+  await knex.schema.dropTableIfExists("users");
+};
