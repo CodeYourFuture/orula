@@ -14,7 +14,7 @@ router.get("/courses", (req, res) => {
 // get '/courses/:id'
 router.get("/courses/:id", (req, res) => {
   const course_id = `${req.params.id}`;
-  db.getCourseById().then(data => {
+  db.getCourseById(course_id).then(data => {
     res.send(data);
   });
 });
