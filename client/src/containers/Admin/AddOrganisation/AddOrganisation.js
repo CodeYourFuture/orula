@@ -1,11 +1,13 @@
 import React from "react";
-import "./AddOrganasation.css";
+import { addOrganisation } from "../../../helpers/api";
+import "./AddOrganisation.css";
 
-class AddOrganasation extends React.Component {
+class AddOrganisation extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: ""
+      name: "",
+      message: ""
     };
   }
 
@@ -15,8 +17,15 @@ class AddOrganasation extends React.Component {
   }
 
   // post it to /api/organisation
-  onSubmit() {
+  onSubmit(e) {
+    e.preventDefault();
     const name = this.state.name;
+    try{
+      addOrganisation(name);
+      this.setState({message: "Successfully added!"})
+    } catch(err){
+      this.setState({message: err});
+    }
   }
 
   render() {
@@ -26,14 +35,14 @@ class AddOrganasation extends React.Component {
         <form>
           Name:
           <br />
-          <div className="errors"></div>
+          <div className="errors">{this.state.message}</div>
           <input
             type="text"
             name="name"
             onChange={e => this.handleOnchange(e)}
           />
           <br />
-          <button type="submit" onClick={() => this.onSubmit()}>
+          <button type="submit" onClick={(e) => this.onSubmit(e)}>
             Submit
           </button>
         </form>
@@ -42,4 +51,4 @@ class AddOrganasation extends React.Component {
   }
 }
 
-export default AddOrganasation;
+export default AddOrganisation;
