@@ -6,7 +6,7 @@ import Help from "../Help/Help";
 import MyProfile from "../MyProfile/MyProfile";
 import "./App.css";
 import Menu from "../../components/Menu/Menu";
-import Dashboard from "../Admin/Dashboard";
+import Dashboard from "../Dashboard/Dashboard";
 
 class App extends Component {
   render() {
@@ -50,7 +50,7 @@ class App extends Component {
                 <Route exact path="/" component={Home} />
                 <Route path="/my-profile" component={MyProfile} />
                 <Route path="/help" component={Help} />
-                <Route path="/admin" component={Dashboard} />
+                <Route path="/dashboard" component={Dashboard} />
               </div>
             </div>
           </div>
