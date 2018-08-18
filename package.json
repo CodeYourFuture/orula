@@ -8,9 +8,10 @@
     "server": "npm --prefix server start",
     "install": "npm --prefix client install & npm --prefix server install",
     "lint": "npm --prefix client run lint & npm --prefix server run lint",
-    "dev": "npm run client & npm --prefix server run dev",
+    "dev": "NODE_ENV=development npm run client & npm --prefix server run dev",
     "start": "npm run server",
-    "heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
+    "build": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build && cd ../",
+    "heroku-postbuild": "npm run build"
   },
   "cacheDirectories": [
     "node_modules",
