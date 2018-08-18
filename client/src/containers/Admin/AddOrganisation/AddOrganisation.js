@@ -17,11 +17,11 @@ class AddOrganisation extends React.Component {
   }
 
   // post it to /api/organisation
-  onSubmit = (e) => {
+  onSubmit = async (e) => {
     e.preventDefault();
     const name = this.state.name;
     try{
-      addOrganisation(name);
+      await addOrganisation(name);
       this.setState({message: "Successfully added!"})
     } catch(err){
       this.setState({message: err});
@@ -35,7 +35,7 @@ class AddOrganisation extends React.Component {
         <form>
           Name:
           <br />
-          <div className="errors">{this.state.message}</div>
+          <div>{this.state.message}</div>
           <input
             type="text"
             name="name"
