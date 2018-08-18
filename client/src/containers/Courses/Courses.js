@@ -12,17 +12,17 @@ class Courses extends Component {
   }
   setCourses = clickEvent => {
     const courseName = clickEvent.target.value;
-    console.log(`courseName = `, courseName);
+    //console.log(`courseName = `, courseName);
     const coursesFilter = this.state.courses.filter(title =>
       title.course_title.includes(courseName)
     );
-    console.log(`courseFilter = `, coursesFilter);
+    //console.log(`courseFilter = `, coursesFilter);
     const courseId = coursesFilter.map(id => id.course_id);
-    console.log(`courseID = `, courseId);
+    // console.log(`courseID = `, courseId);
     window.location = "http://localhost:3001/courses/" + courseId;
   };
   render() {
-    console.log(`Props = `, this.props);
+    // console.log(`Props = `, this.props);
     return (
       <div>
         <select onChange={event => this.setCourses(event)}>
