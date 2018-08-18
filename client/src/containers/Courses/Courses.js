@@ -5,37 +5,32 @@ class Courses extends Component {
     courses: []
   };
   componentDidMount() {
-    getCourses().then(data => {
-      this.setState({ courses: JSON.stringify(data) });
+    getCourses().then(res => {
+      const data = res.data;
+      this.setState({ courses: data });
     });
   }
-
+  setCourses = clickEvent => {
+    const courseName = clickEvent.target.value;
+    console.log(`courseName = `, courseName);
+    const coursesFilter = this.state.courses.filter(title =>
+      title.course_title.includes(courseName)
+    );
+    console.log(`courseFilter = `, coursesFilter);
+    const courseId = coursesFilter.map(id => id.course_id);
+    console.log(`courseID = `, courseId);
+    window.location = "http://localhost:3001/courses/" + courseId;
+  };
   render() {
+    console.log(`Props = `, this.props);
     return (
       <div>
-        <p>Courses table</p>
-        {/* <table>
-          <thead>
-            <tr>
-              <th>organisationName</th>
-              <th>courseTitle</th>
-              <th>lessonName</th>
-              <th>location</th>
-            </tr>
-          </thead>
-          <tbody>
-            {console.log(this.state.courses)}
-            {this.state.courses.map(result => (
-              <tr key="1">
-                <td>{result.organisationName}</td>
-                <td>{result.courseTitle}</td>
-                <td>{result.lessonName}</td>
-                <td>{result.location}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table> */}
-        <p>{this.state.courses}</p>
+        <select onChange={event => this.setCourses(event)}>
+          {this.state.courses.map(course => (
+            <option key={course.course_id}>{course.course_title}</option>
+          ))}
+          <option>Please Select Your Course </option>
+        </select>
       </div>
     );
   }
