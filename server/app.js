@@ -5,6 +5,7 @@ const path = require("path");
 const cors = require("cors");
 const api = require("./api");
 const admin = require("./admin");
+const bodyParser = require("body-parser");
 const app = express();
 
 app.engine(
@@ -17,6 +18,8 @@ app.engine(
 
 app.set("view engine", "hbs");
 
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 app.use(cors());
 
 app.use("/admin", admin);
