@@ -26,6 +26,7 @@ class AddOrganasation extends React.Component {
         <form>
           Name:
           <br />
+          <div className="errors"></div>
           <input
             type="text"
             name="name"
