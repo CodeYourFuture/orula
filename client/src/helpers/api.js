@@ -15,3 +15,7 @@ export const getCourses = () => {
 export const getStudents = () => {
   // To Do
 };
+
+export const addOrganisation = async name => {
+  return await instance.post("/api/organisation", { name });
+};
