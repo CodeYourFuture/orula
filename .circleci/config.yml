@@ -25,7 +25,7 @@ jobs:
       - checkout
       - run: npm --prefix server install
       - run: npm --prefix server test
-      - run: npm --prefix server run migrate
+      - run: npm --prefix server run circle-ci-recreate-db
       - save_cache:
           key: repo-server-{{ .Environment.CIRCLE_SHA1 }}
           paths:
@@ -86,10 +86,14 @@ workflows:
             - build_client
           filters:
             branches:
-              only: master
+              only: 
+                - master
+                - develop
       - deploy_server:
           requires:
             - build_server
           filters:
             branches:
-              only: master
+              only:
+                - master
+                - develop
