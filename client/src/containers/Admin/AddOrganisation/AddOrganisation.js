@@ -11,13 +11,13 @@ class AddOrganisation extends React.Component {
     };
   }
 
-  handleOnchange(e) {
+  handleOnchange = (e) => {
     const name = e.target.value;
     this.setState({ name });
   }
 
   // post it to /api/organisation
-  onSubmit(e) {
+  onSubmit = (e) => {
     e.preventDefault();
     const name = this.state.name;
     try{
