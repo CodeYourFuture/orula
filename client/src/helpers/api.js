@@ -19,3 +19,7 @@ export const getStudents = () => {
 export const addOrganisation = async name => {
   return await instance.post("/api/organisation", { name });
 };
+
+export const loginUser = async (email, password) => {
+  return await instance.post("/auth/login", { email, password });
+};
