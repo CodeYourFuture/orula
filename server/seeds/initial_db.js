@@ -68,5 +68,10 @@ exports.seed = async (knex, Promise) => {
       }
     ]);
 
-  // console.log(organisation);
+    await knex("users").insert([
+      {
+        username: "islam",
+        password: "islam123"
+      }
+    ])
 };
