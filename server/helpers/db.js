@@ -14,6 +14,19 @@ const getCourses = () => {
     );
 };
 
+const getSingleUser = (email, password) => {
+  return knex("users")
+    .where({ email, password })
+    .first();
+};
+
+const getUserProfile = userId => {
+  return knex("users")
+    .select("user_id", "email", "name")
+    .where({ user_id: userId })
+    .first();
+};
+
 const getCourseById = course_id => {
   return knex
     .select()
@@ -45,5 +58,7 @@ module.exports = {
   getOrganisations,
   getOrganisationsById,
   addOrganisation,
-  checkOrganisationExist
+  checkOrganisationExist,
+  getSingleUser,
+  getUserProfile
 };

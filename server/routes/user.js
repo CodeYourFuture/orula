@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const db = require("../helpers/db");
 
 /* GET users listing. */
 router.get("/", function(req, res, next) {
@@ -7,8 +8,11 @@ router.get("/", function(req, res, next) {
 });
 
 /* GET user profile. */
-router.get("/profile", function(req, res, next) {
-  res.send(req.user);
+router.get("/profile", async (req, res, next) => {
+  const { user_id: userId } = req.user;
+
+  const profile = await db.getUserProfile(userId);
+  res.send(profile);
 });
 
 module.exports = router;
