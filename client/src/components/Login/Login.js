@@ -1,11 +1,41 @@
 import React from "react";
+import { loginUser } from "../../helpers/api";
+import MyProfile from "../MyProfile/MyProfile";
 
 class Login extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      email: "",
+      password: "",
+      message: "",
+      loggedIn: false
+    };
   }
+
+  onHandleChange = (input, e) => {
+    const value = e.target.value;
+    this.setState({ [input]: value });
+  };
+
+  // post it to /auth/login
+  onSubmit = async e => {
+    e.preventDefault();
+    const { email, password } = this.state;
+    try {
+      const { data } = await loginUser(email, password);
+      console.log(data);
+      this.setState({
+        loggedIn: true,
+        message: "Successfully logged in!"
+      });
+    } catch (err) {
+      this.setState({ message: err });
+    }
+  };
+
   render() {
+    if (this.state.loggedIn) return <MyProfile />;
     return (
       <div className="container">
         <div className="row">
@@ -19,10 +49,12 @@ class Login extends React.Component {
                   <fieldset>
                     <div className="form-group">
                       <input
+                        onChange={e => this.onHandleChange("email", e)}
                         className="form-control"
                         placeholder="E-mail"
                         name="email"
                         type="email"
+                        value={this.state.email}
                         autofocus
                       />
                     </div>
@@ -32,7 +64,8 @@ class Login extends React.Component {
                         placeholder="Password"
                         name="password"
                         type="password"
-                        value=""
+                        onChange={e => this.onHandleChange("password", e)}
+                        value={this.state.password}
                       />
                     </div>
                     <div className="checkbox">
@@ -45,12 +78,12 @@ class Login extends React.Component {
                         Remember me
                       </label>
                     </div>
-                    <a
-                      href="index.html"
+                    <button
+                      onClick={e => this.onSubmit(e)}
                       className="btn btn-lg btn-success btn-block"
                     >
                       Login
-                    </a>
+                    </button>
                   </fieldset>
                 </form>
               </div>
