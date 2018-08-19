@@ -7,9 +7,11 @@ const api = require("./api");
 const admin = require("./admin");
 const bodyParser = require("body-parser");
 const app = express();
+const user = require("./routes/user");
+const auth = require("./routes/auth");
+const passport = require("passport");
+
 require("./passport");
-const auth = require('./routes/auth');
-const user = require('./routes/user');
 
 app.engine(
   "hbs",
@@ -30,7 +32,7 @@ app.use("/admin", admin);
 app.use("/api", api);
 
 app.use("/auth", auth);
-app.use('/user', passport.authenticate('jwt', {session: false}), user);
+app.use("/user", passport.authenticate("jwt", { session: false }), user);
 
 // In development environemnt, we use the create-react-app dev server
 // In production, the static build is served from here
