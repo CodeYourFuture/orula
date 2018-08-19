@@ -61,4 +61,25 @@ router.delete("/courses/:id", (req, res) => {
       res.json(data);
     });
 });
+
+router.post("/organisations", (req, res) => {
+  const body = req.body;
+  if (
+    db.checkOrganisationExist(body.name) === false &&
+    body.name !== "" &&
+    body.name !== null
+  ) {
+    db.addOrganisation(body.name).then(() => res.send());
+  } else {
+    res.status(500);
+    res.send("This organisations name already have or you didn't write organisation name");
+  }
+});
+
+router.get("/organisations", (req, res) => {
+  db.getOrganisations().then(data => {
+    res.send(data);
+  });
+});
+
 module.exports = router;
