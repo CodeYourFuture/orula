@@ -55,7 +55,7 @@ class Login extends React.Component {
                         name="email"
                         type="email"
                         value={this.state.email}
-                        autofocus
+                        autoFocus
                       />
                     </div>
                     <div className="form-group">
