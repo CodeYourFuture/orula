@@ -47,7 +47,7 @@ exports.up = async (knex, Promise) => {
   await knex.schema.createTable("users", table => {
     table.increments("user_id");
     table.string("name");
-    table.string("email");
+    table.string("username");
     table.string("password");
   });
 
