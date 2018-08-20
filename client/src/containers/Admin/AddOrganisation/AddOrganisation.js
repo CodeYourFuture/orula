@@ -1,13 +1,13 @@
 import React from "react";
 import { addOrganisation } from "../../../helpers/api";
-import "./AddOrganisation.css";
 
 class AddOrganisation extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       name: "",
-      message: ""
+      message: "",
+      messageClass: ""
     };
   }
 
@@ -22,30 +22,65 @@ class AddOrganisation extends React.Component {
     const name = this.state.name;
     try {
       await addOrganisation(name);
-      this.setState({ message: "Successfully added!" });
+      this.setState({
+        message: "Successfully added!",
+        messageClass: "alert alert-success"
+      });
     } catch (err) {
-      this.setState({ message: err });
+      this.setState({
+        message: "Error occured! Please, try again.",
+        messageClass: "alert alert-danger"
+      });
     }
   };
 
   render() {
     return (
       <div>
-        <h2>Add Organisation</h2>
-        <form>
-          Name:
-          <br />
-          <div>{this.state.message}</div>
-          <input
-            type="text"
-            name="name"
-            onChange={e => this.handleOnchange(e)}
-          />
-          <br />
-          <button type="submit" onClick={e => this.onSubmit(e)}>
-            Submit
-          </button>
-        </form>
+        <div className="row">
+          <div className="col-lg-12">
+            <h2 className="page-header">Add Organisation</h2>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-lg-12">
+            <div className="panel panel-default">
+              <div className="panel-heading">Organisation details</div>
+              <div className="panel-body">
+                <div className="row">
+                  <div className="col-lg-6">
+                    <form>
+                      <div className="form-group">
+                        <label className="control-label" htmlFor="name">
+                          Name
+                        </label>
+                        <input
+                          className="form-control"
+                          type="text"
+                          name="name"
+                          id="name"
+                          onChange={e => this.handleOnchange(e)}
+                        />
+                      </div>
+                      <button
+                        type="submit"
+                        className="btn btn-primary"
+                        onClick={e => this.onSubmit(e)}
+                      >
+                        Submit
+                      </button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {this.state.message && (
+              <div className={this.state.messageClass}>
+                {this.state.message}
+              </div>
+            )}
+          </div>
+        </div>
       </div>
     );
   }
