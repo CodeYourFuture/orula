@@ -70,8 +70,9 @@ exports.seed = async (knex, Promise) => {
 
     await knex("users").insert([
       {
-        email: "email",
-        password: "password"
+        name: "Islam",
+        email: "islam@email.com",
+        password: "islam123"
       }
     ])
 };

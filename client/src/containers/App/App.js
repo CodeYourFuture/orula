@@ -2,26 +2,32 @@ import React, { Component } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import Home from "../Home/Home";
 import Help from "../Help/Help";
-import MyProfile from "../MyProfile/MyProfile";
+import MyProfile from "../../components/MyProfile/MyProfile";
 import "./App.css";
 import Dashboard from "../Dashboard/Dashboard";
 import Courses from "../Courses/Courses";
 import Nav from "../../components/Nav/Nav";
+import axios from "axios";
 
 class App extends Component {
+  componentDidMount = async () => {
+    // get token from local storage
+    const token = localStorage.getItem("jwtToken");
+    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    // if there is no token redirect to login page
+    if (!token) {
+      return this.props.history.push("/login");
+    }
+  };
+
   render() {
+    const token = localStorage.getItem("jwtToken");
+    if (!token) return null;
     return (
       <Router>
         <div id="wrapper">
           <Nav />
-
           <div id="page-wrapper">
-            <div className="row">
-              <div className="col-lg-12">
-                <h1 className="page-header">Title</h1>
-              </div>
-            </div>
-
             <Route exact path="/" component={Home} />
             <Route path="/my-profile" component={MyProfile} />
             <Route path="/help" component={Help} />
