@@ -8,6 +8,7 @@
     "server": "npm --prefix server start",
     "install": "npm --prefix client install & npm --prefix server install",
     "lint": "npm --prefix client run lint & npm --prefix server run lint",
+    "fix-lint": "npm --prefix client run lint -- --fix & npm --prefix server run lint -- --fix",
     "dev": "NODE_ENV=development npm run client & npm --prefix server run dev",
     "start": "npm run server",
     "build": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build && cd ../",
