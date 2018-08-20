@@ -11,22 +11,22 @@ class AddOrganisation extends React.Component {
     };
   }
 
-  handleOnchange = (e) => {
+  handleOnchange = e => {
     const name = e.target.value;
     this.setState({ name });
-  }
+  };
 
   // post it to /api/organisation
-  onSubmit = async (e) => {
+  onSubmit = async e => {
     e.preventDefault();
     const name = this.state.name;
-    try{
+    try {
       await addOrganisation(name);
-      this.setState({message: "Successfully added!"})
-    } catch(err){
-      this.setState({message: err});
+      this.setState({ message: "Successfully added!" });
+    } catch (err) {
+      this.setState({ message: err });
     }
-  }
+  };
 
   render() {
     return (
@@ -42,7 +42,7 @@ class AddOrganisation extends React.Component {
             onChange={e => this.handleOnchange(e)}
           />
           <br />
-          <button type="submit" onClick={(e) => this.onSubmit(e)}>
+          <button type="submit" onClick={e => this.onSubmit(e)}>
             Submit
           </button>
         </form>
