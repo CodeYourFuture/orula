@@ -7,9 +7,22 @@ import "./App.css";
 import Dashboard from "../Dashboard/Dashboard";
 import Courses from "../Courses/Courses";
 import Nav from "../../components/Nav/Nav";
+import axios from "axios";
 
 class App extends Component {
+  componentDidMount = async () => {
+    // get token from local storage
+    const token = localStorage.getItem("jwtToken");
+    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    // if there is no token redirect to login page
+    if (!token) {
+      return this.props.history.push("/login");
+    }
+  };
+
   render() {
+    const token = localStorage.getItem("jwtToken");
+    if (!token) return null;
     return (
       <Router>
         <div id="wrapper">

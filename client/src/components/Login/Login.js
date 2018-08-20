@@ -1,6 +1,6 @@
 import React from "react";
 import { loginUser } from "../../helpers/api";
-import MyProfile from "../MyProfile/MyProfile";
+import { Link } from "react-router-dom";
 
 class Login extends React.Component {
   constructor(props) {
@@ -8,8 +8,7 @@ class Login extends React.Component {
     this.state = {
       email: "",
       password: "",
-      message: "",
-      loggedIn: false
+      message: ""
     };
   }
 
@@ -18,24 +17,27 @@ class Login extends React.Component {
     this.setState({ [input]: value });
   };
 
-  // post it to /auth/login
+  // post it to /auth/login endpoint
   onSubmit = async e => {
     e.preventDefault();
     const { email, password } = this.state;
     try {
-      const { data } = await loginUser(email, password);
-      console.log(data);
+      await loginUser(email, password); // if this is successful go to next line
       this.setState({
-        loggedIn: true,
         message: "Successfully logged in!"
       });
+      this.props.history.push("/"); // go to home page
     } catch (err) {
-      this.setState({ message: err });
+      if (err.response.status === 400) {
+        this.setState({
+          message: "Login failed. Username or password not match"
+        });
+      }
     }
   };
 
   render() {
-    if (this.state.loggedIn) return <MyProfile />;
+    const { email, password, message } = this.state;
     return (
       <div className="container">
         <div className="row">
@@ -45,7 +47,7 @@ class Login extends React.Component {
                 <h3 className="panel-title">Please Sign In</h3>
               </div>
               <div className="panel-body">
-                <form role="form">
+                <form>
                   <fieldset>
                     <div className="form-group">
                       <input
@@ -54,7 +56,7 @@ class Login extends React.Component {
                         placeholder="E-mail"
                         name="email"
                         type="email"
-                        value={this.state.email}
+                        value={email}
                         autoFocus
                       />
                     </div>
@@ -65,29 +67,31 @@ class Login extends React.Component {
                         name="password"
                         type="password"
                         onChange={e => this.onHandleChange("password", e)}
-                        value={this.state.password}
+                        value={password}
                       />
                     </div>
-                    <div className="checkbox">
-                      <label>
-                        <input
-                          name="remember"
-                          type="checkbox"
-                          value="Remember Me"
-                        />
-                        Remember me
-                      </label>
-                    </div>
                     <button
-                      onClick={e => this.onSubmit(e)}
                       className="btn btn-lg btn-success btn-block"
+                      onClick={this.onSubmit}
                     >
                       Login
                     </button>
                   </fieldset>
+                  <br />
+                  <p>
+                    Not a member? <Link to="/register">Register here</Link>
+                  </p>
                 </form>
               </div>
             </div>
+            {message !== "" && (
+              <div
+                className="alert alert-warning alert-dismissible"
+                role="alert"
+              >
+                {message}
+              </div>
+            )}
           </div>
         </div>
       </div>

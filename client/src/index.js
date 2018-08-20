@@ -8,8 +8,8 @@ import Login from "./components/Login/Login";
 ReactDOM.render(
   <Router>
     <div>
-      <Route exact path="/" component={App} />
-      <Route path="/login" component={Login} />
+    <Route exact path="/login" component={Login} />
+    <Route path="/" component={App} />
     </div>
   </Router>,
   document.getElementById("root")
