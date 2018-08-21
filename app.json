@@ -2,15 +2,6 @@
   "name": "orula",
   "scripts": {},
   "env": {
-    "DB_NAME": {
-      "required": true
-    },
-    "DB_PASSWORD": {
-      "required": true
-    },
-    "DB_USER": {
-      "required": true
-    },
     "REACT_APP_API_URI": {
       "required": true
     }
