@@ -7,7 +7,7 @@ class AddOrganisation extends React.Component {
     this.state = {
       name: "",
       message: "",
-      messageClass: ""
+      messageAlert: ""
     };
   }
 
@@ -20,17 +20,26 @@ class AddOrganisation extends React.Component {
   onSubmit = async e => {
     e.preventDefault();
     const name = this.state.name;
-    try {
-      await addOrganisation(name);
+    if (name === "") {
       this.setState({
-        message: "Successfully added!",
-        messageClass: "alert alert-success"
+        message: "You must provide a name!",
+        messageAlert: "alert alert-danger"
       });
-    } catch (err) {
-      this.setState({
-        message: "Error occured! Please, try again.",
-        messageClass: "alert alert-danger"
-      });
+    } else {
+      try {
+        await addOrganisation(name);
+        this.setState({
+          name: "",
+          message: "Organisation has been successfully added!",
+          messageAlert: "alert alert-success"
+        });
+      } catch (err) {
+        console.log(err)
+        this.setState({
+          message: "Error occured! Please, try again.",
+          messageAlert: "alert alert-danger"
+        });
+      }
     }
   };
 
@@ -60,6 +69,7 @@ class AddOrganisation extends React.Component {
                           name="name"
                           id="name"
                           onChange={e => this.handleOnchange(e)}
+                          value={this.state.name}
                         />
                       </div>
                       <button
@@ -75,7 +85,7 @@ class AddOrganisation extends React.Component {
               </div>
             </div>
             {this.state.message && (
-              <div className={this.state.messageClass}>
+              <div className={this.state.messageAlert}>
                 {this.state.message}
               </div>
             )}
