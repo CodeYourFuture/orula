@@ -33,15 +33,18 @@ const getCourseById = course_id => {
     .from("courses")
     .where("course_id", "=", course_id);
 };
+
 const getOrganisations = () => {
   return knex.select().from("organisations");
 };
+
 const getOrganisationsById = course_id => {
   return knex
     .select()
     .from("organisations")
     .where("organisation_id", "=", organisation_id);
 };
+
 const checkOrganisationExist = name => {
   const result = knex
     .select()
@@ -49,9 +52,11 @@ const checkOrganisationExist = name => {
     .where("name", "=", name);
   return result.length === 0 ? false : true;
 };
+
 const addOrganisation = name => {
   return knex("organisations").insert({ name: name });
 };
+
 module.exports = {
   getCourses,
   getCourseById,

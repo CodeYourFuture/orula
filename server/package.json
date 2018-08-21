@@ -12,8 +12,7 @@
     "create-migration": "knex migrate:make $1",
     "create-seed": "knex seed:make $1",
     "rollback": "knex migrate:rollback",
-    "recreate-db": "npm run rollback && npm run migrate",
-    "circle-ci-recreate-db": "npm run rollback && npm run migrate"
+    "recreate-db": "npm run rollback && npm run migrate"
   },
   "author": "",
   "license": "ISC",

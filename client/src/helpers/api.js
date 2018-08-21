@@ -1,8 +1,7 @@
 import axios from "axios";
-const API_URL = process.env.REACT_APP_API_URI || "/";
 
 const instance = axios.create({
-  baseURL: API_URL
+  baseURL: "/"
 });
 
 export const getStatus = () => {
