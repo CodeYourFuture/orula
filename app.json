@@ -1,11 +1,6 @@
 {
   "name": "orula",
   "scripts": {},
-  "env": {
-    "REACT_APP_API_URI": {
-      "required": true
-    }
-  },
   "formation": {
     "web": {
       "quantity": 1
