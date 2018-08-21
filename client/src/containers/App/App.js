@@ -6,6 +6,7 @@ import MyProfile from "../../components/MyProfile/MyProfile";
 import "./App.css";
 import Dashboard from "../Dashboard/Dashboard";
 import Courses from "../Courses/Courses";
+import AddOrganisation from "../Admin/AddOrganisation/AddOrganisation";
 import Nav from "../../components/Nav/Nav";
 import axios from "axios";
 
@@ -33,6 +34,10 @@ class App extends Component {
             <Route path="/help" component={Help} />
             <Route path="/dashboard" component={Dashboard} />
             <Route path="/courses" component={Courses} />
+            <Route
+              path="/admin/organisations/add"
+              component={AddOrganisation}
+            />
           </div>
         </div>
       </Router>

@@ -73,7 +73,7 @@ router.post("/organisations", (req, res) => {
   } else {
     res.status(500);
     res.send(
-      "This organisations name already have or you didn't write organisation name"
+      "This organisation is already exists or your name field is empty"
     );
   }
 });

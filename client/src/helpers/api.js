@@ -16,7 +16,7 @@ export const getStudents = () => {
 };
 
 export const addOrganisation = async name => {
-  return await instance.post("/api/organisation", { name });
+  return await instance.post("/api/organisations", { name });
 };
 
 // Login user with local storage caching of jwt token after login
