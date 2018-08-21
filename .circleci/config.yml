@@ -30,50 +30,6 @@ jobs:
           paths:
             - ~/code
 
-  deploy_client:
-    machine:
-      enabled: true
-    working_directory: ~/code
-    environment:
-      HEROKU_APP: "orula-app" #ToDo: update for each project
-    steps:
-      - restore_cache:
-          keys:
-            - repo-client-{{ .Environment.CIRCLE_SHA1 }}
-      - run:
-          name: Setup Heroku
-          command: bash .circleci/deploy-app-to-heroku.sh
-      - run:
-          name: "Push to Heroku"
-          command: |
-            heroku git:remote -a $HEROKU_APP
-            git config --global user.name "CYF"
-            git push heroku `git subtree split --prefix client master`:refs/heads/master --force
-            sleep 5 # sleep for 5 seconds to wait for dynos
-            heroku restart
-
-  deploy_server:
-    machine:
-      enabled: true
-    working_directory: ~/code
-    environment:
-      HEROKU_APP: "orula-server"
-    steps:
-      - restore_cache:
-          keys:
-            - repo-server-{{ .Environment.CIRCLE_SHA1 }}
-      - run:
-          name: Setup Heroku
-          command: bash .circleci/deploy-app-to-heroku.sh
-      - run:
-          name: "Push to Heroku"
-          command: |
-            heroku git:remote -a $HEROKU_APP
-            git config --global user.name "CYF"
-            git push heroku `git subtree split --prefix server master`:refs/heads/master --force
-            sleep 5 # sleep for 5 seconds to wait for dynos
-            heroku restart
-
 workflows:
   version: 2
   build-and-deploy-client:
