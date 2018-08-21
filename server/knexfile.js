@@ -1,53 +1,16 @@
-// Update with your config settings.
 module.exports = {
-  development: {
-    client: "postgresql",
-    connection: {
-      host: process.env.DB_HOST || "localhost",
-      database: process.env.DB_NAME || "orula",
-      user: process.env.DB_USER || "cyf",
-      password: process.env.DB_PASSWORD || "password"
-    },
-    pool: {
-      min: 2,
-      max: 10
-    },
-    migrations: {
-      tableName: "knex_migrations"
-    }
+  client: "postgresql",
+  connection: {
+    host: process.env.DATABASE_URL || "localhost",
+    database: process.env.DB_NAME || "orula",
+    user: process.env.DB_USER || "cyf",
+    password: process.env.DB_PASSWORD || "password"
   },
-
-  staging: {
-    client: "postgresql",
-    connection: {
-      host: process.env.DB_HOST,
-      database: process.env.DB_NAME,
-      user: process.env.DB_USER,
-      password: process.env.DB_PASSWORD
-    },
-    pool: {
-      min: 2,
-      max: 10
-    },
-    migrations: {
-      tableName: "knex_migrations"
-    }
+  pool: {
+    min: 2,
+    max: 10
   },
-
-  production: {
-    client: "postgresql",
-    connection: {
-      host: process.env.DB_HOST,
-      database: process.env.DB_NAME,
-      user: process.env.DB_USER,
-      password: process.env.DB_PASSWORD
-    },
-    pool: {
-      min: 2,
-      max: 10
-    },
-    migrations: {
-      tableName: "knex_migrations"
-    }
+  migrations: {
+    tableName: "knex_migrations"
   }
 };

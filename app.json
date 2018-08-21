@@ -2,9 +2,6 @@
   "name": "orula",
   "scripts": {},
   "env": {
-    "DB_HOST": {
-      "required": true
-    },
     "DB_NAME": {
       "required": true
     },
@@ -23,7 +20,11 @@
       "quantity": 1
     }
   },
-  "addons": [],
+  "addons": [
+    {
+      "plan": "heroku-postgresql"
+    }
+  ],
   "buildpacks": [
     {
       "url": "heroku/nodejs"
