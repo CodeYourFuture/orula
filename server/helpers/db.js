@@ -45,16 +45,13 @@ const getOrganisationsById = course_id => {
     .where("organisation_id", "=", organisation_id);
 };
 
-const checkOrganisationExist = name => {
-  const result = knex
-    .select()
-    .from("organisations")
-    .where("name", "=", name);
-  return result.length === 0 ? false : true;
+const checkOrganisationExist = async name => {
+  const response = await knex('organisations').where({ name })
+  return response.length === 0 ? false : true;
 };
 
-const addOrganisation = name => {
-  return knex("organisations").insert({ name: name });
+const addOrganisation = async name => {
+  return await knex("organisations").insert({ name });
 };
 
 module.exports = {
