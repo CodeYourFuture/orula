@@ -31,7 +31,11 @@ class AddCourse extends React.Component {
       organisation => organisation.name === organisationName
     );
     // check if organisation is selected then set state
-    if (organisation) this.setState({ organisation_id: organisation.organisation_id });
+    if (organisation) {
+      this.setState({ organisation_id: organisation.organisation_id });
+    } else {
+      this.setState({ organisation_id: "" })
+    }
   };
 
   // post it to /api/organisation
