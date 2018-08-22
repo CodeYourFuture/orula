@@ -35,7 +35,7 @@ class AddOrganisation extends React.Component {
         });
       } catch (err) {
         this.setState({
-          message: "Error occured! Please, try again.",
+          message: err.response.data,
           messageAlert: "alert alert-danger"
         });
       }
