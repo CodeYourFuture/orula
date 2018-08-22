@@ -1,5 +1,5 @@
 import React from "react";
-import Sidebar from "./Sidebar";
+import NavbarRight from "./NavbarRight";
 import NavbarHeader from "./NavbarHeader";
 import Menu from "../Menu/Menu";
 
@@ -11,7 +11,7 @@ class NavbarHEader extends React.Component {
         style={{ marginBottom: 0 }}
       >
         <NavbarHeader />
-        <Sidebar />
+        <NavbarRight />
         <Menu />
       </nav>
     );
