@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import { getCourses } from "../../helpers/api";
 import { withRouter } from "react-router-dom";
-
+import ViewLessons from "./ViewLessons";
 class Courses extends Component {
   state = {
-    courses: []
+    courses: [],
+    courseId: ""
   };
   componentDidMount() {
     getCourses().then(res => {
@@ -20,6 +21,7 @@ class Courses extends Component {
     );
 
     const courseId = coursesFilter.map(id => id.course_id);
+    this.setState({ courseId });
 
     this.props.history.push("/courses/" + courseId);
   };
@@ -40,6 +42,10 @@ class Courses extends Component {
               ))}
             </select>
           </div>
+        </div>
+        <div className="row">
+          <div className="col-lg-12" />
+          <ViewLessons courseId={this.state.courseId}/>
         </div>
       </div>
     );

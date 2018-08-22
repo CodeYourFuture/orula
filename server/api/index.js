@@ -11,13 +11,7 @@ router.get("/courses", (req, res) => {
   });
 });
 
-// get '/courses/:id'
-router.get("/courses/:id", (req, res) => {
-  const course_id = `${req.params.id}`;
-  db.getCourseById(course_id).then(data => {
-    res.send(data);
-  });
-});
+
 
 // post '/courses/'
 router.post("/courses", (req, res) => {
@@ -78,6 +72,12 @@ router.post("/organisations", (req, res) => {
 
 router.get("/organisations", (req, res) => {
   db.getOrganisations().then(data => {
+    res.send(data);
+  });
+});
+router.get("/courses/:id", (req, res) => {
+  const course_id = `${req.params.id}`;
+  db.getLessonsById(course_id).then(data => {
     res.send(data);
   });
 });

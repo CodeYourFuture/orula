@@ -57,13 +57,20 @@ const addOrganisation = name => {
   return knex("organisations").insert({ name: name });
 };
 
+const getLessonsById = course_id => {
+  return knex
+    .select()
+    .from("lessons")
+    .where("course_id", "=", course_id);
+};
+
 module.exports = {
   getCourses,
-  getCourseById,
   getOrganisations,
   getOrganisationsById,
   addOrganisation,
   checkOrganisationExist,
   getSingleUser,
-  getUserProfile
+  getUserProfile,
+  getLessonsById
 };
