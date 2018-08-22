@@ -16,7 +16,7 @@ class Courses extends Component {
     const courseName = clickEvent.target.value;
 
     const coursesFilter = this.state.courses.filter(title =>
-      title.course_title.includes(courseName)
+      title.name.includes(courseName)
     );
 
     const courseId = coursesFilter.map(id => id.course_id);
@@ -36,7 +36,7 @@ class Courses extends Component {
             <select onChange={event => this.setCourses(event)}>
               <option>Select Course</option>
               {this.state.courses.map(course => (
-                <option key={course.course_id}>{course.course_title}</option>
+                <option key={course.course_id}>{course.name}</option>
               ))}
             </select>
           </div>
