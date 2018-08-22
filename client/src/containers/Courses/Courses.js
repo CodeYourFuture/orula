@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { getCourses } from "../../helpers/api";
 import { withRouter } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 class Courses extends Component {
   state = {
@@ -39,6 +40,14 @@ class Courses extends Component {
                 <option key={course.course_id}>{course.name}</option>
               ))}
             </select>
+          </div>
+          <hr/>
+          <div className="col-lg-12">
+            <Link to="/admin/courses/add">
+              <button className="btn btn-primary">
+                <i className="fa fa-plus fa-fw" /> Add Course
+              </button>
+            </Link>
           </div>
         </div>
       </div>
