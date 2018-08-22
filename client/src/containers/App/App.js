@@ -7,6 +7,7 @@ import "./App.css";
 import Dashboard from "../Dashboard/Dashboard";
 import Courses from "../Courses/Courses";
 import Nav from "../../components/Nav/Nav";
+import Organisations from "../Admin/Organisations/Organisations";
 
 class App extends Component {
   render() {
@@ -27,6 +28,7 @@ class App extends Component {
             <Route path="/help" component={Help} />
             <Route path="/dashboard" component={Dashboard} />
             <Route path="/courses" component={Courses} />
+            <Route path="/admin/organisations" component={Organisations} />                        
           </div>
         </div>
       </Router>
