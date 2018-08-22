@@ -39,11 +39,8 @@ const getOrganisations = async () => {
   return await knex.select().table("organisations");
 };
 
-const getOrganisationsById = course_id => {
-  return knex
-    .select()
-    .from("organisations")
-    .where("organisation_id", "=", organisation_id);
+const getOrganisationsById = organisation_id => {
+  return knex("organisations").where({ organisation_id });
 };
 
 const checkOrganisationExist = async name => {

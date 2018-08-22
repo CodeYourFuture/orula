@@ -28,18 +28,18 @@ class Courses extends Component {
                 <thead>
                   <tr>
                     <th>#</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Username</th>
+                    <th>Course Name</th>
+                    <th>Location</th>
+                    <th>Organisation</th>
                   </tr>
                 </thead>
                 <tbody>
                   {this.state.courses.map(course => (
                     <tr key={course.course_id}>
-                      <td>1</td>
-                      <td>Mark</td>
-                      <td>Otto</td>
-                      <td>@mdo</td>
+                      <td>{course.course_id}</td>
+                      <td>{course.name}</td>
+                      <td>{course.location}</td>
+                      <td>{course.organisation_id}</td>
                     </tr>
                   ))}
                 </tbody>

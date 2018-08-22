@@ -85,4 +85,12 @@ router.get("/organisations", (req, res) => {
   });
 });
 
+// Get Organisations by Id
+router.get("/organisations/:id", (req, res) => {
+  const organisation_id = req.params.id;
+  db.getOrganisationsById(organisation_id).then(data => {
+    res.send(data);
+  });
+});
+
 module.exports = router;
