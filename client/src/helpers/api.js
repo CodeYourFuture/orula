@@ -35,4 +35,8 @@ export const getUserProfile = () => {
 export const getLessons = (id) => {
   var ids = id || 4;
   return instance.get("/api/courses/"+ids);
+
+export const getOrganisations = () => {
+  return instance.get("/api/organisations").then(res => res.data);
+
 };
