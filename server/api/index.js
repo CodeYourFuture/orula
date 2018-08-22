@@ -21,13 +21,13 @@ router.get("/courses/:id", (req, res) => {
 
 // Endpoint to add new course to the DB
 router.post("/courses", async (req, res) => {
-  const { name, info, location, organisation_id } = req.body;
+  const { name, location, organisation_id } = req.body;
   if (
     (await db.checkCourseExist(name)) === false &&
     name !== "" &&
     name !== null
   ) {
-    await db.addCourse(name, info, location, organisation_id);
+    await db.addCourse(name, location, organisation_id);
     res.send("Successfully added course!");
   } else {
     res

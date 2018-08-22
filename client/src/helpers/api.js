@@ -12,10 +12,9 @@ export const getCourses = () => {
 };
 
 // Add course api to add new course to the DB from client side
-export const addCourse = async (name, info, location, organisation_id) => {
+export const addCourse = async (name, location, organisation_id) => {
   return await instance.post("/api/courses", {
     name,
-    info,
     location,
     organisation_id
   });

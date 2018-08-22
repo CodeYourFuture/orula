@@ -14,10 +14,9 @@ const checkCourseExist = async name => {
   return response.length === 0 ? false : true;
 };
 
-const addCourse = async (name, info, location, organisation_id) => {
+const addCourse = async (name, location, organisation_id) => {
   return await knex("courses").insert({
     name,
-    info,
     location,
     organisation_id
   });

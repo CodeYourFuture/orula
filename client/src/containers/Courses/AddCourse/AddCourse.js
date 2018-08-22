@@ -6,9 +6,8 @@ class AddCourse extends React.Component {
     super(props);
     this.state = {
       name: "",
-      info: "",
       location: "",
-      organisation_id: "",
+      organisation_id: 1,
       message: "",
       messageAlert: ""
     };
@@ -22,8 +21,28 @@ class AddCourse extends React.Component {
   // post it to /api/organisation
   onSubmit = async e => {
     e.preventDefault();
-    const name = this.state.name;
-    
+    const { name, location, organisation_id } = this.state;
+    if (name === "" || location === "") {
+      this.setState({
+        message: "You must fill all the fields!",
+        messageAlert: "alert alert-danger"
+      });
+    } else {
+      try {
+        const res = await addCourse(name, location, organisation_id);
+        this.setState({
+          name: "",
+          location: "",
+          message: res.data,
+          messageAlert: "alert alert-success"
+        });
+      } catch (err) {
+        this.setState({
+          message: err.response.data,
+          messageAlert: "alert alert-danger"
+        });
+      }
+    }
   };
 
   render() {
