@@ -72,9 +72,7 @@ router.post("/organisations", (req, res) => {
     db.addOrganisation(body.name).then(() => res.send());
   } else {
     res.status(500);
-    res.send(
-      "This organisation is already exists or your name field is empty"
-    );
+    res.send("This organisation is already exists or your name field is empty");
   }
 });
 
