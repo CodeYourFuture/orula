@@ -1,5 +1,4 @@
 const config = require("../knexfile")[process.env.NODE_ENV || "development"];
-
 const knex = require("knex")(config);
 
 const getCourses = () => {
@@ -14,6 +13,19 @@ const getCourses = () => {
     );
 };
 
+const getCourseById = course_id => {
+  return knex("courses").where({ course_id });
+};
+
+const addCourse = async (course_title, info, location, organisation_id) => {
+  return await knex("courses").insert({
+    course_title,
+    info,
+    location,
+    organisation_id
+  });
+};
+
 const getSingleUser = (email, password) => {
   return knex("users")
     .where({ email, password })
@@ -25,13 +37,6 @@ const getUserProfile = userId => {
     .select("user_id", "email", "name")
     .where({ user_id: userId })
     .first();
-};
-
-const getCourseById = course_id => {
-  return knex
-    .select()
-    .from("courses")
-    .where("course_id", "=", course_id);
 };
 
 const getOrganisations = () => {
@@ -62,5 +67,6 @@ module.exports = {
   addOrganisation,
   checkOrganisationExist,
   getSingleUser,
-  getUserProfile
+  getUserProfile,
+  addCourse
 };

@@ -19,7 +19,7 @@ router.get("/courses/:id", (req, res) => {
   });
 });
 
-// post '/courses/'
+// Endpoint to add new course to the DB
 router.post("/courses", (req, res) => {
   const body = req.body;
   db.getCourses()
