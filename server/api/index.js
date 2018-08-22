@@ -21,20 +21,19 @@ router.get("/courses/:id", (req, res) => {
 
 // Endpoint to add new course to the DB
 router.post("/courses", async (req, res) => {
-  const body = req.body;
-  
-  // db.getCourses()
-  //   .insert([
-  //     {
-  //       course_id: `${body.course_id}`,
-  //       name: `${body.name}`,
-  //       created_at: `${body.created_at}`,
-  //       updated_at: `${body.updated_at}`
-  //     }
-  //   ])
-  //   .then(data => {
-  //     res.send("successfully added courses");
-  //   });
+  const { name, info, location, organisation_id } = req.body;
+  if (
+    (await db.checkCourseExist(name)) === false &&
+    name !== "" &&
+    name !== null
+  ) {
+    await db.addCourse(name, info, location, organisation_id);
+    res.send("Successfully added course!");
+  } else {
+    res
+      .status(403)
+      .send("This course is already exist or course name field is empty");
+  }
 });
 
 // put '/courses/:id'
