@@ -26,12 +26,21 @@ class Courses extends Component {
   render() {
     return (
       <div>
-        <select onChange={event => this.setCourses(event)}>
-          <option>Please Select Your Course </option>
-          {this.state.courses.map(course => (
-            <option key={course.course_id}>{course.course_title}</option>
-          ))}
-        </select>
+        <div className="row">
+          <div className="col-lg-12">
+            <h2 className="page-header">Courses</h2>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-lg-12">
+            <select onChange={event => this.setCourses(event)}>
+              <option>Select Course</option>
+              {this.state.courses.map(course => (
+                <option key={course.course_id}>{course.course_title}</option>
+              ))}
+            </select>
+          </div>
+        </div>
       </div>
     );
   }

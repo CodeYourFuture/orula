@@ -34,7 +34,6 @@ class AddOrganisation extends React.Component {
           messageAlert: "alert alert-success"
         });
       } catch (err) {
-        console.log(err)
         this.setState({
           message: "Error occured! Please, try again.",
           messageAlert: "alert alert-danger"

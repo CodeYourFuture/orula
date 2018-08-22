@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
-class Sidebar extends Component {
+class NavbarRight extends Component {
   logout = () => {
     localStorage.removeItem("jwtToken");
     window.location.reload();
@@ -41,4 +41,4 @@ class Sidebar extends Component {
   }
 }
 
-export default Sidebar;
+export default NavbarRight;
