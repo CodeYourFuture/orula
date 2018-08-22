@@ -66,14 +66,16 @@ router.delete("/courses/:id", (req, res) => {
 router.post("/organisations", async (req, res) => {
   const body = req.body;
   if (
-    await db.checkOrganisationExist(body.name) === false &&
+    (await db.checkOrganisationExist(body.name)) === false &&
     body.name !== "" &&
     body.name !== null
   ) {
     await db.addOrganisation(body.name);
     res.send();
   } else {
-    res.status(403).send("This organisation is already exists or your name field is empty");
+    res
+      .status(403)
+      .send("This organisation is already exists or your name field is empty");
   }
 });
 

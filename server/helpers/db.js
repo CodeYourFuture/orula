@@ -46,7 +46,7 @@ const getOrganisationsById = course_id => {
 };
 
 const checkOrganisationExist = async name => {
-  const response = await knex('organisations').where({ name })
+  const response = await knex("organisations").where({ name });
   return response.length === 0 ? false : true;
 };
 
