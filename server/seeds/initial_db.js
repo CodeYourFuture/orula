@@ -15,12 +15,12 @@ exports.seed = async (knex, Promise) => {
     .returning("course_id")
     .insert([
       {
-        course_title: "scotland-class-1",
+        name: "scotland-class-1",
         location: "Glasgow",
         organisation_id
       },
       {
-        course_title: "london-class-4",
+        name: "london-class-4",
         location: "London",
         organisation_id
       }

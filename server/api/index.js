@@ -20,20 +20,21 @@ router.get("/courses/:id", (req, res) => {
 });
 
 // Endpoint to add new course to the DB
-router.post("/courses", (req, res) => {
+router.post("/courses", async (req, res) => {
   const body = req.body;
-  db.getCourses()
-    .insert([
-      {
-        course_id: `${body.course_id}`,
-        name: `${body.name}`,
-        created_at: `${body.created_at}`,
-        updated_at: `${body.updated_at}`
-      }
-    ])
-    .then(data => {
-      res.send("successfully added courses");
-    });
+  
+  // db.getCourses()
+  //   .insert([
+  //     {
+  //       course_id: `${body.course_id}`,
+  //       name: `${body.name}`,
+  //       created_at: `${body.created_at}`,
+  //       updated_at: `${body.updated_at}`
+  //     }
+  //   ])
+  //   .then(data => {
+  //     res.send("successfully added courses");
+  //   });
 });
 
 // put '/courses/:id'
