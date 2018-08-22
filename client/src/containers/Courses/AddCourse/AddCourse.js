@@ -1,5 +1,5 @@
 import React from "react";
-import { addCourse } from "../../../helpers/api";
+import { addCourse, getOrganisations } from "../../../helpers/api";
 
 class AddCourse extends React.Component {
   constructor(props) {
@@ -7,10 +7,17 @@ class AddCourse extends React.Component {
     this.state = {
       name: "",
       location: "",
-      organisation_id: 1,
+      organisation_id: "",
+      organisations: [],
       message: "",
       messageAlert: ""
     };
+  }
+
+  componentDidMount = async () => {
+    const res = await getOrganisations();
+    const data = res.data;
+    this.setState({ organisations: data });
   }
 
   handleOnchange = (input, e) => {
@@ -87,7 +94,7 @@ class AddCourse extends React.Component {
                           value={this.state.location}
                         />
                       </div>
-                      
+                      {this.state.organisations.map(o => o.name)}
                       <button
                         type="submit"
                         className="btn btn-primary"

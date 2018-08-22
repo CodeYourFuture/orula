@@ -24,6 +24,10 @@ export const getStudents = () => {
   // To Do
 };
 
+export const getOrganisations = async () => {
+  return await instance.get("/api/organisations");
+};
+
 export const addOrganisation = async name => {
   return await instance.post("/api/organisations", { name });
 };
