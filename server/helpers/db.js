@@ -17,6 +17,11 @@ const getCourseById = course_id => {
   return knex("courses").where({ course_id });
 };
 
+const checkCourseExist = async course_title => {
+  const response = await knex("courses").where({ course_title });
+  return response.length === 0 ? false : true;
+};
+
 const addCourse = async (course_title, info, location, organisation_id) => {
   return await knex("courses").insert({
     course_title,
@@ -68,5 +73,6 @@ module.exports = {
   checkOrganisationExist,
   getSingleUser,
   getUserProfile,
-  addCourse
+  addCourse,
+  checkCourseExist
 };
