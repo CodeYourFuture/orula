@@ -30,14 +30,15 @@ class AddCourse extends React.Component {
     const organisation = this.state.organisations.find(
       organisation => organisation.name === organisationName
     );
-    this.setState({ organisation_id: organisation.organisation_id });
+    // check if organisation is selected then set state
+    if (organisation) this.setState({ organisation_id: organisation.organisation_id });
   };
 
   // post it to /api/organisation
   onSubmit = async e => {
     e.preventDefault();
     const { name, location, organisation_id } = this.state;
-    if (name === "" || location === "") {
+    if (name === "" || location === "" || organisation_id === "") {
       this.setState({
         message: "You must fill all the fields!",
         messageAlert: "alert alert-danger"
