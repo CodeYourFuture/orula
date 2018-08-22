@@ -18,11 +18,19 @@ class AddCourse extends React.Component {
     const res = await getOrganisations();
     const data = res.data;
     this.setState({ organisations: data });
-  }
+  };
 
   handleOnchange = (input, e) => {
     const value = e.target.value;
     this.setState({ [input]: value });
+  };
+
+  setOrganisation = e => {
+    const organisationName = e.target.value;
+    const organisation = this.state.organisations.find(
+      organisation => organisation.name === organisationName
+    );
+    this.setState({ organisation_id: organisation.organisation_id });
   };
 
   // post it to /api/organisation
@@ -94,7 +102,27 @@ class AddCourse extends React.Component {
                           value={this.state.location}
                         />
                       </div>
-                      {this.state.organisations.map(o => o.name)}
+                      <div className="form-group">
+                        <label
+                          className="control-label"
+                          htmlFor="organisation_id"
+                        >
+                          Organisation
+                        </label>
+                        <select
+                          className="form-control"
+                          name="organisation_id"
+                          id="organisation_id"
+                          onChange={e => this.setOrganisation(e)}
+                        >
+                          <option>Select</option>
+                          {this.state.organisations.map(organisation => (
+                            <option key={organisation.organisation_id}>
+                              {organisation.name}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
                       <button
                         type="submit"
                         className="btn btn-primary"
