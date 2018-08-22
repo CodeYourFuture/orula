@@ -62,17 +62,20 @@ router.delete("/courses/:id", (req, res) => {
     });
 });
 
-router.post("/organisations", (req, res) => {
+// Endpoint for Add Organisation to DB
+router.post("/organisations", async (req, res) => {
   const body = req.body;
   if (
-    db.checkOrganisationExist(body.name) === false &&
+    (await db.checkOrganisationExist(body.name)) === false &&
     body.name !== "" &&
     body.name !== null
   ) {
-    db.addOrganisation(body.name).then(() => res.send());
+    await db.addOrganisation(body.name);
+    res.send();
   } else {
-    res.status(500);
-    res.send("This organisation is already exists or your name field is empty");
+    res
+      .status(403)
+      .send("This organisation is already exists or your name field is empty");
   }
 });
 
