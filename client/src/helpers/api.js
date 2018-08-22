@@ -32,3 +32,6 @@ export const loginUser = async (email, password) => {
 export const getUserProfile = () => {
   return instance.get("/user/profile");
 };
+export const getOrganisations = () => {
+  return instance.get("/api/organisations").then(res => res.data);
+};
