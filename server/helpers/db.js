@@ -2,7 +2,7 @@ const config = require("../knexfile")[process.env.NODE_ENV || "development"];
 const knex = require("knex")(config);
 
 const getCourses = () => {
-  return knex.select().table("courses");
+  return knex.select().table("courses").orderBy('course_id', 'asc');
 };
 
 const getCourseById = course_id => {
