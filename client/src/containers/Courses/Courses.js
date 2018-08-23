@@ -43,6 +43,7 @@ class Courses extends Component {
                     <th>#</th>
                     <th>Course Name</th>
                     <th>Location</th>
+                    <th>Actions</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -51,6 +52,11 @@ class Courses extends Component {
                       <td>{course.course_id}</td>
                       <td>{course.name}</td>
                       <td>{course.location}</td>
+                      <td>
+                        <Link to={`/admin/courses/edit/${course.course_id}`}>
+                          <button className="btn btn-success">Edit</button>
+                        </Link>
+                      </td>
                     </tr>
                   ))}
                 </tbody>
