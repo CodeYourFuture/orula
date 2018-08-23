@@ -1,17 +1,30 @@
 import React, { Component } from "react";
-import { getCourses } from "../../helpers/api";
+import { getCourses, getOrganisationsById } from "../../helpers/api";
 import { Link } from "react-router-dom";
 
 class Courses extends Component {
   state = {
-    courses: []
+    courses: [],
+    organisations: []
   };
-  componentDidMount() {
-    getCourses().then(res => {
-      const data = res.data;
-      this.setState({ courses: data });
+
+  componentDidMount = async () => {
+    const res = await getCourses();
+    const courses = res.data;
+    const organisations = [];
+    courses.map(course => {
+      return this.getOrganisationName(course.course_id).then(name =>
+        organisations.push(name)
+      );
     });
-  }
+    this.setState({ courses, organisations });
+  };
+
+  getOrganisationName = async id => {
+    const res = await getOrganisationsById(id);
+    const data = res.data[0];
+    return data.name;
+  };
 
   render() {
     return (
@@ -22,7 +35,7 @@ class Courses extends Component {
           </div>
         </div>
         <div className="row">
-          <div className="col-lg-12">
+          <div className="col-lg-8">
             <div className="table-responsive">
               <table className="table table-striped table-bordered table-hover">
                 <thead>
@@ -30,7 +43,6 @@ class Courses extends Component {
                     <th>#</th>
                     <th>Course Name</th>
                     <th>Location</th>
-                    <th>Organisation</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -39,7 +51,6 @@ class Courses extends Component {
                       <td>{course.course_id}</td>
                       <td>{course.name}</td>
                       <td>{course.location}</td>
-                      <td>{course.organisation_id}</td>
                     </tr>
                   ))}
                 </tbody>
