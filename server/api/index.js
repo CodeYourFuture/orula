@@ -4,14 +4,14 @@ const db = require("../helpers/db");
 
 router.get("/status", (req, res) => res.send({ status: "OK" }));
 
-// get '/courses'
+// Get All Courses
 router.get("/courses", (req, res) => {
   db.getCourses().then(data => {
     res.send(data);
   });
 });
 
-// get '/courses/:id'
+// Get 1 Course
 router.get("/courses/:id", (req, res) => {
   const course_id = `${req.params.id}`;
   db.getCourseById(course_id).then(data => {
@@ -19,7 +19,7 @@ router.get("/courses/:id", (req, res) => {
   });
 });
 
-// Endpoint to add new course to the DB
+// Add Course
 router.post("/courses", async (req, res) => {
   const { name, location, organisation_id } = req.body;
   if (
@@ -36,9 +36,9 @@ router.post("/courses", async (req, res) => {
   }
 });
 
-// put '/courses/:id'
-router.put("/courses/:id", (req, res) => {
-  const course_id = `${req.params.id}`;
+// Edit Course
+router.put("/courses/:id", async (req, res) => {
+  const course_id = req.params.id;
   const body = req.body;
   db.getCourses()
     .where("course_id", "=", course_id)
@@ -51,7 +51,7 @@ router.put("/courses/:id", (req, res) => {
     });
 });
 
-// delete '/courses/:id'
+// Delete Course
 router.delete("/courses/:id", (req, res) => {
   const course_id = `${req.params.id}`;
   db.getCourses()
@@ -62,7 +62,7 @@ router.delete("/courses/:id", (req, res) => {
     });
 });
 
-// Endpoint for Add Organisation to DB
+// Add Organisation
 router.post("/organisations", async (req, res) => {
   const body = req.body;
   if (
@@ -79,6 +79,7 @@ router.post("/organisations", async (req, res) => {
   }
 });
 
+// Get All Organisations
 router.get("/organisations", (req, res) => {
   db.getOrganisations().then(data => {
     res.send(data);

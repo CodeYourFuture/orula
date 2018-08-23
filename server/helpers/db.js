@@ -22,6 +22,14 @@ const addCourse = async (name, location, organisation_id) => {
   });
 };
 
+const editCourse = async (name, location, organisation_id) => {
+  return await knex("courses").update({
+    name,
+    location,
+    organisation_id
+  });
+};
+
 const getSingleUser = (email, password) => {
   return knex("users")
     .where({ email, password })
@@ -56,6 +64,7 @@ module.exports = {
   getCourses,
   getCourseById,
   addCourse,
+  editCourse,
   checkCourseExist,
   getOrganisations,
   getOrganisationsById,
