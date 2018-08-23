@@ -7,6 +7,7 @@ import "./App.css";
 import Dashboard from "../Dashboard/Dashboard";
 import Courses from "../Courses/Courses";
 import AddOrganisation from "../Admin/AddOrganisation/AddOrganisation";
+import AddCourse from "../Courses/AddCourse/AddCourse";
 import Nav from "../../components/Nav/Nav";
 import Organisations from "../Admin/Organisations/Organisations";
 import axios from "axios";
@@ -46,6 +47,7 @@ class App extends Component {
               path="/admin/organisations/add"
               component={AddOrganisation}
             />
+            <Route path="/admin/courses/add" component={AddCourse} />
           </div>
         </div>
       </Router>

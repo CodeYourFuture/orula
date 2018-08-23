@@ -1,17 +1,25 @@
 const config = require("../knexfile")[process.env.NODE_ENV || "development"];
-
 const knex = require("knex")(config);
 
 const getCourses = () => {
-  return knex
-    .select()
-    .from("courses")
-    .join(
-      "organisations",
-      "courses.organisation_id",
-      "=",
-      "organisations.organisation_id"
-    );
+  return knex.select().table("courses");
+};
+
+const getCourseById = course_id => {
+  return knex("courses").where({ course_id });
+};
+
+const checkCourseExist = async name => {
+  const response = await knex("courses").where({ name });
+  return response.length === 0 ? false : true;
+};
+
+const addCourse = async (name, location, organisation_id) => {
+  return await knex("courses").insert({
+    name,
+    location,
+    organisation_id
+  });
 };
 
 const getSingleUser = (email, password) => {
@@ -27,15 +35,8 @@ const getUserProfile = userId => {
     .first();
 };
 
-const getCourseById = course_id => {
-  return knex
-    .select()
-    .from("courses")
-    .where("course_id", "=", course_id);
-};
-
-const getOrganisations = () => {
-  return knex.select().from("organisations");
+const getOrganisations = async () => {
+  return await knex.select().table("organisations");
 };
 
 const getOrganisationsById = course_id => {
@@ -62,6 +63,8 @@ const updateOrganisation = async (organisation_id, organisationName) => {
 module.exports = {
   getCourses,
   getCourseById,
+  addCourse,
+  checkCourseExist,
   getOrganisations,
   getOrganisationsById,
   addOrganisation,
