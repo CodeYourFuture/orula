@@ -53,6 +53,11 @@ const checkOrganisationExist = async name => {
 const addOrganisation = async name => {
   return await knex("organisations").insert({ name });
 };
+const updateOrganisation = async (organisation_id, organisationName) => {
+  return await knex("organisations")
+    .where("organisation_id", "=", `${organisation_id}`)
+    .update({ name: organisationName });
+};
 
 module.exports = {
   getCourses,
@@ -62,5 +67,6 @@ module.exports = {
   addOrganisation,
   checkOrganisationExist,
   getSingleUser,
-  getUserProfile
+  getUserProfile,
+  updateOrganisation
 };

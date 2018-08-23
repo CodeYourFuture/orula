@@ -84,5 +84,13 @@ router.get("/organisations", (req, res) => {
     res.send(data);
   });
 });
+// put '/organisations/:id'
+router.put("/organisations/:organisation_id", (req, res) => {
+  const organisation_id = `${req.params.organisation_id}`;
+  const body = req.body;
+  db.updateOrganisation(organisation_id, body.name).then(data => {
+    res.json(data);
+  });
+});
 
 module.exports = router;

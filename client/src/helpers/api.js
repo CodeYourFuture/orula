@@ -35,3 +35,6 @@ export const getUserProfile = () => {
 export const getOrganisations = () => {
   return instance.get("/api/organisations").then(res => res.data);
 };
+export const updateOrganisations = () => {
+  return instance.put("/api/organisations").then(res => res.data);
+};

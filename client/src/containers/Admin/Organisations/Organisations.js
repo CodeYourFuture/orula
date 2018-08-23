@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { getOrganisations } from "../../../helpers/api";
 import { withRouter } from "react-router-dom";
+import Edit from "../../../components/EditButton/Edit";
 
 class Organisations extends Component {
   state = {
@@ -22,6 +23,7 @@ class Organisations extends Component {
               <a href={`/admin/organisations/${data.organisation_id}`}>
                 {data.name}
               </a>
+              <Edit />
             </li>
           ))}
         </ul>

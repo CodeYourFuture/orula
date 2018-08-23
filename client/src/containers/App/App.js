@@ -10,6 +10,7 @@ import AddOrganisation from "../Admin/AddOrganisation/AddOrganisation";
 import Nav from "../../components/Nav/Nav";
 import Organisations from "../Admin/Organisations/Organisations";
 import axios from "axios";
+import UpdateOrganisation from "../Admin/Organisations/Edit/UpdateOrganisation";
 
 class App extends Component {
   componentDidMount = async () => {
@@ -35,7 +36,12 @@ class App extends Component {
             <Route path="/help" component={Help} />
             <Route path="/dashboard" component={Dashboard} />
             <Route path="/courses" component={Courses} />
-            <Route path="/admin/organisations" component={Organisations} />                        
+            <Route path="/admin/organisations" component={Organisations} />
+            <Route
+              path="/admin/organisations/edit/:organisationId"
+              component={UpdateOrganisation}
+            />
+
             <Route
               path="/admin/organisations/add"
               component={AddOrganisation}
