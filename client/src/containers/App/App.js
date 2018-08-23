@@ -8,6 +8,7 @@ import Dashboard from "../Dashboard/Dashboard";
 import Courses from "../Courses/Courses";
 import AddOrganisation from "../Admin/AddOrganisation/AddOrganisation";
 import AddCourse from "../Courses/AddCourse/AddCourse";
+import EditCourse from "../Courses/EditCourse/EditCourse";
 import Nav from "../../components/Nav/Nav";
 import Organisations from "../Admin/Organisations/Organisations";
 import axios from "axios";
@@ -42,6 +43,7 @@ class App extends Component {
               component={AddOrganisation}
             />
             <Route path="/admin/courses/add" component={AddCourse} />
+            <Route path="/admin/courses/edit" component={EditCourse} />
           </div>
         </div>
       </Router>
