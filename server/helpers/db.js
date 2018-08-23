@@ -22,12 +22,14 @@ const addCourse = async (name, location, organisation_id) => {
   });
 };
 
-const editCourse = async (name, location, organisation_id) => {
-  return await knex("courses").update({
-    name,
-    location,
-    organisation_id
-  });
+const editCourse = async (course_id, name, location, organisation_id) => {
+  return await knex("courses")
+    .where({ course_id })
+    .update({
+      name,
+      location,
+      organisation_id
+    });
 };
 
 const getSingleUser = (email, password) => {

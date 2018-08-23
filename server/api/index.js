@@ -39,16 +39,19 @@ router.post("/courses", async (req, res) => {
 // Edit Course
 router.put("/courses/:id", async (req, res) => {
   const course_id = req.params.id;
-  const body = req.body;
-  db.getCourses()
-    .where("course_id", "=", course_id)
-    .update({
-      name: "JavaScriptI"
-      // created_at: `${body.created_at}`
-    })
-    .then(data => {
-      res.json(data);
-    });
+  const { name, location, organisation_id } = req.body;
+  if (
+    (await db.checkCourseExist(name)) === false &&
+    name !== "" &&
+    name !== null
+  ) {
+    await db.editCourse(course_id, name, location, organisation_id);
+    res.send("Course is successfully updated!");
+  } else {
+    res
+      .status(403)
+      .send("This course is already exist or course name field is empty");
+  }
 });
 
 // Delete Course
