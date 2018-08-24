@@ -1,29 +1,19 @@
 import React, { Component } from "react";
 import { getCourses } from "../../helpers/api";
-import { withRouter } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 class Courses extends Component {
   state = {
     courses: []
   };
-  componentDidMount() {
-    getCourses().then(res => {
-      const data = res.data;
-      this.setState({ courses: data });
-    });
-  }
-  setCourses = clickEvent => {
-    const courseName = clickEvent.target.value;
 
-    const coursesFilter = this.state.courses.filter(title =>
-      title.name.includes(courseName)
-    );
-
-    const courseId = coursesFilter.map(id => id.course_id);
-
-    this.props.history.push("/courses/" + courseId);
+  componentDidMount = async () => {
+    const res = await getCourses();
+    const courses = res.data;
+    console.log(courses);
+    this.setState({ courses });
   };
+
   render() {
     return (
       <div>
@@ -33,16 +23,29 @@ class Courses extends Component {
           </div>
         </div>
         <div className="row">
-          <div className="col-lg-12">
-            <select onChange={event => this.setCourses(event)}>
-              <option>Select Course</option>
-              {this.state.courses.map(course => (
-                <option key={course.course_id}>{course.name}</option>
-              ))}
-            </select>
-          </div>
-          <hr/>
-          <div className="col-lg-12">
+          <div className="col-lg-8">
+            <div className="table-responsive">
+              <table className="table table-striped table-bordered table-hover">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Course Name</th>
+                    <th>Location</th>
+                    <th>Organisation</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {this.state.courses.map(course => (
+                    <tr key={course.course_id}>
+                      <td>{course.course_id}</td>
+                      <td>{course.name}</td>
+                      <td>{course.location}</td>
+                      <td>{course.organisation_title}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
             <Link to="/admin/courses/add">
               <button className="btn btn-primary">
                 <i className="fa fa-plus fa-fw" /> Add Course
@@ -55,4 +58,4 @@ class Courses extends Component {
   }
 }
 
-export default withRouter(Courses);
+export default Courses;
