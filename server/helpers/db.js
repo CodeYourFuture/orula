@@ -2,7 +2,20 @@ const config = require("../knexfile")[process.env.NODE_ENV || "development"];
 const knex = require("knex")(config);
 
 const getCourses = () => {
-  return knex.select().table("courses");
+  return knex
+    .select(
+      "course_id",
+      "courses.name as name",
+      "location",
+      "organisations.name as organisation_title"
+    )
+    .from("courses")
+    .innerJoin(
+      "organisations",
+      "courses.organisation_id",
+      "organisations.organisation_id"
+    )
+    .orderBy("course_id", "asc");
 };
 
 const getCourseById = course_id => {
@@ -39,11 +52,8 @@ const getOrganisations = async () => {
   return await knex.select().table("organisations");
 };
 
-const getOrganisationsById = course_id => {
-  return knex
-    .select()
-    .from("organisations")
-    .where("organisation_id", "=", organisation_id);
+const getOrganisationsById = organisation_id => {
+  return knex("organisations").where({ organisation_id });
 };
 
 const checkOrganisationExist = async name => {

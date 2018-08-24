@@ -28,6 +28,12 @@ export const getOrganisations = async () => {
   return await instance.get("/api/organisations");
 };
 
+export const getOrganisationsById = async organisation_id => {
+  return await instance.get("/api/organisations", {
+    params: { organisation_id }
+  });
+};
+
 export const addOrganisation = async name => {
   return await instance.post("/api/organisations", { name });
 };
@@ -48,8 +54,4 @@ export const getUserProfile = () => {
 export const getLessons = (id) => {
   var ids = id || 4;
   return instance.get("/api/courses/"+ids);
-
-export const getOrganisations = () => {
-  return instance.get("/api/organisations").then(res => res.data);
-
 };
