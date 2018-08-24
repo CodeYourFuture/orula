@@ -1,10 +1,12 @@
 import React from "react";
 import { editCourse, getOrganisations } from "../../../helpers/api";
+import { Link } from "react-router-dom";
 
 class EditCourse extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      course_id: "",
       name: "",
       location: "",
       organisation_id: "",
@@ -38,10 +40,31 @@ class EditCourse extends React.Component {
     }
   };
 
-  // post it to /api/organisation
+  // put it to /api/courses/:id
   onSubmit = async e => {
     e.preventDefault();
-    
+    const { course_id, name, location, organisation_id } = this.state;
+    if (name === "" || location === "" || organisation_id === "") {
+      this.setState({
+        message: "You must fill all the fields!",
+        messageAlert: "alert alert-danger"
+      });
+    } else {
+      try {
+        const res = await editCourse(course_id, name, location, organisation_id);
+        this.setState({
+          name: "",
+          location: "",
+          message: res.data,
+          messageAlert: "alert alert-success"
+        });
+      } catch (err) {
+        this.setState({
+          message: err.response.data,
+          messageAlert: "alert alert-danger"
+        });
+      }
+    }
   };
 
   render() {
@@ -49,7 +72,7 @@ class EditCourse extends React.Component {
       <div>
         <div className="row">
           <div className="col-lg-12">
-            <h2 className="page-header">Add Course</h2>
+            <h2 className="page-header">Edit Course</h2>
           </div>
         </div>
         <div className="row">
@@ -112,7 +135,7 @@ class EditCourse extends React.Component {
                         className="btn btn-primary"
                         onClick={e => this.onSubmit(e)}
                       >
-                        Submit
+                        Save
                       </button>
                     </form>
                   </div>
@@ -124,6 +147,9 @@ class EditCourse extends React.Component {
                 {this.state.message}
               </div>
             )}
+          </div>
+          <div className="col-lg-12">
+            
           </div>
         </div>
       </div>
