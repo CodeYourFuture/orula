@@ -2,7 +2,13 @@ const config = require("../knexfile")[process.env.NODE_ENV || "development"];
 const knex = require("knex")(config);
 
 const getCourses = () => {
-  return knex.select().table("courses");
+  return knex
+    .table("courses")
+    .innerJoin(
+      "organisations",
+      "courses.organisation_id",
+      "organisations.organisation_id"
+    );
 };
 
 const getCourseById = course_id => {
