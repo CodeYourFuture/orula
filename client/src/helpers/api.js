@@ -25,7 +25,7 @@ export const getStudents = () => {
 };
 
 export const getOrganisations = async () => {
-  return await instance.get("/api/organisations");
+  return await instance.get("/api/organisations").then(res => res.data);
 };
 
 export const addOrganisation = async name => {
@@ -46,3 +46,6 @@ export const getUserProfile = () => {
   return instance.get("/user/profile");
 };
 
+export const deleteOrganisation = organisation_id => {
+  return instance.delete("/api/organisations/" + organisation_id);
+};
