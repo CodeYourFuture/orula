@@ -6,7 +6,7 @@ class EditCourse extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      course_id: "",
+      course_id: this.props.match.params.courseId,
       name: "",
       location: "",
       organisation_id: "",
@@ -149,7 +149,7 @@ class EditCourse extends React.Component {
             )}
           </div>
           <div className="col-lg-12">
-            
+          <Link to="/courses">View all courses</Link>
           </div>
         </div>
       </div>

@@ -53,16 +53,7 @@ class Courses extends Component {
                       <td>{course.name}</td>
                       <td>{course.location}</td>
                       <td>
-                        <Link
-                          to={{
-                            pathname: `/admin/courses/edit/${course.course_id}`,
-                            state: { 
-                              name: course.name, 
-                              location: course.location,
-                              organisation_id: course.organisation_id
-                            }
-                          }}
-                        >
+                        <Link to={`/admin/courses/edit/${course.course_id}`}>
                           <button className="btn btn-success">Edit</button>
                         </Link>
                       </td>

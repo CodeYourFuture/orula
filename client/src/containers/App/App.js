@@ -43,7 +43,7 @@ class App extends Component {
               component={AddOrganisation}
             />
             <Route path="/admin/courses/add" component={AddCourse} />
-            <Route path="/admin/courses/edit" component={EditCourse} />
+            <Route path="/admin/courses/edit/:courseId" component={EditCourse} />
           </div>
         </div>
       </Router>
