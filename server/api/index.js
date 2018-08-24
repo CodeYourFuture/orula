@@ -57,11 +57,11 @@ router.put("/courses/:id", async (req, res) => {
 // Delete Course
 router.delete("/courses/:id", async (req, res) => {
   const course_id = req.params.id;
-  try{
+  try {
     await db.deleteCourse(course_id);
     res.send("Course was successfully deleted!");
-  } catch(error){
-    res.status(403).send("Error occured! Please, try again.")
+  } catch (error) {
+    res.status(403).send("Error occured! Please, try again.");
   }
 });
 
