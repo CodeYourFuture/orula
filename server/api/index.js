@@ -56,7 +56,7 @@ router.put("/courses/:id", async (req, res) => {
 
 // Delete Course
 router.delete("/courses/:id", (req, res) => {
-  const course_id = `${req.params.id}`;
+  const course_id = req.params.id;
   db.getCourses()
     .where("course_id", "=", course_id)
     .del()
