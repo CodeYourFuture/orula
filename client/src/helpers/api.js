@@ -12,6 +12,12 @@ export const getCourses = () => {
   return instance.get("/api/courses");
 };
 
+export const getCoursesById = (course_id) => {
+  return instance.get("/api/courses", {
+    params: { course_id }
+  });
+};
+
 // Add Course
 export const addCourse = async (name, location, organisation_id) => {
   return await instance.post("/api/courses", {
