@@ -34,7 +34,7 @@ class AddCourse extends React.Component {
     if (organisation) {
       this.setState({ organisation_id: organisation.organisation_id });
     } else {
-      this.setState({ organisation_id: "" })
+      this.setState({ organisation_id: "" });
     }
   };
 
