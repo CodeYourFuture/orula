@@ -12,10 +12,8 @@ export const getCourses = () => {
   return instance.get("/api/courses");
 };
 
-export const getCoursesById = (course_id) => {
-  return instance.get("/api/courses", {
-    params: { course_id }
-  });
+export const getCourseById = async course_id => {
+  return await instance.get(`/api/courses/${course_id}`);
 };
 
 // Add Course
@@ -28,7 +26,12 @@ export const addCourse = async (name, location, organisation_id) => {
 };
 
 // Edit Course
-export const editCourse = async (course_id, name, location, organisation_id) => {
+export const editCourse = async (
+  course_id,
+  name,
+  location,
+  organisation_id
+) => {
   return await instance.put(`/api/courses/${course_id}`, {
     name,
     location,

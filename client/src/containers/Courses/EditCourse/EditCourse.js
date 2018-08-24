@@ -1,12 +1,16 @@
 import React from "react";
-import { editCourse, getOrganisations } from "../../../helpers/api";
+import {
+  editCourse,
+  getCourseById,
+  getOrganisations
+} from "../../../helpers/api";
 import { Link } from "react-router-dom";
 
 class EditCourse extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      course_id: this.props.match.params.courseId,
+      course_id: "",
       name: "",
       location: "",
       organisation_id: "",
@@ -18,8 +22,17 @@ class EditCourse extends React.Component {
 
   componentDidMount = async () => {
     const res = await getOrganisations();
-    const data = res.data;
-    this.setState({ organisations: data });
+    const organisations = res.data;
+    const course_id = this.props.match.params.courseId;
+    const course = await getCourseById(course_id);
+    const { name, location, organisation_id } = course.data[0];
+    this.setState({
+      course_id,
+      name,
+      location,
+      organisation_id,
+      organisations
+    });
   };
 
   handleOnchange = (input, e) => {
@@ -36,7 +49,7 @@ class EditCourse extends React.Component {
     if (organisation) {
       this.setState({ organisation_id: organisation.organisation_id });
     } else {
-      this.setState({ organisation_id: "" })
+      this.setState({ organisation_id: "" });
     }
   };
 
@@ -51,7 +64,12 @@ class EditCourse extends React.Component {
       });
     } else {
       try {
-        const res = await editCourse(course_id, name, location, organisation_id);
+        const res = await editCourse(
+          course_id,
+          name,
+          location,
+          organisation_id
+        );
         this.setState({
           name: "",
           location: "",
@@ -149,7 +167,7 @@ class EditCourse extends React.Component {
             )}
           </div>
           <div className="col-lg-12">
-          <Link to="/courses">View all courses</Link>
+            <Link to="/courses">View all courses</Link>
           </div>
         </div>
       </div>
