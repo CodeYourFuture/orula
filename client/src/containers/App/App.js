@@ -38,16 +38,16 @@ class App extends Component {
             <Route path="/dashboard" component={Dashboard} />
             <Route path="/courses" component={Courses} />
             <Route path="/admin/organisations" component={Organisations} />
-            <Route
-              path="/admin/organisations/edit/:organisationId"
-              component={UpdateOrganisation}
-            />
 
             <Route
               path="/admin/organisations/add"
               component={AddOrganisation}
             />
             <Route path="/admin/courses/add" component={AddCourse} />
+            <Route
+              path="/admin/organisation/edit/:organisation_id"
+              component={UpdateOrganisation}
+            />
           </div>
         </div>
       </Router>

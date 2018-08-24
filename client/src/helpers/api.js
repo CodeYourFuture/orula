@@ -45,9 +45,9 @@ export const loginUser = async (email, password) => {
 export const getUserProfile = () => {
   return instance.get("/user/profile");
 };
-export const getOrganisations = () => {
-  return instance.get("/api/organisations").then(res => res.data);
-};
-export const updateOrganisations = () => {
-  return instance.put("/api/organisations").then(res => res.data);
+export const updateOrganisations = async (organisation_id, name) => {
+  return await instance.put("/api/organisations", {
+    organisation_id,
+    name
+  });
 };

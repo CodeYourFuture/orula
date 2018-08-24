@@ -1,21 +1,22 @@
 import React, { Component } from "react";
 import { getOrganisations } from "../../../helpers/api";
 import { withRouter } from "react-router-dom";
-import Edit from "../../../components/EditButton/Edit";
+import EditOrganisation from "../../../components/EditButton/EditOrganisation";
 
 class Organisations extends Component {
   state = {
     organisations: []
   };
   componentDidMount() {
-    getOrganisations().then(data => {
+    getOrganisations().then(res => {
+      const data = res.data;
       this.setState({ organisations: data });
     });
   }
   render() {
     return (
       <div>
-        <p> Admin Dashboard </p>
+        <h2 className="page-header"> Admin Dashboard </h2>
         <ul className="list-group">
           <li className="list-group-item active">Organisation</li>
           {this.state.organisations.map(data => (
@@ -23,12 +24,12 @@ class Organisations extends Component {
               <a href={`/admin/organisations/${data.organisation_id}`}>
                 {data.name}
               </a>
-              <Edit />
+              <EditOrganisation id={data.organisation_id} />
             </li>
           ))}
         </ul>
         <form action="/admin/organisations/add" className="inline">
-          <button> Add Organisation </button>
+          <button className="btn btn-primary"> Add Organisation </button>
         </form>
       </div>
     );
