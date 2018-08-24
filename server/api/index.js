@@ -88,6 +88,12 @@ router.get("/organisations", (req, res) => {
     res.send(data);
   });
 });
+router.get("/courses/:id", (req, res) => {
+  const course_id = `${req.params.id}`;
+  db.getLessonsById(course_id).then(data => {
+    res.send(data);
+  });
+});
 
 // Get Organisations by Id
 router.get("/organisations/:id", (req, res) => {
