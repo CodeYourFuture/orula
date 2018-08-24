@@ -3,12 +3,19 @@ const knex = require("knex")(config);
 
 const getCourses = () => {
   return knex
-    .table("courses")
+    .select(
+      "course_id",
+      "courses.name as name",
+      "location",
+      "organisations.name as organisation_title"
+    )
+    .from("courses")
     .innerJoin(
       "organisations",
       "courses.organisation_id",
       "organisations.organisation_id"
-    );
+    )
+    .orderBy("course_id", "asc");
 };
 
 const getCourseById = course_id => {
