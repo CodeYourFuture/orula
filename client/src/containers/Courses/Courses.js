@@ -1,13 +1,22 @@
 import React, { Component } from "react";
 import { getCourses, deleteCourse } from "../../helpers/api";
+import { withRouter } from "react-router-dom";
+import ViewLessons from "./ViewLessons";
 import { Link } from "react-router-dom";
 
 class Courses extends Component {
   state = {
     courses: [],
     message: "",
-    messageAlert: ""
+    messageAlert: "",
+    courseId: ""
   };
+  componentDidMount() {
+    getCourses().then(res => {
+      const data = res.data;
+      this.setState({ courses: data });
+    });
+  }
 
   componentDidMount = async () => {
     const res = await getCourses();
@@ -89,6 +98,10 @@ class Courses extends Component {
               </button>
             </Link>
           </div>
+        </div>
+        <div className="row">
+          <div className="col-lg-12" />
+          <ViewLessons courseId={this.state.courseId}/>
         </div>
       </div>
     );

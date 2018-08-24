@@ -76,3 +76,7 @@ export const loginUser = async (email, password) => {
 export const getUserProfile = () => {
   return instance.get("/user/profile");
 };
+export const getLessons = (id) => {
+  var ids = id || 4;
+  return instance.get("/api/courses/"+ids);
+};
