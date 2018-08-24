@@ -28,6 +28,12 @@ export const getOrganisations = async () => {
   return await instance.get("/api/organisations").then(res => res.data);
 };
 
+export const getOrganisationsById = async organisation_id => {
+  return await instance.get("/api/organisations", {
+    params: { organisation_id }
+  });
+};
+
 export const addOrganisation = async name => {
   return await instance.post("/api/organisations", { name });
 };
@@ -49,3 +55,8 @@ export const getUserProfile = () => {
 export const deleteOrganisation = organisation_id => {
   return instance.delete("/api/organisations/" + organisation_id);
 };
+
+export const getLessons = (id) => {
+  return instance.get("/api/courses/"+id);
+};
+
