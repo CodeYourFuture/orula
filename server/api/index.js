@@ -105,7 +105,7 @@ router.get("/organisations/:id", (req, res) => {
 
 router.delete("/organisations/:id", async (req, res) => {
   const organisation_id = req.params.id;
-  if (await db.checkOrganisationToDelete(organisation_id) === false) {
+  if ((await db.checkOrganisationToDelete(organisation_id)) === false) {
     db.deleteOrganisation(organisation_id).then(() => {
       res.send("Successfully deleted organisation!");
     });

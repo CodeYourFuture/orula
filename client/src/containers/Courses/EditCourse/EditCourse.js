@@ -1,8 +1,5 @@
 import React from "react";
-import {
-  editCourse,
-  getCourseById
-} from "../../../helpers/api";
+import { editCourse, getCourseById } from "../../../helpers/api";
 import { Link } from "react-router-dom";
 
 class EditCourse extends React.Component {
@@ -44,11 +41,7 @@ class EditCourse extends React.Component {
       });
     } else {
       try {
-        const res = await editCourse(
-          course_id,
-          name,
-          location
-        );
+        const res = await editCourse(course_id, name, location);
         this.setState({
           message: res.data,
           messageAlert: "alert alert-success"

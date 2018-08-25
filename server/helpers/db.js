@@ -87,9 +87,9 @@ const checkOrganisationToDelete = async organisation_id => {
 
 const deleteOrganisation = async organisation_id => {
   await knex("organisations")
-      .where("organisation_id", "=", organisation_id)
-      .del();;
-}
+    .where("organisation_id", "=", organisation_id)
+    .del();
+};
 
 const getLessonsById = course_id => {
   return knex

@@ -10,7 +10,7 @@ class Courses extends Component {
     messageAlert: "",
     courseId: ""
   };
- 
+
   componentDidMount = async () => {
     const res = await getCourses();
     const courses = res.data;
@@ -94,7 +94,7 @@ class Courses extends Component {
         </div>
         <div className="row">
           <div className="col-lg-12" />
-          <ViewLessons courseId={this.state.courseId}/>
+          <ViewLessons courseId={this.state.courseId} />
         </div>
       </div>
     );
