@@ -97,9 +97,7 @@ router.put("/organisations/:organisation_id", async (req, res) => {
     await db.updateOrganisation(organisation_id, body.name);
     res.send("Organisation is successfully updated!");
   } else {
-    res
-      .status(403)
-      .send("This organisation is already exists or your name field is empty");
+    res.status(403).send("This organisation is already exists.");
   }
 });
 module.exports = router;
