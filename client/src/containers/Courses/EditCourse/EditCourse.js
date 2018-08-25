@@ -1,9 +1,5 @@
 import React from "react";
-import {
-  editCourse,
-  getCourseById,
-  getOrganisations
-} from "../../../helpers/api";
+import { editCourse, getCourseById } from "../../../helpers/api";
 import { Link } from "react-router-dom";
 
 class EditCourse extends React.Component {
@@ -13,24 +9,19 @@ class EditCourse extends React.Component {
       course_id: "",
       name: "",
       location: "",
-      organisation_id: "",
-      organisations: [],
       message: "",
       messageAlert: ""
     };
   }
 
   componentDidMount = async () => {
-    const organisations = await getOrganisations();
     const course_id = this.props.match.params.courseId;
     const course = await getCourseById(course_id);
-    const { name, location, organisation_id } = course.data[0];
+    const { name, location } = course.data[0];
     this.setState({
       course_id,
       name,
-      location,
-      organisation_id,
-      organisations
+      location
     });
   };
 
@@ -39,39 +30,19 @@ class EditCourse extends React.Component {
     this.setState({ [input]: value });
   };
 
-  setOrganisation = e => {
-    const organisationName = e.target.value;
-    const organisation = this.state.organisations.find(
-      organisation => organisation.name === organisationName
-    );
-    // check if organisation is selected then set state
-    if (organisation) {
-      this.setState({ organisation_id: organisation.organisation_id });
-    } else {
-      this.setState({ organisation_id: "" });
-    }
-  };
-
   // put it to /api/courses/:id
   onSubmit = async e => {
     e.preventDefault();
-    const { course_id, name, location, organisation_id } = this.state;
-    if (name === "" || location === "" || organisation_id === "") {
+    const { course_id, name, location } = this.state;
+    if (name === "" || location === "") {
       this.setState({
         message: "You must fill all the fields!",
         messageAlert: "alert alert-danger"
       });
     } else {
       try {
-        const res = await editCourse(
-          course_id,
-          name,
-          location,
-          organisation_id
-        );
+        const res = await editCourse(course_id, name, location);
         this.setState({
-          name: "",
-          location: "",
           message: res.data,
           messageAlert: "alert alert-success"
         });
@@ -125,27 +96,6 @@ class EditCourse extends React.Component {
                           onChange={e => this.handleOnchange("location", e)}
                           value={this.state.location}
                         />
-                      </div>
-                      <div className="form-group">
-                        <label
-                          className="control-label"
-                          htmlFor="organisation_id"
-                        >
-                          Organisation
-                        </label>
-                        <select
-                          className="form-control"
-                          name="organisation_id"
-                          id="organisation_id"
-                          onChange={e => this.setOrganisation(e)}
-                        >
-                          <option>Select</option>
-                          {this.state.organisations.map(organisation => (
-                            <option key={organisation.organisation_id}>
-                              {organisation.name}
-                            </option>
-                          ))}
-                        </select>
                       </div>
                       <button
                         type="submit"

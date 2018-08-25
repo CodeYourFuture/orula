@@ -45,6 +45,12 @@ const editCourse = async (course_id, name, location, organisation_id) => {
     });
 };
 
+const deleteCourse = async course_id => {
+  return await knex("courses")
+    .where({ course_id })
+    .del();
+};
+
 const getSingleUser = (email, password) => {
   return knex("users")
     .where({ email, password })
@@ -107,6 +113,7 @@ module.exports = {
   getCourseById,
   addCourse,
   editCourse,
+  deleteCourse,
   checkCourseExist,
   getOrganisations,
   getOrganisationsById,
