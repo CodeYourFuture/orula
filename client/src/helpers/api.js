@@ -7,13 +7,32 @@ const instance = axios.create({
 export const getStatus = () => {
   return instance.get("/api/status").then(res => res.data);
 };
+
 export const getCourses = () => {
   return instance.get("/api/courses");
 };
 
-// Add course api to add new course to the DB from client side
+export const getCourseById = async course_id => {
+  return await instance.get(`/api/courses/${course_id}`);
+};
+
+// Add Course
 export const addCourse = async (name, location, organisation_id) => {
   return await instance.post("/api/courses", {
+    name,
+    location,
+    organisation_id
+  });
+};
+
+// Edit Course
+export const editCourse = async (
+  course_id,
+  name,
+  location,
+  organisation_id
+) => {
+  return await instance.put(`/api/courses/${course_id}`, {
     name,
     location,
     organisation_id
