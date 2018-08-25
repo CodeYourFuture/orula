@@ -16,7 +16,7 @@ class AddCourse extends React.Component {
 
   componentDidMount = async () => {
     const res = await getOrganisations();
-    const data = res.data;
+    const data = res;
     this.setState({ organisations: data });
   };
 
@@ -34,7 +34,7 @@ class AddCourse extends React.Component {
     if (organisation) {
       this.setState({ organisation_id: organisation.organisation_id });
     } else {
-      this.setState({ organisation_id: "" })
+      this.setState({ organisation_id: "" });
     }
   };
 
