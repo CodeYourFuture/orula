@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { getOrganisations, deleteOrganisation } from "../../../helpers/api";
 import { withRouter } from "react-router-dom";
+import EditOrganisation from "../../../components/EditButton/EditOrganisation";
 
 class Organisations extends Component {
   state = {
@@ -35,7 +36,7 @@ class Organisations extends Component {
   render() {
     return (
       <div>
-        <p> Admin Dashboard </p>
+        <h2 className="page-header">Admin Dashboard</h2>
         <ul className="list-group">
           <li className="list-group-item active">Organisation</li>
           {this.state.organisations.map((data, index) => (
@@ -53,6 +54,7 @@ class Organisations extends Component {
                 >
                   <i className="fa fa-trash " /> Delete
                 </button>
+                <EditOrganisation id={data.organisation_id} />
               </div>
             </li>
           ))}

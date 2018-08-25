@@ -71,11 +71,17 @@ export const getUserProfile = () => {
   return instance.get("/user/profile");
 };
 
+export const updateOrganisations = async (organisation_id, name) => {
+  return await instance.put("/api/organisations/" + organisation_id, {
+    organisation_id,
+    name
+  });
+};
+
 export const deleteOrganisation = organisation_id => {
   return instance.delete("/api/organisations/" + organisation_id);
 };
 
-export const getLessons = (id) => {
-  return instance.get("/api/courses/"+id);
+export const getLessons = id => {
+  return instance.get("/api/courses/" + id);
 };
-
