@@ -23,7 +23,7 @@ class UpdateOrganisation extends Component {
     e.preventDefault();
     const name = this.state.name;
     const Id = parseInt(this.props.match.params.organisation_id, 10);
-    console.log(`ID = `, typeof Id);
+
     if (name === "") {
       this.setState({
         message: "The Name field is empty!",
