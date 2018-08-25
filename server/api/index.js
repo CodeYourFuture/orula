@@ -55,14 +55,14 @@ router.put("/courses/:id", async (req, res) => {
 });
 
 // Delete Course
-router.delete("/courses/:id", (req, res) => {
-  const course_id = `${req.params.id}`;
-  db.getCourses()
-    .where("course_id", "=", course_id)
-    .del()
-    .then(data => {
-      res.json(data);
-    });
+router.delete("/courses/:id", async (req, res) => {
+  const course_id = req.params.id;
+  try {
+    await db.deleteCourse(course_id);
+    res.send("Course was successfully deleted!");
+  } catch (error) {
+    res.status(403).send("Error occured! Please, try again.");
+  }
 });
 
 // Add Organisation
@@ -105,7 +105,7 @@ router.get("/organisations/:id", (req, res) => {
 
 router.delete("/organisations/:id", async (req, res) => {
   const organisation_id = req.params.id;
-  if (await db.checkOrganisationToDelete(organisation_id) === false) {
+  if ((await db.checkOrganisationToDelete(organisation_id)) === false) {
     db.deleteOrganisation(organisation_id).then(() => {
       res.send("Successfully deleted organisation!");
     });

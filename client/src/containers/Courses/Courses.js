@@ -1,35 +1,39 @@
 import React, { Component } from "react";
-import { getCourses } from "../../helpers/api";
-import { withRouter } from "react-router-dom";
+import { getCourses, deleteCourse } from "../../helpers/api";
 import ViewLessons from "./ViewLessons";
 import { Link } from "react-router-dom";
+
 class Courses extends Component {
   state = {
     courses: [],
+    message: "",
+    messageAlert: "",
     courseId: ""
   };
-  componentDidMount() {
-    getCourses().then(res => {
-      const data = res.data;
-      this.setState({ courses: data });
-    });
-  }
-  setCourses = clickEvent => {
-    const courseName = clickEvent.target.value;
 
-    const coursesFilter = this.state.courses.filter(title =>
-      title.name.includes(courseName)
-    );
-
-    const courseId = coursesFilter.map(id => id.course_id);
-    this.setState({ courseId });
-  }
-  
   componentDidMount = async () => {
     const res = await getCourses();
     const courses = res.data;
-    console.log(courses);
     this.setState({ courses });
+  };
+
+  deleteCourse = async course_id => {
+    try {
+      const res = await deleteCourse(course_id);
+      const courses = this.state.courses.filter(
+        course => course.course_id !== course_id
+      );
+      this.setState({
+        courses,
+        message: res.data,
+        messageAlert: "alert alert-success"
+      });
+    } catch (err) {
+      this.setState({
+        message: err.response.data,
+        messageAlert: "alert alert-danger"
+      });
+    }
   };
 
   render() {
@@ -42,6 +46,11 @@ class Courses extends Component {
         </div>
         <div className="row">
           <div className="col-lg-8">
+            {this.state.message && (
+              <div className={this.state.messageAlert}>
+                {this.state.message}
+              </div>
+            )}
             <div className="table-responsive">
               <table className="table table-striped table-bordered table-hover">
                 <thead>
@@ -63,7 +72,13 @@ class Courses extends Component {
                       <td>
                         <Link to={`/admin/courses/edit/${course.course_id}`}>
                           <button className="btn btn-success">Edit</button>
-                        </Link>
+                        </Link>{" "}
+                        <button
+                          onClick={() => this.deleteCourse(course.course_id)}
+                          className="btn btn-danger"
+                        >
+                          Delete
+                        </button>
                       </td>
                     </tr>
                   ))}
@@ -79,7 +94,7 @@ class Courses extends Component {
         </div>
         <div className="row">
           <div className="col-lg-12" />
-          <ViewLessons courseId={this.state.courseId}/>
+          <ViewLessons courseId={this.state.courseId} />
         </div>
       </div>
     );
