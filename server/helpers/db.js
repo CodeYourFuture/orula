@@ -36,7 +36,10 @@ const getUserProfile = userId => {
 };
 
 const getOrganisations = async () => {
-  return await knex.select().table("organisations");
+  return await knex
+    .select()
+    .table("organisations")
+    .orderBy("organisation_id", "asc");
 };
 
 const getOrganisationsById = course_id => {
