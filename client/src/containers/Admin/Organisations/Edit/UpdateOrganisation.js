@@ -1,27 +1,20 @@
 import React, { Component } from "react";
-import { updateOrganisations, getOrganisations } from "../../../../helpers/api";
+import { updateOrganisations } from "../../../../helpers/api";
 class UpdateOrganisation extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      Id: parseInt(this.props.match.params.organisation_id, 10),
       name: "",
       message: "",
-      messageAlert: "",
-      orgs: []
+      messageAlert: ""
     };
-  }
-  componentDidMount() {
-    getOrganisations().then(res => {
-      const data = res.data;
-      this.setState({ orgs: data });
-    });
   }
   onHandleChange = e => {
     const name = e.target.value;
     this.setState({ name });
   };
-  //Id = this.props.match.params.organisation_id;
-  goBackOrganisation = () => {
+  goBackToOrganisation = () => {
     this.props.history.push("/admin/organisations");
   };
 
@@ -29,15 +22,18 @@ class UpdateOrganisation extends Component {
   onSave = async e => {
     e.preventDefault();
     const name = this.state.name;
+    const Id = parseInt(this.props.match.params.organisation_id, 10);
+    console.log(`ID = `, typeof Id);
     if (name === "") {
       this.setState({
-        message: "It is empty!",
+        message: "The Name field is empty!",
         messageAlert: "alert alert-danger"
       });
     } else {
       try {
-        await updateOrganisations(name);
+        await updateOrganisations(Id, name);
         this.setState({
+          Id: parseInt(this.props.match.params.organisation_id, 10),
           name: "",
           message: "Organisation has been successfully updated!",
           messageAlert: "alert alert-success"
@@ -93,7 +89,7 @@ class UpdateOrganisation extends Component {
                       <button
                         type="save"
                         className="btn btn-primary"
-                        onClick={this.goBackOrganisation}
+                        onClick={this.goBackToOrganisation}
                       >
                         <i className="fa fa-eye fa-fw" />
                         View all organisations
