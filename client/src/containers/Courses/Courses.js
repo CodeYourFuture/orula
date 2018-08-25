@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { getCourses } from "../../helpers/api";
-import { withRouter } from "react-router-dom";
 import ViewLessons from "./ViewLessons";
 import { Link } from "react-router-dom";
 class Courses extends Component {
@@ -23,8 +22,8 @@ class Courses extends Component {
 
     const courseId = coursesFilter.map(id => id.course_id);
     this.setState({ courseId });
-  }
-  
+  };
+
   componentDidMount = async () => {
     const res = await getCourses();
     const courses = res.data;
@@ -79,7 +78,7 @@ class Courses extends Component {
         </div>
         <div className="row">
           <div className="col-lg-12" />
-          <ViewLessons courseId={this.state.courseId}/>
+          <ViewLessons courseId={this.state.courseId} />
         </div>
       </div>
     );
