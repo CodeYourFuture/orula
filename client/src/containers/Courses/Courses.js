@@ -1,14 +1,27 @@
 import React, { Component } from "react";
 import { getCourses, deleteCourse } from "../../helpers/api";
+import ViewLessons from "./ViewLessons";
 import { Link } from "react-router-dom";
 
 class Courses extends Component {
   state = {
     courses: [],
     message: "",
-    messageAlert: ""
+    messageAlert: "",
+    courseId: ""
   };
+ 
+  setCourses = clickEvent => {
+    const courseName = clickEvent.target.value;
 
+    const coursesFilter = this.state.courses.filter(title =>
+      title.name.includes(courseName)
+    );
+
+    const courseId = coursesFilter.map(id => id.course_id);
+    this.setState({ courseId });
+  }
+  
   componentDidMount = async () => {
     const res = await getCourses();
     const courses = res.data;
@@ -89,6 +102,10 @@ class Courses extends Component {
               </button>
             </Link>
           </div>
+        </div>
+        <div className="row">
+          <div className="col-lg-12" />
+          <ViewLessons courseId={this.state.courseId}/>
         </div>
       </div>
     );

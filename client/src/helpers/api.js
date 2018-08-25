@@ -50,7 +50,7 @@ export const getStudents = () => {
 };
 
 export const getOrganisations = async () => {
-  return await instance.get("/api/organisations");
+  return await instance.get("/api/organisations").then(res => res.data);
 };
 
 export const getOrganisationsById = async organisation_id => {
@@ -76,3 +76,12 @@ export const loginUser = async (email, password) => {
 export const getUserProfile = () => {
   return instance.get("/user/profile");
 };
+
+export const deleteOrganisation = organisation_id => {
+  return instance.delete("/api/organisations/" + organisation_id);
+};
+
+export const getLessons = (id) => {
+  return instance.get("/api/courses/"+id);
+};
+
