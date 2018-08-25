@@ -84,23 +84,22 @@ router.get("/organisations", (req, res) => {
     res.send(data);
   });
 });
-// put '/organisations/:id'
-router.put("/organisations/:organisation_id", (req, res) => {
+
+router.put("/organisations/:organisation_id", async (req, res) => {
   const organisation_id = `${req.params.organisation_id}`;
   const body = req.body;
 
   if (
     (await db.checkOrganisationExist(body.name)) === false &&
-    name !== "" &&
-    name !== null
+    body.name !== "" &&
+    body.name !== null
   ) {
-    await db.updateOrganisation(organisation_id, body.name)
+    await db.updateOrganisation(organisation_id, body.name);
     res.send("Organisation is successfully updated!");
   } else {
     res
       .status(403)
-      .send("This Organisation is already exist or course name field is empty");
+      .send("This organisation is already exists or your name field is empty");
   }
 });
-
 module.exports = router;
