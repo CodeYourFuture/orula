@@ -21,8 +21,7 @@ class EditCourse extends React.Component {
   }
 
   componentDidMount = async () => {
-    const res = await getOrganisations();
-    const organisations = res.data;
+    const organisations = await getOrganisations();
     const course_id = this.props.match.params.courseId;
     const course = await getCourseById(course_id);
     const { name, location, organisation_id } = course.data[0];
