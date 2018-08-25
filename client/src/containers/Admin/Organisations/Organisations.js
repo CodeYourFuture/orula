@@ -20,7 +20,7 @@ class Organisations extends Component {
         <ul className="list-group">
           <li className="list-group-item active">Organisation</li>
           {this.state.organisations.map(data => (
-            <li className="list-group-item">
+            <li className="list-group-item" key={data.organisation_id}>
               <a href={`/admin/organisations/${data.organisation_id}`}>
                 {data.name}
               </a>
