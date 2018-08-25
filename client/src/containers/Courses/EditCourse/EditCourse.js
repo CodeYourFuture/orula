@@ -1,10 +1,16 @@
 import React from "react";
-import { addCourse, getOrganisations } from "../../../helpers/api";
+import {
+  editCourse,
+  getCourseById,
+  getOrganisations
+} from "../../../helpers/api";
+import { Link } from "react-router-dom";
 
-class AddCourse extends React.Component {
+class EditCourse extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      course_id: "",
       name: "",
       location: "",
       organisation_id: "",
@@ -15,9 +21,17 @@ class AddCourse extends React.Component {
   }
 
   componentDidMount = async () => {
-    const res = await getOrganisations();
-    const data = res.data;
-    this.setState({ organisations: data });
+    const organisations = await getOrganisations();
+    const course_id = this.props.match.params.courseId;
+    const course = await getCourseById(course_id);
+    const { name, location, organisation_id } = course.data[0];
+    this.setState({
+      course_id,
+      name,
+      location,
+      organisation_id,
+      organisations
+    });
   };
 
   handleOnchange = (input, e) => {
@@ -38,10 +52,10 @@ class AddCourse extends React.Component {
     }
   };
 
-  // post it to /api/organisation
+  // put it to /api/courses/:id
   onSubmit = async e => {
     e.preventDefault();
-    const { name, location, organisation_id } = this.state;
+    const { course_id, name, location, organisation_id } = this.state;
     if (name === "" || location === "" || organisation_id === "") {
       this.setState({
         message: "You must fill all the fields!",
@@ -49,7 +63,12 @@ class AddCourse extends React.Component {
       });
     } else {
       try {
-        const res = await addCourse(name, location, organisation_id);
+        const res = await editCourse(
+          course_id,
+          name,
+          location,
+          organisation_id
+        );
         this.setState({
           name: "",
           location: "",
@@ -70,7 +89,7 @@ class AddCourse extends React.Component {
       <div>
         <div className="row">
           <div className="col-lg-12">
-            <h2 className="page-header">Add Course</h2>
+            <h2 className="page-header">Edit Course</h2>
           </div>
         </div>
         <div className="row">
@@ -133,7 +152,7 @@ class AddCourse extends React.Component {
                         className="btn btn-primary"
                         onClick={e => this.onSubmit(e)}
                       >
-                        Submit
+                        Save
                       </button>
                     </form>
                   </div>
@@ -146,10 +165,13 @@ class AddCourse extends React.Component {
               </div>
             )}
           </div>
+          <div className="col-lg-12">
+            <Link to="/courses">View all courses</Link>
+          </div>
         </div>
       </div>
     );
   }
 }
 
-export default AddCourse;
+export default EditCourse;
