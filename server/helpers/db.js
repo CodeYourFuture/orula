@@ -58,8 +58,11 @@ const getUserProfile = userId => {
     .first();
 };
 
-const getOrganisations = () => {
-  return knex.select().table("organisations");
+const getOrganisations = async () => {
+  return await knex
+    .select()
+    .table("organisations")
+    .orderBy("organisation_id", "asc");
 };
 
 const getOrganisationsById = organisation_id => {
@@ -74,37 +77,43 @@ const checkOrganisationExist = async name => {
 const addOrganisation = async name => {
   return await knex("organisations").insert({ name });
 };
-const checkOrganisationToDelete = async organisation_id => {
-  const response = await knex("courses").where({ organisation_id });
-  return response.length === 0 ? false : true;
-};
+const updateOrganisation = async (organisation_id, organisationName) => {
+  return await knex("organisations")
+    .where("organisation_id", "=", `${organisation_id}`)
+    .update({ name: organisationName });
+  const checkOrganisationToDelete = async organisation_id => {
+    const response = await knex("courses").where({ organisation_id });
+    return response.length === 0 ? false : true;
+  };
 
-const deleteOrganisation = async organisation_id => {
-  await knex("organisations")
+  const deleteOrganisation = async organisation_id => {
+    await knex("organisations")
       .where("organisation_id", "=", organisation_id)
-      .del();;
-}
+      .del();
+  };
 
-const getLessonsById = course_id => {
-  return knex
-    .select()
-    .from("lessons")
-    .where("course_id", "=", course_id);
-};
+  const getLessonsById = course_id => {
+    return knex
+      .select()
+      .from("lessons")
+      .where("course_id", "=", course_id);
+  };
 
-module.exports = {
-  getCourses,
-  getCourseById,
-  addCourse,
-  editCourse,
-  checkCourseExist,
-  getOrganisations,
-  getOrganisationsById,
-  addOrganisation,
-  checkOrganisationExist,
-  getSingleUser,
-  getUserProfile,
-  checkOrganisationToDelete,
-  deleteOrganisation,
-  getLessonsById
+  module.exports = {
+    getCourses,
+    getCourseById,
+    addCourse,
+    editCourse,
+    checkCourseExist,
+    getOrganisations,
+    getOrganisationsById,
+    addOrganisation,
+    checkOrganisationExist,
+    getSingleUser,
+    getUserProfile,
+    updateOrganisation,
+    checkOrganisationToDelete,
+    deleteOrganisation,
+    getLessonsById
+  };
 };

@@ -16,7 +16,7 @@ class AddCourse extends React.Component {
 
   componentDidMount = async () => {
     const res = await getOrganisations();
-    const data = res;
+    const data = res.data;
     this.setState({ organisations: data });
   };
 
