@@ -10,7 +10,7 @@ class EditOrganisation extends Component {
     return (
       <div>
         <div className="row ">
-          <div className="col-lg-11" />
+          <div className="col-lg-8" />
           <button className="btn btn-success" onClick={this.editOrganisation}>
             <i className="fa fa-pencil fa-fw" />
             Edit

@@ -42,19 +42,24 @@ class Organisations extends Component {
           {this.state.organisations.map((data, index) => (
             <li key={index} className="list-group-item">
               <div className="row">
-                <div className="col-lg-9">
+                <div className="col-lg-6">
                   <a href={`/admin/organisations/${data.organisation_id}`}>
                     {data.name}
                   </a>
                 </div>
-                <div className="col-lg-3" />
-                <button
-                  onClick={() => this.deleteOrganisation(data.organisation_id)}
-                  className="btn btn-primary"
-                >
-                  <i className="fa fa-trash " /> Delete
-                </button>
-                <EditOrganisation id={data.organisation_id} />
+                <div className="col-lg-3">
+                  <EditOrganisation id={data.organisation_id} />
+                </div>
+                <div className="col-lg-3">
+                  <button
+                    onClick={() =>
+                      this.deleteOrganisation(data.organisation_id)
+                    }
+                    className="btn btn-primary"
+                  >
+                    <i className="fa fa-trash " /> Delete
+                  </button>
+                </div>
               </div>
             </li>
           ))}
