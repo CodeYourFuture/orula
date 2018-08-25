@@ -88,9 +88,19 @@ router.get("/organisations", (req, res) => {
 router.put("/organisations/:organisation_id", (req, res) => {
   const organisation_id = `${req.params.organisation_id}`;
   const body = req.body;
-  db.updateOrganisation(organisation_id, body.name).then(data => {
-    res.json(data);
-  });
+
+  if (
+    (await db.checkOrganisationExist(body.name)) === false &&
+    name !== "" &&
+    name !== null
+  ) {
+    await db.updateOrganisation(organisation_id, body.name)
+    res.send("Organisation is successfully updated!");
+  } else {
+    res
+      .status(403)
+      .send("This Organisation is already exist or course name field is empty");
+  }
 });
 
 module.exports = router;
