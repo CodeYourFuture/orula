@@ -1,11 +1,13 @@
 import React, { Component } from "react";
-import { getOrganisations } from "../../../helpers/api";
+import { getOrganisations, deleteOrganisation } from "../../../helpers/api";
 import { withRouter } from "react-router-dom";
 import EditOrganisation from "../../../components/EditButton/EditOrganisation";
 
 class Organisations extends Component {
   state = {
-    organisations: []
+    organisations: [],
+    message: "",
+    messageAlert: ""
   };
   componentDidMount() {
     getOrganisations().then(res => {
@@ -13,6 +15,25 @@ class Organisations extends Component {
       this.setState({ organisations: data });
     });
   }
+  deleteOrganisation = organisation_id => {
+    try {
+      const res = deleteOrganisation(organisation_id);
+      console.log(res);
+      const organisations = this.state.organisations.filter(
+        organisation => organisation.organisation_id !== organisation_id
+      );
+      this.setState({
+        organisations,
+        message: res.data,
+        messageAlert: "alert alert-success"
+      });
+    } catch (err) {
+      this.setState({
+        message: err.response.data,
+        messageAlert: "alert alert-danger"
+      });
+    }
+  };
   render() {
     return (
       <div>
@@ -29,7 +50,10 @@ class Organisations extends Component {
           ))}
         </ul>
         <form action="/admin/organisations/add" className="inline">
-          <button className="btn btn-primary"> Add Organisation </button>
+          <button className="btn btn-primary">
+            {" "}
+            <i className="fa fa-plus fa-fw" /> Add Organisation{" "}
+          </button>
         </form>
       </div>
     );

@@ -2,7 +2,20 @@ const config = require("../knexfile")[process.env.NODE_ENV || "development"];
 const knex = require("knex")(config);
 
 const getCourses = () => {
-  return knex.select().table("courses");
+  return knex
+    .select(
+      "course_id",
+      "courses.name as name",
+      "location",
+      "organisations.name as organisation_title"
+    )
+    .from("courses")
+    .innerJoin(
+      "organisations",
+      "courses.organisation_id",
+      "organisations.organisation_id"
+    )
+    .orderBy("course_id", "asc");
 };
 
 const getCourseById = course_id => {
@@ -20,6 +33,16 @@ const addCourse = async (name, location, organisation_id) => {
     location,
     organisation_id
   });
+};
+
+const editCourse = async (course_id, name, location, organisation_id) => {
+  return await knex("courses")
+    .where({ course_id })
+    .update({
+      name,
+      location,
+      organisation_id
+    });
 };
 
 const getSingleUser = (email, password) => {
@@ -42,11 +65,8 @@ const getOrganisations = async () => {
     .orderBy("organisation_id", "asc");
 };
 
-const getOrganisationsById = course_id => {
-  return knex
-    .select()
-    .from("organisations")
-    .where("organisation_id", "=", organisation_id);
+const getOrganisationsById = organisation_id => {
+  return knex("organisations").where({ organisation_id });
 };
 
 const checkOrganisationExist = async name => {
@@ -61,18 +81,39 @@ const updateOrganisation = async (organisation_id, organisationName) => {
   return await knex("organisations")
     .where("organisation_id", "=", `${organisation_id}`)
     .update({ name: organisationName });
-};
+  const checkOrganisationToDelete = async organisation_id => {
+    const response = await knex("courses").where({ organisation_id });
+    return response.length === 0 ? false : true;
+  };
 
-module.exports = {
-  getCourses,
-  getCourseById,
-  addCourse,
-  checkCourseExist,
-  getOrganisations,
-  getOrganisationsById,
-  addOrganisation,
-  checkOrganisationExist,
-  getSingleUser,
-  getUserProfile,
-  updateOrganisation
+  const deleteOrganisation = async organisation_id => {
+    await knex("organisations")
+      .where("organisation_id", "=", organisation_id)
+      .del();
+  };
+
+  const getLessonsById = course_id => {
+    return knex
+      .select()
+      .from("lessons")
+      .where("course_id", "=", course_id);
+  };
+
+  module.exports = {
+    getCourses,
+    getCourseById,
+    addCourse,
+    editCourse,
+    checkCourseExist,
+    getOrganisations,
+    getOrganisationsById,
+    addOrganisation,
+    checkOrganisationExist,
+    getSingleUser,
+    getUserProfile,
+    updateOrganisation,
+    checkOrganisationToDelete,
+    deleteOrganisation,
+    getLessonsById
+  };
 };

@@ -7,13 +7,32 @@ const instance = axios.create({
 export const getStatus = () => {
   return instance.get("/api/status").then(res => res.data);
 };
+
 export const getCourses = () => {
   return instance.get("/api/courses");
 };
 
-// Add course api to add new course to the DB from client side
+export const getCourseById = async course_id => {
+  return await instance.get(`/api/courses/${course_id}`);
+};
+
+// Add Course
 export const addCourse = async (name, location, organisation_id) => {
   return await instance.post("/api/courses", {
+    name,
+    location,
+    organisation_id
+  });
+};
+
+// Edit Course
+export const editCourse = async (
+  course_id,
+  name,
+  location,
+  organisation_id
+) => {
+  return await instance.put(`/api/courses/${course_id}`, {
     name,
     location,
     organisation_id
@@ -25,7 +44,13 @@ export const getStudents = () => {
 };
 
 export const getOrganisations = async () => {
-  return await instance.get("/api/organisations");
+  return await instance.get("/api/organisations").then(res => res.data);
+};
+
+export const getOrganisationsById = async organisation_id => {
+  return await instance.get("/api/organisations", {
+    params: { organisation_id }
+  });
 };
 
 export const addOrganisation = async name => {
@@ -50,4 +75,12 @@ export const updateOrganisations = async (organisation_id, name) => {
     organisation_id,
     name
   });
+};
+
+export const deleteOrganisation = organisation_id => {
+  return instance.delete("/api/organisations/" + organisation_id);
+};
+
+export const getLessons = id => {
+  return instance.get("/api/courses/" + id);
 };
