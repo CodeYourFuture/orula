@@ -8,6 +8,7 @@ export const getStatus = () => {
   return instance.get("/api/status").then(res => res.data);
 };
 
+// Get all Courses
 export const getCourses = () => {
   return instance.get("/api/courses");
 };
@@ -37,6 +38,11 @@ export const editCourse = async (
     location,
     organisation_id
   });
+};
+
+// Delete Course
+export const deleteCourse = async course_id => {
+  return await instance.delete(`api/courses/${course_id}`);
 };
 
 export const getStudents = () => {
