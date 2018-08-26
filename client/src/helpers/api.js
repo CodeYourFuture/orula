@@ -76,7 +76,7 @@ export const getUserProfile = () => {
 };
 
 export const updateOrganisations = async (organisation_id, name) => {
-  return await instance.put("/api/organisations/" + organisation_id, {
+  return await instance.put(`/api/organisations/${organisation_id}`, {
     organisation_id,
     name
   });

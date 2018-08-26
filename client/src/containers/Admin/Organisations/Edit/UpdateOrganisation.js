@@ -29,10 +29,10 @@ class UpdateOrganisation extends Component {
   };
 
   // put it to /api/organisation
-  onSave = async e => {
+  onSave = async (input, e) => {
+    const value = e.target.value;
     e.preventDefault();
     const { name, organisation_id } = this.state;
-
     if (name === "") {
       this.setState({
         message: "The Name field is empty!",
@@ -40,15 +40,15 @@ class UpdateOrganisation extends Component {
       });
     } else {
       try {
-        await updateOrganisations(organisation_id, name);
         this.setState({
-          organisation_id: "",
           message: "Organisation has been successfully updated!",
           messageAlert: "alert alert-success"
         });
+
+        await updateOrganisations(organisation_id, name);
       } catch (err) {
         this.setState({
-          message: err.response.data,
+          message: [err.response.data],
           messageAlert: "alert alert-danger"
         });
       }
@@ -85,7 +85,8 @@ class UpdateOrganisation extends Component {
                       <button
                         type="save"
                         className="btn btn-primary"
-                        onClick={e => this.onSave(e)}
+                        onClick={e => this.onSave("name", e)}
+                        value={this.state.name}
                       >
                         <i className="fa fa-save fa-fw" />
                         Save
