@@ -54,9 +54,7 @@ export const getOrganisations = async () => {
 };
 
 export const getOrganisationsById = async organisation_id => {
-  return await instance.get("/api/organisations", {
-    params: { organisation_id }
-  });
+  return await instance.get(`/api/organisations/${organisation_id}`);
 };
 
 export const addOrganisation = async name => {
