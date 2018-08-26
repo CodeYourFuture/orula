@@ -16,17 +16,6 @@ class Courses extends Component {
     const courses = res.data;
     this.setState({ courses });
   };
-  setCourses = clickEvent => {
-    const courseName = clickEvent.target.value;
-
-    const coursesFilter = this.state.courses.filter(title =>
-      title.name.includes(courseName)
-    );
-
-    const courseId = coursesFilter.map(id => id.course_id);
-    this.setState({ courseId });
-  };
-
   deleteCourse = async course_id => {
     try {
       const res = await deleteCourse(course_id);

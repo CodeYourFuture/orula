@@ -1,21 +1,27 @@
 import React, { Component } from "react";
-import { updateOrganisations } from "../../../../helpers/api";
+import {
+  updateOrganisations,
+  getOrganisationsById
+} from "../../../../helpers/api";
 class UpdateOrganisation extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      Id: parseInt(this.props.match.params.organisation_id, 10),
+      organisation_id: "",
       name: "",
       message: "",
-      messageAlert: "",
-      userDetails: ""
+      messageAlert: ""
     };
   }
-  onChange = (value, input) => {
-    this.setState(previousState => {
-      const userDetails = previousState.userDetails;
-      return { userDetails: { ...userDetails, [input]: value } };
-    });
+  componentDidMount = async () => {
+    const organisation_id = this.props.match.params.organisation_id;
+    const Id = await getOrganisationsById(organisation_id);
+    const { name } = Id.data[0];
+    this.setState({ organisation_id, name });
+  };
+  onHandleChange = (input, e) => {
+    const value = e.target.value;
+    this.setState({ [input]: value });
   };
   goBackToOrganisation = () => {
     this.props.history.push("/admin/organisations");
@@ -24,8 +30,7 @@ class UpdateOrganisation extends Component {
   // put it to /api/organisation
   onSave = async e => {
     e.preventDefault();
-    const name = this.state.name;
-    const Id = parseInt(this.props.match.params.organisation_id, 10);
+    const { name, organisation_id } = this.state;
 
     if (name === "") {
       this.setState({
@@ -34,9 +39,9 @@ class UpdateOrganisation extends Component {
       });
     } else {
       try {
-        await updateOrganisations(Id, name);
+        await updateOrganisations(organisation_id, name);
         this.setState({
-          Id: parseInt(this.props.match.params.organisation_id, 10),
+          organisation_id: "",
           name: "",
           message: "Organisation has been successfully updated!",
           messageAlert: "alert alert-success"
@@ -73,10 +78,8 @@ class UpdateOrganisation extends Component {
                           className="form-control"
                           type="text"
                           id="name"
-                          value={this.state.userDetails.name}
-                          onChange={e => {
-                            this.onChange(e.target.value, "name");
-                          }}
+                          onChange={e => this.onHandleChange("name", e)}
+                          value={this.state.name}
                         />
                       </div>
                       <button
