@@ -11,10 +11,6 @@ class Courses extends Component {
     courseId: ""
   };
 
-    const courseId = coursesFilter.map(id => id.course_id);
-    this.setState({ courseId });
-  };
-
   componentDidMount = async () => {
     const res = await getCourses();
     const courses = res.data;
