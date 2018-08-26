@@ -7,12 +7,15 @@ class UpdateOrganisation extends Component {
       Id: parseInt(this.props.match.params.organisation_id, 10),
       name: "",
       message: "",
-      messageAlert: ""
+      messageAlert: "",
+      userDetails: ""
     };
   }
-  onHandleChange = (input, e) => {
-    const value = e.target.value;
-    this.setState({ [input]: value });
+  onChange = (value, input) => {
+    this.setState(previousState => {
+      const userDetails = previousState.userDetails;
+      return { userDetails: { ...userDetails, [input]: value } };
+    });
   };
   goBackToOrganisation = () => {
     this.props.history.push("/admin/organisations");
@@ -69,10 +72,11 @@ class UpdateOrganisation extends Component {
                         <input
                           className="form-control"
                           type="text"
-                          name="name"
                           id="name"
-                          onChange={e => this.onHandleChange("name", e)}
-                          value={this.state.name}
+                          value={this.state.userDetails.name}
+                          onChange={e => {
+                            this.onChange(e.target.value, "name");
+                          }}
                         />
                       </div>
                       <button
