@@ -42,7 +42,6 @@ class UpdateOrganisation extends Component {
         await updateOrganisations(organisation_id, name);
         this.setState({
           organisation_id: "",
-          name: "",
           message: "Organisation has been successfully updated!",
           messageAlert: "alert alert-success"
         });
