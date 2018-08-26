@@ -20,7 +20,6 @@ class Courses extends Component {
     const courses = res.data;
     this.setState({ courses });
   };
-
   deleteCourse = async course_id => {
     try {
       const res = await deleteCourse(course_id);
