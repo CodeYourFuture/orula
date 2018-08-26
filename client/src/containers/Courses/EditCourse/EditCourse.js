@@ -28,6 +28,7 @@ class EditCourse extends React.Component {
   handleOnchange = (input, e) => {
     const value = e.target.value;
     this.setState({ [input]: value });
+    console.log("input eCourse", input);
   };
 
   // put it to /api/courses/:id

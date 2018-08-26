@@ -115,7 +115,7 @@ router.delete("/organisations/:id", async (req, res) => {
 });
 
 router.put("/organisations/:organisation_id", async (req, res) => {
-  const organisation_id = `${req.params.organisation_id}`;
+  const organisation_id = req.params.organisation_id;
   const body = req.body;
   if (
     (await db.checkOrganisationExist(body.name)) === false &&

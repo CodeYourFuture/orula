@@ -17,7 +17,6 @@ class Organisations extends Component {
   deleteOrganisation = organisation_id => {
     try {
       const res = deleteOrganisation(organisation_id);
-      console.log(res);
       const organisations = this.state.organisations.filter(
         organisation => organisation.organisation_id !== organisation_id
       );

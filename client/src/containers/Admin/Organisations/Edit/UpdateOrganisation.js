@@ -10,9 +10,9 @@ class UpdateOrganisation extends Component {
       messageAlert: ""
     };
   }
-  onHandleChange = e => {
-    const name = e.target.value;
-    this.setState({ name });
+  onHandleChange = (input, e) => {
+    const value = e.target.value;
+    this.setState({ [input]: value });
   };
   goBackToOrganisation = () => {
     this.props.history.push("/admin/organisations");
@@ -71,7 +71,7 @@ class UpdateOrganisation extends Component {
                           type="text"
                           name="name"
                           id="name"
-                          onChange={e => this.onHandleChange(e)}
+                          onChange={e => this.onHandleChange("name", e)}
                           value={this.state.name}
                         />
                       </div>
