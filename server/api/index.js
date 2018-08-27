@@ -11,14 +11,6 @@ router.get("/courses", (req, res) => {
   });
 });
 
-// Get 1 Course
-router.get("/courses/:id", (req, res) => {
-  const course_id = req.params.id;
-  db.getCourseById(course_id).then(data => {
-    res.send(data);
-  });
-});
-
 // Add Course
 router.post("/courses", async (req, res) => {
   const { name, location, organisation_id } = req.body;
@@ -88,8 +80,9 @@ router.get("/organisations", (req, res) => {
     res.send(data);
   });
 });
+
 router.get("/courses/:id", (req, res) => {
-  const course_id = `${req.params.id}`;
+  const course_id = req.params.id;
   db.getLessonsById(course_id).then(data => {
     res.send(data);
   });
@@ -114,4 +107,10 @@ router.delete("/organisations/:id", async (req, res) => {
   }
 });
 
+// Get All Lessons
+router.get("/lessons", (req, res) => {
+  db.getLessons().then(data => {
+    res.send(data);
+  });
+});
 module.exports = router;

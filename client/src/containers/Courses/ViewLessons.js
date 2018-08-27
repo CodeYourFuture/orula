@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
-import { getLessons } from "../../helpers/api";
+import { getCourseById } from "../../helpers/api";
 
 class ViewLessons extends Component {
   constructor(props) {
@@ -11,7 +11,7 @@ class ViewLessons extends Component {
   }
 
   componentWillReceiveProps(newProps) {
-    getLessons(newProps.courseId).then(res => {
+    getCourseById(newProps.courseId).then(res => {
       const data = res.data;
       this.setState({ lessons: data });
     });

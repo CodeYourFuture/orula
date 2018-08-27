@@ -10,8 +10,7 @@ class Dashboard extends Component {
           <div className="col-lg-12">
             <Link to="/admin/organisations">
               <button className="btn btn-primary">
-                <i className="fa fa-plus fa-fw" />
-                View Organisations
+                <i className="fa fa-eye fa-fw" /> View Organisations
               </button>
             </Link>
           </div>
@@ -25,7 +24,16 @@ class Dashboard extends Component {
             </Link>
           </div>
         </div>
+      <div className="row">
+      <div className="col-lg-12">
+        <Link to="/lessons">
+          <button className="btn btn-primary">
+            <i className="fa fa-eye fa-fw" /> View Lessons
+          </button>
+        </Link>
       </div>
+    </div>
+  </div>
     );
   }
 }

@@ -14,7 +14,8 @@ export const getCourses = () => {
 };
 
 export const getCourseById = async course_id => {
-  return await instance.get(`/api/courses/${course_id}`);
+  const id =course_id||0
+  return await instance.get(`/api/courses/${id}`);
 };
 
 // Add Course
@@ -81,6 +82,6 @@ export const deleteOrganisation = organisation_id => {
   return instance.delete("/api/organisations/" + organisation_id);
 };
 
-export const getLessons = id => {
-  return instance.get("/api/courses/" + id);
+export const getLessons = () => {
+  return instance.get("/api/lessons");
 };
