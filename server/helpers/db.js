@@ -102,12 +102,27 @@ const deleteOrganisation = async organisation_id => {
 };
 
 const getLessonsById = course_id => {
-  return knex
-    .select()
-    .from("lessons")
-    .where("course_id", "=", course_id);
+  return knex("lessons").where({course_id});
 };
 
+const getLessons = () => {
+return knex
+    .select(
+      "lesson_id",
+      "lessons.name as name",
+      "lesson_date",
+      "module",
+      "courses.course_id",
+      "courses.name as course_title"
+    )
+    .from("lessons")
+    .innerJoin(
+      "courses",
+      "lessons.course_id",
+      "courses.course_id"
+    )
+    .orderBy("lesson_id", "asc");
+};
 module.exports = {
   getCourses,
   getCourseById,
@@ -124,5 +139,6 @@ module.exports = {
   checkOrganisationToDelete,
   deleteOrganisation,
   getLessonsById,
+  getLessons,
   updateOrganisation
 };

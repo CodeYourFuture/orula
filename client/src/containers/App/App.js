@@ -12,6 +12,7 @@ import EditCourse from "../Courses/EditCourse/EditCourse";
 import Nav from "../../components/Nav/Nav";
 import Organisations from "../Admin/Organisations/Organisations";
 import axios from "axios";
+import Lessons from "../Admin/Lessons/Lessons";
 import UpdateOrganisation from "../Admin/Organisations/Edit/UpdateOrganisation";
 
 class App extends Component {
@@ -52,6 +53,8 @@ class App extends Component {
               path="/admin/courses/edit/:courseId"
               component={EditCourse}
             />
+            <Route path="/lessons" component={Lessons} />
+            
           </div>
         </div>
       </Router>
