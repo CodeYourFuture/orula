@@ -22,8 +22,8 @@ const getCourseById = course_id => {
   return knex("courses").where({ course_id });
 };
 
-const checkCourseExist = async name => {
-  const response = await knex("courses").where({ name });
+const checkCourseExist = async (name, organisation_id) => {
+  const response = await knex("courses").where({ name, organisation_id });
   return response.length === 0 ? false : true;
 };
 
