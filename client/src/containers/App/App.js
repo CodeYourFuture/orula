@@ -52,7 +52,6 @@ class App extends Component {
               path="/admin/organisation/edit/:organisation_id"
               component={UpdateOrganisation}
             />
-            <Route path="/admin/courses/add" component={AddCourse} />
             <Route
               exact
               path="/admin/courses/edit/:courseId"
