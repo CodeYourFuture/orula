@@ -64,8 +64,11 @@ const getUserProfile = userId => {
     .first();
 };
 
-const getOrganisations = () => {
-  return knex.select().table("organisations");
+const getOrganisations = async () => {
+  return await knex
+    .select()
+    .table("organisations")
+    .orderBy("organisation_id", "asc");
 };
 
 const getOrganisationsById = organisation_id => {
@@ -80,6 +83,13 @@ const checkOrganisationExist = async name => {
 const addOrganisation = async name => {
   return await knex("organisations").insert({ name });
 };
+
+const updateOrganisation = async (organisation_id, organisationName) => {
+  return await knex("organisations")
+    .where("organisation_id", "=", `${organisation_id}`)
+    .update({ name: organisationName });
+};
+
 const checkOrganisationToDelete = async organisation_id => {
   const response = await knex("courses").where({ organisation_id });
   return response.length === 0 ? false : true;
@@ -113,5 +123,6 @@ module.exports = {
   getUserProfile,
   checkOrganisationToDelete,
   deleteOrganisation,
-  getLessonsById
+  getLessonsById,
+  updateOrganisation
 };

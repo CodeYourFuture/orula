@@ -108,4 +108,19 @@ router.delete("/organisations/:id", async (req, res) => {
   }
 });
 
+router.put("/organisations/:organisation_id", async (req, res) => {
+  const organisation_id = req.params.organisation_id;
+  const body = req.body;
+  if (
+    (await db.checkOrganisationExist(body.name)) === false &&
+    body.name !== "" &&
+    body.name !== null
+  ) {
+    await db.updateOrganisation(organisation_id, body.name);
+    res.send("Organisation is successfully updated!");
+  } else {
+    res.status(403).send("This organisation is already exists.");
+  }
+});
+
 module.exports = router;

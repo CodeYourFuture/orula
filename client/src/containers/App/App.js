@@ -12,6 +12,7 @@ import EditCourse from "../Courses/EditCourse/EditCourse";
 import Nav from "../../components/Nav/Nav";
 import Organisations from "../Admin/Organisations/Organisations";
 import axios from "axios";
+import UpdateOrganisation from "../Admin/Organisations/Edit/UpdateOrganisation";
 
 class App extends Component {
   componentDidMount = async () => {
@@ -33,17 +34,26 @@ class App extends Component {
           <Nav />
           <div id="page-wrapper">
             <Route exact path="/" component={Home} />
-            <Route path="/my-profile" component={MyProfile} />
-            <Route path="/help" component={Help} />
-            <Route path="/dashboard" component={Dashboard} />
-            <Route path="/courses" component={Courses} />
-            <Route path="/admin/organisations" component={Organisations} />
+            <Route exact path="/my-profile" component={MyProfile} />
+            <Route exact path="/help" component={Help} />
+            <Route exact path="/dashboard" component={Dashboard} />
+            <Route exact path="/courses" component={Courses} />
+            <Route
+              exact
+              path="/admin/organisations"
+              component={Organisations}
+            />
             <Route
               path="/admin/organisations/add"
               component={AddOrganisation}
             />
-            <Route path="/admin/courses/add" component={AddCourse} />
+            <Route exact path="/admin/courses/add" component={AddCourse} />
             <Route
+              path="/admin/organisation/edit/:organisation_id"
+              component={UpdateOrganisation}
+            />
+            <Route
+              exact
               path="/admin/courses/edit/:courseId"
               component={EditCourse}
             />
