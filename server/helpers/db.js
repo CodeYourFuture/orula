@@ -107,6 +107,11 @@ const getLessonsById = course_id => {
     .from("lessons")
     .where("course_id", "=", course_id);
 };
+const deleteTopic = async lesson_id => {
+  await knex("lessons")
+    .where("lesson_id", "=", lesson_id)
+    .del();
+};
 
 module.exports = {
   getCourses,
@@ -124,5 +129,6 @@ module.exports = {
   checkOrganisationToDelete,
   deleteOrganisation,
   getLessonsById,
-  updateOrganisation
+  updateOrganisation,
+  deleteTopic
 };
