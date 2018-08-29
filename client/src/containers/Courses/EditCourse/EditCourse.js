@@ -43,7 +43,12 @@ class EditCourse extends React.Component {
       });
     } else {
       try {
-        const res = await editCourse(course_id, name, location, organisation_id);
+        const res = await editCourse(
+          course_id,
+          name,
+          location,
+          organisation_id
+        );
         this.setState({
           message: res.data,
           messageAlert: "alert alert-success"
