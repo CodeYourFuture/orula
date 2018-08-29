@@ -10,9 +10,8 @@ class ViewLessons extends Component {
     };
   }
 
-  componentWillReceiveProps(newProps) {
-    getLessons(newProps.courseId).then(res => {
-      const data = res.data;
+  componentDidMount() {
+    getLessons().then(data => {
       this.setState({ lessons: data });
     });
   }

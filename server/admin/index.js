@@ -12,5 +12,10 @@ router.get("/courses", (req, res) => {
     title: "Courses"
   });
 });
+router.get("/lessons", (req, res) => {
+  res.render("lessons", {
+    title: "Lessons"
+  });
+});
 
 module.exports = router;

@@ -86,6 +86,11 @@ export const deleteOrganisation = organisation_id => {
   return instance.delete("/api/organisations/" + organisation_id);
 };
 
-export const getLessons = id => {
-  return instance.get("/api/courses/" + id);
+export const getLessons = () => {
+  return instance.get("/api/lessons").then(res => res.data);
+};
+
+// Delete Course
+export const deleteLesson = async lesson_id => {
+  return await instance.delete(`api/lessons/${lesson_id}`);
 };

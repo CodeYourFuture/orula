@@ -107,7 +107,18 @@ const getLessonsById = course_id => {
     .from("lessons")
     .where("course_id", "=", course_id);
 };
-const deleteTopic = async lesson_id => {
+const getLessons = async () => {
+  return await knex
+    .select()
+    .table("lessons")
+    .orderBy("lesson_id", "asc");
+};
+const checkLessonToDelete = async lesson_id => {
+  const response = await knex("courses").where({ lesson_id });
+  return response.length === 0 ? false : true;
+};
+
+const deleteLesson = async lesson_id => {
   await knex("lessons")
     .where("lesson_id", "=", lesson_id)
     .del();
@@ -130,5 +141,7 @@ module.exports = {
   deleteOrganisation,
   getLessonsById,
   updateOrganisation,
-  deleteTopic
+  getLessons,
+  checkLessonToDelete,
+  deleteLesson
 };
