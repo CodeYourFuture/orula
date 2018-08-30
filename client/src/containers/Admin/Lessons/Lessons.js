@@ -16,14 +16,16 @@ class Lessons extends Component {
   deleteLesson = lesson_id => {
     try {
       const res = deleteLesson(lesson_id);
-      const lessons = this.state.lessons.filter(
+      const newLessons = this.state.lessons.filter(
         lesson => lesson.lesson_id !== lesson_id
       );
+      console.log(`afterdelete res = `, res);
       this.setState({
-        lessons,
+        lessons: newLessons,
         message: res.data,
         messageAlert: "alert alert-success"
       });
+      console.log(`afterdelete lessons = `, this.state.lessons);
     } catch (err) {
       this.setState({
         message: err.response.data,
@@ -32,6 +34,8 @@ class Lessons extends Component {
     }
   };
   render() {
+    console.log(`lessons in render = `, this.state.lessons);
+
     return (
       <div>
         <h2 className="page-header">Admin Dashboard</h2>
@@ -41,12 +45,7 @@ class Lessons extends Component {
             <li key={index} className="list-group-item">
               <div className="row">
                 <div className="col-lg-6">
-                  <a
-                    href={`/
-                  /lesssons/${data.lesson_id}`}
-                  >
-                    {data.name}
-                  </a>
+                  <a href={`/admin/lesssons/${data.lesson_id}`}>{data.name}</a>
                 </div>
 
                 <div className="col-lg-3">
