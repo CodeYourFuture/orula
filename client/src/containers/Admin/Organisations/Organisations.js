@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { getOrganisations, deleteOrganisation } from "../../../helpers/api";
 import { withRouter } from "react-router-dom";
+import { Link } from "react-router-dom";
 import EditOrganisation from "../../../components/EditButton/EditOrganisation";
 
 class Organisations extends Component {
@@ -63,12 +64,15 @@ class Organisations extends Component {
             </li>
           ))}
         </ul>
-        <form action="/admin/organisations/add" className="inline">
-          <button className="btn btn-primary">
-            {" "}
-            <i className="fa fa-plus fa-fw" /> Add Organisation{" "}
-          </button>
-        </form>
+        <div className="row">
+          <div className="col-lg-12">
+            <Link to="/admin/organisations/add">
+              <button className="btn btn-primary">
+                <i className="fa fa-plus fa-fw" /> Add Organisation
+              </button>
+            </Link>
+          </div>
+        </div>
       </div>
     );
   }
