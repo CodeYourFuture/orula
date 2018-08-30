@@ -38,7 +38,7 @@ class App extends Component {
             <Route exact path="/my-profile" component={MyProfile} />
             <Route exact path="/help" component={Help} />
             <Route exact path="/dashboard" component={Dashboard} />
-            <Route exact path="/courses" component={Courses} />
+            <Route exact path="/admin/courses" component={Courses} />
             <Route
               exact
               path="/admin/organisations"
