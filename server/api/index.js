@@ -137,7 +137,7 @@ router.get("/lessons", (req, res) => {
 
 router.delete("/lessons/:id", async (req, res) => {
   const lesson_id = req.params.id;
-  if ((await db.checkLessonToDelete(lesson_id)) === false) {
+  if ((await db.checkLessonToDelete(lesson_id)) !== false) {
     db.deleteLesson(lesson_id).then(() => {
       res.send("Successfully deleted Lesson!");
     });
