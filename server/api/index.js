@@ -128,5 +128,22 @@ router.put("/organisations/:organisation_id", async (req, res) => {
     res.status(403).send("This organisation is already exists.");
   }
 });
+// Get All Lessons
+router.get("/lessons", (req, res) => {
+  db.getLessons().then(data => {
+    res.send(data);
+  });
+});
+
+router.delete("/lessons/:id", async (req, res) => {
+  const lesson_id = req.params.id;
+  if ((await db.checkLessonToDelete(lesson_id)) !== false) {
+    db.deleteLesson(lesson_id).then(() => {
+      res.send("Successfully deleted Lesson!");
+    });
+  } else {
+    res.status(403).send("This lesson isn't empty. It has some data!");
+  }
+});
 
 module.exports = router;

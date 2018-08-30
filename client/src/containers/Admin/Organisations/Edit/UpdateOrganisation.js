@@ -30,7 +30,6 @@ class UpdateOrganisation extends Component {
 
   // put it to /api/organisation
   onSave = async (input, e) => {
-    const value = e.target.value;
     e.preventDefault();
     const { name, organisation_id } = this.state;
     if (name === "") {
