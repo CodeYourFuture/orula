@@ -19,13 +19,11 @@ class Lessons extends Component {
       const newLessons = this.state.lessons.filter(
         lesson => lesson.lesson_id !== lesson_id
       );
-      console.log(`afterdelete res = `, res);
       this.setState({
         lessons: newLessons,
         message: res.data,
         messageAlert: "alert alert-success"
       });
-      console.log(`afterdelete lessons = `, this.state.lessons);
     } catch (err) {
       this.setState({
         message: err.response.data,
@@ -34,8 +32,6 @@ class Lessons extends Component {
     }
   };
   render() {
-    console.log(`lessons in render = `, this.state.lessons);
-
     return (
       <div>
         <h2 className="page-header">Admin Dashboard</h2>
