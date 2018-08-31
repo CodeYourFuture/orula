@@ -140,7 +140,7 @@ const checkTopicExist = async name => {
 };
 
 const deleteTopic = async topic_id => {
-  await knex("Topics")
+  await knex("topics")
     .where("topic_id", "=", topic_id)
     .del();
 };
