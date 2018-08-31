@@ -1,12 +1,14 @@
 import React, { Component } from "react";
 import { getLessons, deleteLesson } from "../../../helpers/api";
 import { withRouter } from "react-router-dom";
+import ViewTopics from "./ViewTopics";
 
 class Lessons extends Component {
   state = {
     lessons: [],
     message: "",
-    messageAlert: ""
+    messageAlert: "",
+    lessonId: ""
   };
   componentDidMount() {
     getLessons().then(data => {
@@ -56,6 +58,10 @@ class Lessons extends Component {
             </li>
           ))}
         </ul>
+        <div className="row">
+          <div className="col-lg-12" />
+          <ViewTopics lessonId={this.state.lessons.lesson_id} />
+        </div>
       </div>
     );
   }
