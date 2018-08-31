@@ -145,6 +145,12 @@ router.delete("/lessons/:id", async (req, res) => {
     res.status(403).send("This lesson isn't empty. It has some data!");
   }
 });
+// Get All topics
+router.get("/topics", (req, res) => {
+  db.getLessons().then(data => {
+    res.send(data);
+  });
+});
 router.delete("/topics/:id", async (req, res) => {
   const topic_id = req.params.id;
   if ((await db.checkLessonToDelete(topic_id)) !== false) {
