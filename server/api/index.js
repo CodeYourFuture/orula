@@ -147,7 +147,7 @@ router.delete("/lessons/:id", async (req, res) => {
 });
 // Get All topics
 router.get("/topics", (req, res) => {
-  db.getLessons().then(data => {
+  db.getTopics().then(data => {
     res.send(data);
   });
 });
