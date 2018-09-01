@@ -96,8 +96,8 @@ export const deleteLesson = lesson_id => {
   return instance.delete("/api/lessons/" + lesson_id);
 };
 
-export const getTopics = () => {
-  return instance.get("/api/topics").then(res => res.data);
+export const getTopicsByLessons = async lessonId => {
+  return await instance.get(`/api/topics?lessonId=${lessonId}`);
 };
 export const getTopicById = async topic_id => {
   return await instance.get(`/api/topics/${topic_id}`);

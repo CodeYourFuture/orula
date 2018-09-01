@@ -140,10 +140,10 @@ router.delete("/lessons/:id", async (req, res) => {
   }
 });
 // Get All topics
-router.get("/topics", (req, res) => {
-  db.getTopics().then(data => {
-    res.send(data);
-  });
+router.get("/topics", async (req, res) => {
+  const lessonId = req.query.lessonId;
+  const data = await db.getTopicsByLessons(lessonId);
+  res.send(data);
 });
 router.delete("/topics/:id", async (req, res) => {
   const topic_id = req.params.id;

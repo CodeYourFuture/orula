@@ -123,10 +123,11 @@ const deleteLesson = async lesson_id => {
     .where("lesson_id", "=", lesson_id)
     .del();
 };
-const getTopics = async () => {
+const getTopicsByLessons = async lesson_id => {
   return await knex
     .select()
     .table("topics")
+    .where({ lesson_id })
     .orderBy("topic_id", "asc");
 };
 
@@ -165,7 +166,7 @@ module.exports = {
   getLessons,
   checkLessonToDelete,
   deleteLesson,
-  getTopics,
+  getTopicsByLessons,
   getTopicById,
   checkTopicExist,
   deleteTopic

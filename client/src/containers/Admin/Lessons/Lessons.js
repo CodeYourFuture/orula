@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { getLessons, deleteLesson } from "../../../helpers/api";
-import { withRouter } from "react-router-dom";
-import ViewTopics from "../Lessons/Topics/ViewTopics";
+import { withRouter, Link } from "react-router-dom";
 
 class Lessons extends Component {
   state = {
@@ -43,7 +42,9 @@ class Lessons extends Component {
             <li key={index} className="list-group-item">
               <div className="row">
                 <div className="col-lg-6">
-                  <a href={`/admin/lesssons/${data.lesson_id}`}>{data.name}</a>
+                  <Link to={`/admin/lessons/${data.lesson_id}/topics`}>
+                    {data.name}
+                  </Link>
                 </div>
 
                 <div className="col-lg-3">
@@ -58,12 +59,6 @@ class Lessons extends Component {
             </li>
           ))}
         </ul>
-        <div className="row">
-          <h2 className="page-header">Topics</h2>
-          <div className="col-lg-12" />
-          <ViewTopics lessons={this.state.lessons} />
-          {console.log(`lessons`, this.state.lessons)}
-        </div>
       </div>
     );
   }
