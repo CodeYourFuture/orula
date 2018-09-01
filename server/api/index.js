@@ -142,7 +142,7 @@ router.delete("/lessons/:id", async (req, res) => {
 // Get All topics
 router.get("/topics", async (req, res) => {
   const lessonId = req.query.lessonId;
-  const data = await db.getTopicsByLessons(lessonId);
+  const data = await db.getTopicsByLessonId(lessonId);
   res.send(data);
 });
 router.delete("/topics/:id", async (req, res) => {

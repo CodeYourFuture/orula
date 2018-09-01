@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { withRouter, Link } from "react-router-dom";
-import { getTopicsByLessons } from "../../../../helpers/api";
+import { getTopicsByLessonId } from "../../../../helpers/api";
 
 class ViewTopics extends Component {
   constructor(props) {
@@ -10,7 +10,9 @@ class ViewTopics extends Component {
     };
   }
   componentDidMount = async () => {
-    const response = await getTopicsByLessons(this.props.match.params.lessonId);
+    const response = await getTopicsByLessonId(
+      this.props.match.params.lessonId
+    );
     this.setState({ topics: response.data });
   };
   render() {
