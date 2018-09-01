@@ -122,6 +122,7 @@ router.put("/organisations/:organisation_id", async (req, res) => {
     res.status(403).send("This organisation is already exists.");
   }
 });
+
 // Get All Lessons
 router.get("/lessons", (req, res) => {
   db.getLessons().then(data => {
@@ -171,6 +172,21 @@ router.post("/topics", async (req, res) => {
     res
       .status(403)
       .send("This topic is already exists or your name field is empty");
+  }
+});
+
+router.put("/topics/:id", async (req, res) => {
+  const topicId = req.params.id;
+  const body = req.body;
+  if (
+    (await db.checkTopicExist(body.title)) === false &&
+    body.title !== "" &&
+    body.title !== null
+  ) {
+    await db.updateTopic(topicId, body.title);
+    res.send("Topic is successfully updated!");
+  } else {
+    res.status(403).send("This topic is already exists.");
   }
 });
 

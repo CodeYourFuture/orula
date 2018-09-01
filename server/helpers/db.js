@@ -150,6 +150,12 @@ const addTopics = async (title, lesson_id) => {
   });
 };
 
+const updateTopic = async (topic_id, name) => {
+  return await knex("topics")
+    .where({ topic_id })
+    .update({ title: name });
+};
+
 module.exports = {
   getCourses,
   getCourseById,
@@ -173,5 +179,6 @@ module.exports = {
   getTopicsByLessonId,
   checkTopicExist,
   deleteTopic,
-  addTopics
+  addTopics,
+  updateTopic
 };
