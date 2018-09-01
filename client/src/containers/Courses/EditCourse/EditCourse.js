@@ -9,6 +9,7 @@ class EditCourse extends React.Component {
       course_id: "",
       name: "",
       location: "",
+      organisation_id: "",
       message: "",
       messageAlert: ""
     };
@@ -17,11 +18,12 @@ class EditCourse extends React.Component {
   componentDidMount = async () => {
     const course_id = this.props.match.params.courseId;
     const course = await getCourseById(course_id);
-    const { name, location } = course.data[0];
+    const { name, location, organisation_id } = course.data[0];
     this.setState({
       course_id,
       name,
-      location
+      location,
+      organisation_id
     });
   };
 
@@ -33,7 +35,7 @@ class EditCourse extends React.Component {
   // put it to /api/courses/:id
   onSubmit = async e => {
     e.preventDefault();
-    const { course_id, name, location } = this.state;
+    const { course_id, name, location, organisation_id } = this.state;
     if (name === "" || location === "") {
       this.setState({
         message: "You must fill all the fields!",
@@ -41,7 +43,12 @@ class EditCourse extends React.Component {
       });
     } else {
       try {
-        const res = await editCourse(course_id, name, location);
+        const res = await editCourse(
+          course_id,
+          name,
+          location,
+          organisation_id
+        );
         this.setState({
           message: res.data,
           messageAlert: "alert alert-success"
@@ -116,7 +123,7 @@ class EditCourse extends React.Component {
             )}
           </div>
           <div className="col-lg-12">
-            <Link to="/courses">View all courses</Link>
+            <Link to="/admin/courses">View all courses</Link>
           </div>
         </div>
       </div>

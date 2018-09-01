@@ -23,7 +23,7 @@ router.get("/courses/:id", (req, res) => {
 router.post("/courses", async (req, res) => {
   const { name, location, organisation_id } = req.body;
   if (
-    (await db.checkCourseExist(name)) === false &&
+    (await db.checkCourseExist(name, organisation_id)) === false &&
     name !== "" &&
     name !== null
   ) {
@@ -41,7 +41,7 @@ router.put("/courses/:id", async (req, res) => {
   const course_id = req.params.id;
   const { name, location, organisation_id } = req.body;
   if (
-    (await db.checkCourseExist(name)) === false &&
+    (await db.checkCourseExist(name, organisation_id)) === false &&
     name !== "" &&
     name !== null
   ) {
@@ -85,12 +85,6 @@ router.post("/organisations", async (req, res) => {
 // Get All Organisations
 router.get("/organisations", (req, res) => {
   db.getOrganisations().then(data => {
-    res.send(data);
-  });
-});
-router.get("/courses/:id", (req, res) => {
-  const course_id = `${req.params.id}`;
-  db.getLessonsById(course_id).then(data => {
     res.send(data);
   });
 });
