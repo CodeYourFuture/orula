@@ -32,22 +32,26 @@ exports.seed = async (knex, Promise) => {
       {
         name: "JavaScript I - 1",
         module: "JS-1",
-        course_id: courses[0]
+        course_id: courses[0],
+        lesson_date: "12/12/2017"
       },
       {
         name: "JavaScript I - 2",
         module: "JS-1",
-        course_id: courses[0]
+        course_id: courses[0],
+        lesson_date: "12/11/2017"
       },
       {
         name: "JavaScript I - 2",
         module: "JS-1",
-        course_id: courses[0]
+        course_id: courses[0],
+        lesson_date: "12/12/2018"
       },
       {
         name: "Node I - 1",
         module: "Node",
-        course_id: courses[0]
+        course_id: courses[0],
+        lesson_date: "12/02/2017"
       }
     ]);
 
