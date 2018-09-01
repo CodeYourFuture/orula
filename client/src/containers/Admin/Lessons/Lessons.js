@@ -60,9 +60,9 @@ class Lessons extends Component {
         </ul>
         <div className="row">
           <h2 className="page-header">Topics</h2>
-
           <div className="col-lg-12" />
-          <ViewTopics lessonId={this.state.lessons.lesson_id} />
+          <ViewTopics lessons={this.state.lessons} />
+          {console.log(`lessons`, this.state.lessons)}
         </div>
       </div>
     );
