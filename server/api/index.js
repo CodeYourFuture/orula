@@ -140,4 +140,20 @@ router.delete("/lessons/:id", async (req, res) => {
   }
 });
 
+// Add Course
+router.post("/lessons", async (req, res) => {
+  const { name, lesson_date, course_id } = req.body;
+  if (
+    (await db.checkLessonExist(name, course_id)) === false &&
+    name !== "" &&
+    name !== null
+  ) {
+    await db.addLesson(name, lesson_date, course_id);
+    res.send("Successfully added lesson!");
+  } else {
+    res
+      .status(403)
+      .send("This lesson is already exist or lesson name field is empty");
+  }
+});
 module.exports = router;

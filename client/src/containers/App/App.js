@@ -14,6 +14,7 @@ import Organisations from "../Admin/Organisations/Organisations";
 import axios from "axios";
 import UpdateOrganisation from "../Admin/Organisations/Edit/UpdateOrganisation";
 import Lessons from "../Admin/Lessons/Lessons";
+import AddLesson from "../Admin/Lessons/AddLesson/AddLesson";
 
 class App extends Component {
   componentDidMount = async () => {
@@ -58,7 +59,8 @@ class App extends Component {
               path="/admin/courses/edit/:courseId"
               component={EditCourse}
             />
-            <Route path="/admin/lessons" component={Lessons} />
+            <Route exact path="/admin/lessons" component={Lessons} />
+            <Route exact path="/admin/lessons/add" component={AddLesson} />
           </div>
         </div>
       </Router>

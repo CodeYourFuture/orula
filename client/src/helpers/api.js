@@ -100,3 +100,11 @@ export const getLessonsById = async lesson_id => {
 export const deleteLesson = lesson_id => {
   return instance.delete("/api/lessons/" + lesson_id);
 };
+
+export const addLesson = async (name, lesson_date, course_id) => {
+  return await instance.post("/api/lessons", {
+    name,
+    lesson_date,
+    course_id
+  });
+};

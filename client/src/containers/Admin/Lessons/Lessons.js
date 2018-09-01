@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { getLessons, deleteLesson } from "../../../helpers/api";
 import { withRouter } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 class Lessons extends Component {
   state = {
@@ -56,6 +57,11 @@ class Lessons extends Component {
             </li>
           ))}
         </ul>
+        <Link to="/admin/Lessons/add">
+          <button className="btn btn-primary">
+            <i className="fa fa-plus fa-fw" /> Add Lesson
+          </button>
+        </Link>
       </div>
     );
   }

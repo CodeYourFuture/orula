@@ -25,6 +25,15 @@ class Dashboard extends Component {
             </Link>
           </div>
         </div>
+        <div className="row">
+          <div className="col-lg-12">
+            <Link to="/admin/lessons/add">
+              <button className="btn btn-primary">
+                <i className="fa fa-plus fa-fw" /> Add Lesson
+              </button>
+            </Link>
+          </div>
+        </div>
       </div>
     );
   }
