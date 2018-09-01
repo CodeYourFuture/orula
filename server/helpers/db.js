@@ -131,18 +131,14 @@ const getTopicsByLessonId = async lesson_id => {
     .orderBy("topic_id", "asc");
 };
 
-const getTopicById = topic_id => {
-  return knex("topics").where({ topic_id });
-};
-
 const checkTopicExist = async name => {
   const response = await knex("topics").where({ name });
   return response.length === 0 ? false : true;
 };
 
 const deleteTopic = async topic_id => {
-  await knex("topics")
-    .where("topic_id", "=", topic_id)
+  return await knex("topics")
+    .where({ topic_id })
     .del();
 };
 
