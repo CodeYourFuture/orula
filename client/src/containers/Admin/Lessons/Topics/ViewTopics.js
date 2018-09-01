@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { withRouter, Link } from "react-router-dom";
-import { getTopicsByLessonId } from "../../../../helpers/api";
+import { getTopicsByLessonId, deleteTopic } from "../../../../helpers/api";
 
 class ViewTopics extends Component {
   constructor(props) {

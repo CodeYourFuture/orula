@@ -132,27 +132,29 @@ router.get("/lessons", (req, res) => {
 router.delete("/lessons/:id", async (req, res) => {
   const lesson_id = req.params.id;
   if ((await db.checkLessonToDelete(lesson_id)) !== false) {
-    db.deleteLesson(lesson_id).then(() => {
-      res.send("Successfully deleted Lesson!");
-    });
+    await db.deleteLesson(lesson_id);
+    res.send("Successfully deleted Lesson!");
   } else {
     res.status(403).send("This lesson isn't empty. It has some data!");
   }
 });
-// Get All topics
+
+// Get topics by lessonId
 router.get("/topics", async (req, res) => {
   const lessonId = req.query.lessonId;
   const data = await db.getTopicsByLessonId(lessonId);
   res.send(data);
 });
+
+// Delete a topic
 router.delete("/topics/:id", async (req, res) => {
   const topic_id = req.params.id;
-  if ((await db.checkLessonToDelete(topic_id)) !== false) {
-    db.deleteLesson(topic_id).then(() => {
-      res.send("Successfully deleted topic!");
-    });
+  if ((await db.checkTopicExist(topic_id)) === false) {
+    await db.deleteLesson(topic_id);
+    res.send("Successfully deleted topic!");
   } else {
     res.status(403).send("This topic isn't empty. It has some data!");
   }
 });
+
 module.exports = router;

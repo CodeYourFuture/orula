@@ -113,13 +113,14 @@ const getLessons = async () => {
     .table("lessons")
     .orderBy("lesson_id", "asc");
 };
+
 const checkLessonToDelete = async lesson_id => {
   const response = await knex("lessons").where({ lesson_id });
   return response.length === 0 ? false : true;
 };
 
 const deleteLesson = async lesson_id => {
-  await knex("lessons")
+  return await knex("lessons")
     .where("lesson_id", "=", lesson_id)
     .del();
 };
@@ -131,8 +132,8 @@ const getTopicsByLessonId = async lesson_id => {
     .orderBy("topic_id", "asc");
 };
 
-const checkTopicExist = async name => {
-  const response = await knex("topics").where({ name });
+const checkTopicExist = async title => {
+  const response = await knex("topics").where({ title });
   return response.length === 0 ? false : true;
 };
 
@@ -163,7 +164,6 @@ module.exports = {
   checkLessonToDelete,
   deleteLesson,
   getTopicsByLessonId,
-  getTopicById,
   checkTopicExist,
   deleteTopic
 };
