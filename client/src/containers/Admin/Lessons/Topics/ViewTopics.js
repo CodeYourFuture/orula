@@ -38,6 +38,7 @@ class ViewTopics extends Component {
   };
 
   render() {
+    console.log(`topics`, this.state.topics);
     return (
       <div>
         <div className="row">
@@ -63,7 +64,11 @@ class ViewTopics extends Component {
           ))}
         </ul>
         <div>
-          <Link to="/admin/topics/add?lessonId=1">
+          <Link
+            to={`/admin/topics/add?lessonId=${
+              this.props.match.params.lessonId
+            }`}
+          >
             <button className="btn btn-primary">
               <i className="fa fa-plus fa-fw" /> Add topic
             </button>
