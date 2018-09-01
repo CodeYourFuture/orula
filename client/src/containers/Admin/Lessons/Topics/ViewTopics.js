@@ -21,10 +21,12 @@ class ViewTopics extends Component {
           {this.state.topics.map(topic => (
             <li key={topic.topic_id} className="list-group-item">
               <Link
-                to={`/lessons/${this.props.lessonId}/topics/${topic.topic_id}`}
+                to={`/lessons/${this.props.lessons.lesson_id}/topics/${
+                  topic.topic_id
+                }`}
               >
                 {topic.title}
-                {console.log(this.props.lessonId)}
+                {console.log(`print lessons = `, this.props.lessons)}
               </Link>
             </li>
           ))}
