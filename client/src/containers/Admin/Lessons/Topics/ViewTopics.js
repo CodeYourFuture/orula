@@ -38,7 +38,6 @@ class ViewTopics extends Component {
   };
 
   render() {
-    console.log(`topics`, this.state.topics);
     return (
       <div>
         <div className="row">
