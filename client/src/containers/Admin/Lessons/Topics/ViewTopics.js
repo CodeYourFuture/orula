@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import { withRouter } from "react-router-dom";
-import { getTopics } from "../../helpers/api";
-import Lessons from "../Lessons";
+import { withRouter, Link } from "react-router-dom";
+import { getTopics } from "../../../../helpers/api";
 
 class ViewTopics extends Component {
   constructor(props) {
@@ -15,17 +14,18 @@ class ViewTopics extends Component {
       this.setState({ topics: data });
     });
   }
-  render(props) {
+  render() {
     return (
       <div>
         <ul className="list-group">
           {this.state.topics.map(topic => (
             <li key={topic.topic_id} className="list-group-item">
-              <a
-                href={`/lessons/${Lessons.lesson_id}/topics/${topic.topic_id}`}
+              <Link
+                to={`/lessons/${this.props.lessonId}/topics/${topic.topic_id}`}
               >
-                {topic.name}
-              </a>
+                {topic.title}
+                {console.log(this.props.lessonId)}
+              </Link>
             </li>
           ))}
         </ul>
