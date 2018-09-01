@@ -150,7 +150,7 @@ router.get("/topics", async (req, res) => {
 router.delete("/topics/:id", async (req, res) => {
   const topic_id = req.params.id;
   if ((await db.checkTopicExist(topic_id)) === false) {
-    await db.deleteLesson(topic_id);
+    await db.deleteTopic(topic_id);
     res.send("Successfully deleted topic!");
   } else {
     res.status(403).send("This topic isn't empty. It has some data!");
