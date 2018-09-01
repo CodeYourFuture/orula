@@ -157,4 +157,21 @@ router.delete("/topics/:id", async (req, res) => {
   }
 });
 
+// Add Topics
+router.post("/topics", async (req, res) => {
+  const body = req.body;
+  if (
+    (await db.checkTopicExist(body.title)) === false &&
+    body.name !== "" &&
+    body.name !== null
+  ) {
+    await db.addTopics(body.title, body.lesson_id);
+    res.send("Successfully added course!");
+  } else {
+    res
+      .status(403)
+      .send("This topic is already exists or your name field is empty");
+  }
+});
+
 module.exports = router;
