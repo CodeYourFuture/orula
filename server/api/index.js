@@ -122,11 +122,30 @@ router.put("/organisations/:organisation_id", async (req, res) => {
     res.status(403).send("This organisation is already exists.");
   }
 });
+
 // Get All Lessons
 router.get("/lessons", (req, res) => {
   db.getLessons().then(data => {
     res.send(data);
   });
+});
+
+// Edit Lesson
+router.put("/lessons/:id", async (req, res) => {
+  const lesson_id = req.params.id;
+  const { name, module, course_id } = req.body;
+  if (
+    (await db.checkLessonExist(name, course_id)) === false &&
+    name !== "" &&
+    name !== null
+  ) {
+    await db.editLesson(lesson_id, name, module, course_id);
+    res.send("Lesson is successfully updated!");
+  } else {
+    res
+      .status(403)
+      .send("This lesson is already exist or lesson name field is empty");
+  }
 });
 
 router.delete("/lessons/:id", async (req, res) => {
