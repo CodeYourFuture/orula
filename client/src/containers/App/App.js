@@ -16,6 +16,7 @@ import UpdateOrganisation from "../Admin/Organisations/Edit/UpdateOrganisation";
 import Lessons from "../Admin/Lessons/Lessons";
 import ViewTopics from "../Admin/Lessons/Topics/ViewTopics";
 import AddTopics from "../Admin/Lessons/Topics/AddTopics/AddTopics";
+import EditTopics from "../Admin/Lessons/Topics/EditTopics/EditTopics";
 
 class App extends Component {
   componentDidMount = async () => {
@@ -67,6 +68,7 @@ class App extends Component {
               component={ViewTopics}
             />
             <Route path="/admin/topics/add" component={AddTopics} />
+            <Route path="/admin/topics/edit/:topicId" component={EditTopics} />
           </div>
         </div>
       </Router>

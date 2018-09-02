@@ -107,3 +107,14 @@ export const deleteTopic = async topic_id => {
 export const addTopic = async (title, lesson_id) => {
   return await instance.post("/api/topics", { title, lesson_id });
 };
+
+export const updateTopics = async (topic_id, name) => {
+  return await instance.put(`/api/topics/${topic_id}`, {
+    topic_id,
+    name
+  });
+};
+
+export const getTopicById = async topic_id => {
+  return await instance.get(`/api/topics/${topic_id}`);
+};
