@@ -131,6 +131,13 @@ const getTopicsByLessonId = async lesson_id => {
     .where({ lesson_id })
     .orderBy("topic_id", "asc");
 };
+const getTopicById = async topic_id => {
+  return await knex
+    .select()
+    .table("topics")
+    .where({ topic_id })
+    .orderBy("topic_id", "asc");
+};
 
 const checkTopicExist = async title => {
   const response = await knex("topics").where({ title });
@@ -180,5 +187,6 @@ module.exports = {
   checkTopicExist,
   deleteTopic,
   addTopics,
-  updateTopic
+  updateTopic,
+  getTopicById
 };
