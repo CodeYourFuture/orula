@@ -151,11 +151,62 @@ router.put("/lessons/:id", async (req, res) => {
 router.delete("/lessons/:id", async (req, res) => {
   const lesson_id = req.params.id;
   if ((await db.checkLessonToDelete(lesson_id)) !== false) {
-    db.deleteLesson(lesson_id).then(() => {
-      res.send("Successfully deleted Lesson!");
-    });
+    await db.deleteLesson(lesson_id);
+    res.send("Successfully deleted Lesson!");
   } else {
     res.status(403).send("This lesson isn't empty. It has some data!");
+  }
+});
+
+// Add Course
+router.post("/lessons", async (req, res) => {
+  const { name, lesson_date, course_id } = req.body;
+  if (
+    (await db.checkLessonExist(name, course_id)) === false &&
+    name !== "" &&
+    name !== null
+  ) {
+    await db.addLesson(name, lesson_date, course_id);
+    res.send("Successfully added lesson!");
+  } else {
+    res
+      .status(403)
+      .send("This lesson is already exist or lesson name field is empty");
+}
+});
+
+// Get topics by lessonId
+router.get("/topics", async (req, res) => {
+  const lessonId = req.query.lessonId;
+  const data = await db.getTopicsByLessonId(lessonId);
+  res.send(data);
+});
+
+// Delete a topic
+router.delete("/topics/:id", async (req, res) => {
+  const topic_id = req.params.id;
+  if ((await db.checkTopicExist(topic_id)) === false) {
+    await db.deleteTopic(topic_id);
+    res.send("Successfully deleted topic!");
+  } else {
+    res.status(403).send("This topic isn't empty. It has some data!");
+  }
+});
+
+// Add Topics
+router.post("/topics", async (req, res) => {
+  const body = req.body;
+  if (
+    (await db.checkTopicExist(body.title)) === false &&
+    body.name !== "" &&
+    body.name !== null
+  ) {
+    await db.addTopics(body.title, body.lesson_id);
+    res.send("Successfully added course!");
+  } else {
+    res
+      .status(403)
+      .send("This topic is already exists or your name field is empty");
   }
 });
 

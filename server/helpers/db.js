@@ -108,20 +108,65 @@ const getLessonsById = lesson_id => {
     .where("lesson_id", "=", lesson_id);
 };
 const getLessons = async () => {
-  return await knex
-    .select()
-    .table("lessons")
+  return knex
+    .select(
+      "lesson_id",
+      "lessons.name as name",
+      "lesson_date",
+      "courses.name as course_title"
+    )
+    .from("lessons")
+    .innerJoin("courses", "lessons.course_id", "courses.course_id")
     .orderBy("lesson_id", "asc");
 };
+
 const checkLessonToDelete = async lesson_id => {
   const response = await knex("lessons").where({ lesson_id });
   return response.length === 0 ? false : true;
 };
 
 const deleteLesson = async lesson_id => {
-  await knex("lessons")
+  return await knex("lessons")
     .where("lesson_id", "=", lesson_id)
     .del();
+};
+const getTopicsByLessonId = async lesson_id => {
+  return await knex
+    .select()
+    .table("topics")
+    .where({ lesson_id })
+    .orderBy("topic_id", "asc");
+};
+
+const checkTopicExist = async title => {
+  const response = await knex("topics").where({ title });
+  return response.length === 0 ? false : true;
+};
+
+const deleteTopic = async topic_id => {
+  return await knex("topics")
+    .where({ topic_id })
+    .del();
+};
+
+const addLesson = async (name, lesson_date, course_id) => {
+  return await knex("lessons").insert({
+    name,
+    lesson_date,
+    course_id
+  });
+};
+
+const checkLessonExist = async (name, course_id) => {
+  const response = await knex("lessons").where({ name, course_id });
+  return response.length === 0 ? false : true;
+};
+
+const addTopics = async (title, lesson_id) => {
+  return await knex("topics").insert({
+    title,
+    lesson_id
+  });
 };
 
 module.exports = {
@@ -143,5 +188,11 @@ module.exports = {
   updateOrganisation,
   getLessons,
   checkLessonToDelete,
-  deleteLesson
+  deleteLesson,
+  addLesson,
+  checkLessonExist,
+  getTopicsByLessonId,
+  checkTopicExist,
+  deleteTopic,
+  addTopics
 };
