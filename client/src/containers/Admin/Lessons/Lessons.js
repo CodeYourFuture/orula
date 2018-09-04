@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+
 import { getLessons, deleteLesson, getCourses } from "../../../helpers/api";
 import { withRouter } from "react-router-dom";
 import { Link } from "react-router-dom";
@@ -8,7 +9,8 @@ class Lessons extends Component {
     courses: [],
     lessons: [],
     message: "",
-    messageAlert: ""
+    messageAlert: "",
+    lessonId: ""
   };
   componentDidMount() {
     getLessons().then(data => {
@@ -39,6 +41,7 @@ class Lessons extends Component {
   render() {
     return (
       <div>
+
         <h2 className="page-header">Lessons</h2>
         <div className="table-responsive">
         {this.state.courses.map(course => (
@@ -58,7 +61,9 @@ class Lessons extends Component {
               {this.state.lessons.filter(lesson=>lesson.course_title===course.name).map(lesson => (
                 <tr key={lesson.lesson_id}>
                   <td>{lesson.lesson_id}</td>
-                  <td>{lesson.name}</td>
+                  <td> <Link to={`/admin/lessons/${lesson.lesson_id}/topics`}>
+                    {lesson.name}
+                  </Link></td>
                   <td>{lesson.location}</td>
                   <td>{lesson.course_title}</td>
                   <td>
@@ -74,6 +79,7 @@ class Lessons extends Component {
             </tbody>
           </table>
           </div>
+
           ))}
         </div>
         <div className="row">
