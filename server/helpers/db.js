@@ -149,6 +149,13 @@ const deleteTopic = async topic_id => {
     .del();
 };
 
+const addTopics = async (title, lesson_id) => {
+  return await knex("topics").insert({
+    title,
+    lesson_id
+  });
+};
+
 module.exports = {
   getCourses,
   getCourseById,
@@ -171,5 +178,6 @@ module.exports = {
   deleteLesson,
   getTopicsByLessonId,
   checkTopicExist,
-  deleteTopic
+  deleteTopic,
+  addTopics
 };
