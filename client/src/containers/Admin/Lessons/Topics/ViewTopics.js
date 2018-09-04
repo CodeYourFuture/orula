@@ -1,12 +1,14 @@
 import React, { Component } from "react";
 import { withRouter, Link } from "react-router-dom";
-import { getTopicsByLessonId } from "../../../../helpers/api";
+import { getTopicsByLessonId, deleteTopic } from "../../../../helpers/api";
 
 class ViewTopics extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      topics: []
+      topics: [],
+      message: "",
+      messageAlert: ""
     };
   }
   componentDidMount = async () => {
@@ -15,6 +17,26 @@ class ViewTopics extends Component {
     );
     this.setState({ topics: response.data });
   };
+
+  deleteTopic = async topic_id => {
+    try {
+      const res = await deleteTopic(topic_id);
+      const topics = this.state.topics.filter(
+        topic => topic.topic_id !== topic_id
+      );
+      this.setState({
+        topics,
+        message: res.data,
+        messageAlert: "alert alert-success"
+      });
+    } catch (err) {
+      this.setState({
+        message: err.response.data,
+        messageAlert: "alert alert-danger"
+      });
+    }
+  };
+
   render() {
     return (
       <div>
@@ -26,7 +48,17 @@ class ViewTopics extends Component {
         <ul className="list-group">
           {this.state.topics.map(topic => (
             <li key={topic.topic_id} className="list-group-item">
-              {topic.title}
+              <div className="row">
+                <div className="col-lg-6">{topic.title}</div>
+                <div className="col-lg-3">
+                  <button
+                    onClick={() => this.deleteTopic(topic.topic_id)}
+                    className="btn btn-danger"
+                  >
+                    <i className="fa fa-trash " /> Delete
+                  </button>
+                </div>
+              </div>
             </li>
           ))}
         </ul>
@@ -36,6 +68,10 @@ class ViewTopics extends Component {
               <i className="fa fa-plus fa-fw" /> Add topic
             </button>
           </Link>
+
+          {this.state.message && (
+            <div className={this.state.messageAlert}>{this.state.message}</div>
+          )}
         </div>
       </div>
     );

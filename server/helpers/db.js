@@ -119,13 +119,14 @@ const getLessons = async () => {
     .innerJoin("courses", "lessons.course_id", "courses.course_id")
     .orderBy("lesson_id", "asc");
 };
+
 const checkLessonToDelete = async lesson_id => {
   const response = await knex("lessons").where({ lesson_id });
   return response.length === 0 ? false : true;
 };
 
 const deleteLesson = async lesson_id => {
-  await knex("lessons")
+  return await knex("lessons")
     .where("lesson_id", "=", lesson_id)
     .del();
 };
@@ -137,18 +138,14 @@ const getTopicsByLessonId = async lesson_id => {
     .orderBy("topic_id", "asc");
 };
 
-const getTopicById = topic_id => {
-  return knex("topics").where({ topic_id });
-};
-
-const checkTopicExist = async name => {
-  const response = await knex("topics").where({ name });
+const checkTopicExist = async title => {
+  const response = await knex("topics").where({ title });
   return response.length === 0 ? false : true;
 };
 
 const deleteTopic = async topic_id => {
-  await knex("topics")
-    .where("topic_id", "=", topic_id)
+  return await knex("topics")
+    .where({ topic_id })
     .del();
 };
 
@@ -173,7 +170,6 @@ module.exports = {
   checkLessonToDelete,
   deleteLesson,
   getTopicsByLessonId,
-  getTopicById,
   checkTopicExist,
   deleteTopic
 };
