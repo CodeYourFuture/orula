@@ -108,9 +108,15 @@ const getLessonsById = lesson_id => {
     .where("lesson_id", "=", lesson_id);
 };
 const getLessons = async () => {
-  return await knex
-    .select()
-    .table("lessons")
+  return knex
+    .select(
+      "lesson_id",
+      "lessons.name as name",
+      "lesson_date",
+      "courses.name as course_title"
+    )
+    .from("lessons")
+    .innerJoin("courses", "lessons.course_id", "courses.course_id")
     .orderBy("lesson_id", "asc");
 };
 
