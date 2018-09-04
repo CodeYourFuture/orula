@@ -154,6 +154,23 @@ router.post("/lessons", async (req, res) => {
     res
       .status(403)
       .send("This lesson is already exist or lesson name field is empty");
+}
+});
+// Get All topics
+router.get("/topics", async (req, res) => {
+  const lessonId = req.query.lessonId;
+  const data = await db.getTopicsByLessonId(lessonId);
+  res.send(data);
+});
+router.delete("/topics/:id", async (req, res) => {
+  const topic_id = req.params.id;
+  if ((await db.checkLessonToDelete(topic_id)) !== false) {
+    db.deleteLesson(topic_id).then(() => {
+      res.send("Successfully deleted topic!");
+    });
+  } else {
+    res.status(403).send("This topic isn't empty. It has some data!");
   }
 });
+
 module.exports = router;

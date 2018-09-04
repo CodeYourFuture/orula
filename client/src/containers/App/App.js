@@ -15,6 +15,7 @@ import axios from "axios";
 import UpdateOrganisation from "../Admin/Organisations/Edit/UpdateOrganisation";
 import Lessons from "../Admin/Lessons/Lessons";
 import AddLesson from "../Admin/Lessons/AddLesson/AddLesson";
+import ViewTopics from "../Admin/Lessons/Topics/ViewTopics";
 
 class App extends Component {
   componentDidMount = async () => {
@@ -61,6 +62,11 @@ class App extends Component {
             />
             <Route exact path="/admin/lessons" component={Lessons} />
             <Route exact path="/admin/lessons/add" component={AddLesson} />
+            <Route
+              exact
+              path="/admin/lessons/:lessonId/topics"
+              component={ViewTopics}
+            />
           </div>
         </div>
       </Router>
