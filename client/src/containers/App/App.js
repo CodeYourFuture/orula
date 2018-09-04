@@ -14,6 +14,7 @@ import Organisations from "../Admin/Organisations/Organisations";
 import axios from "axios";
 import UpdateOrganisation from "../Admin/Organisations/Edit/UpdateOrganisation";
 import Lessons from "../Admin/Lessons/Lessons";
+import AddLesson from "../Admin/Lessons/AddLesson/AddLesson";
 import ViewTopics from "../Admin/Lessons/Topics/ViewTopics";
 import AddTopics from "../Admin/Lessons/Topics/AddTopics/AddTopics";
 import EditTopics from "../Admin/Lessons/Topics/EditTopics/EditTopics";
@@ -62,6 +63,7 @@ class App extends Component {
               component={EditCourse}
             />
             <Route exact path="/admin/lessons" component={Lessons} />
+            <Route exact path="/admin/lessons/add" component={AddLesson} />
             <Route
               exact
               path="/admin/lessons/:lessonId/topics"
