@@ -98,7 +98,7 @@ class EditLesson extends React.Component {
                       </div>
                       <div className="form-group">
                         <label className="control-label" htmlFor="lesson_date">
-                          Lesson Date (DD/MM/YYYY)
+                          Pick Date (DD/MM/YYYY)
                         </label>
 
                         <DatePicker
