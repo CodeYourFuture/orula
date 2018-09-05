@@ -107,12 +107,7 @@ export const addLesson = async (name, lesson_date, course_id) => {
 };
 
 // Edit Lesson
-export const editLesson = async (
-  lesson_id,
-  name,
-  lesson_date,
-  course_id
-) => {
+export const editLesson = async (lesson_id, name, lesson_date, course_id) => {
   return await instance.put(`/api/lessons/${lesson_id}`, {
     name,
     lesson_date,

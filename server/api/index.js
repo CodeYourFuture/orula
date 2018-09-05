@@ -130,6 +130,14 @@ router.get("/lessons", (req, res) => {
   });
 });
 
+// Get 1 Lesson
+router.get("/lessons/:id", (req, res) => {
+  const lesson_id = req.params.id;
+  db.getLessonsById(lesson_id).then(data => {
+    res.send(data);
+  });
+});
+
 // Edit Lesson
 router.put("/lessons/:id", async (req, res) => {
   const lesson_id = req.params.id;
