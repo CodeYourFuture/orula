@@ -1,6 +1,10 @@
 import React from "react";
 import { editLesson, getLessonsById } from "../../../../helpers/api";
 import { Link } from "react-router-dom";
+import DatePicker from "react-datepicker";
+import moment from "moment";
+import "react-datepicker/dist/react-datepicker.css";
+import "./EditLesson.css";
 
 class EditLesson extends React.Component {
   constructor(props) {
@@ -23,7 +27,13 @@ class EditLesson extends React.Component {
       lesson_id,
       course_id,
       name,
-      lesson_date,
+      lesson_date
+    });
+  };
+
+  handleDateChange = lesson_date => {
+    this.setState({
+      lesson_date: new Date(lesson_date)
     });
   };
 
@@ -43,12 +53,7 @@ class EditLesson extends React.Component {
       });
     } else {
       try {
-        const res = await editLesson(
-          lesson_id,
-          name,
-          lesson_date,
-          course_id
-        );
+        const res = await editLesson(lesson_id, name, lesson_date, course_id);
         this.setState({
           message: res.data,
           messageAlert: "alert alert-success"
@@ -93,17 +98,15 @@ class EditLesson extends React.Component {
                       </div>
                       <div className="form-group">
                         <label className="control-label" htmlFor="lesson_date">
-                          Lesson Date (YYYY-MM-DD)
+                          Lesson Date (DD/MM/YYYY)
                         </label>
-                        <input
-                          className="form-control"
-                          type="text"
-                          name="lesson_date"
-                          id="lesson_date"
-                          onChange={e => this.handleOnchange("lesson_date", e)}
-                          value={this.state.lesson_date}
+
+                        <DatePicker
+                          selected={moment(this.state.lesson_date)}
+                          onChange={this.handleDateChange}
                         />
                       </div>
+
                       <button
                         type="submit"
                         className="btn btn-primary"
