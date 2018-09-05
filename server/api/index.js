@@ -133,13 +133,13 @@ router.get("/lessons", (req, res) => {
 // Edit Lesson
 router.put("/lessons/:id", async (req, res) => {
   const lesson_id = req.params.id;
-  const { name, module, course_id } = req.body;
+  const { name, lesson_date, course_id } = req.body;
   if (
     (await db.checkLessonExist(name, course_id)) === false &&
     name !== "" &&
     name !== null
   ) {
-    await db.editLesson(lesson_id, name, module, course_id);
+    await db.editLesson(lesson_id, name, lesson_date, course_id);
     res.send("Lesson is successfully updated!");
   } else {
     res
