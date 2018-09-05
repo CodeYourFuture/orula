@@ -27,7 +27,6 @@ class AddTopics extends React.Component {
       });
     } else {
       try {
-        console.log(this.props.location.search.replace("?lessonId=", ""));
         const lessonId = this.props.location.search.replace("?lessonId=", "");
         await addTopic(title, lessonId);
 

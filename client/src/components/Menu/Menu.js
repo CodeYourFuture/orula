@@ -23,25 +23,33 @@ class Menu extends Component {
             </li>
             <li>
               <Link to="/">
-                <i className="fa fa-dashboard fa-fw" /> Home
+                <i className="fa fa-home fa-fw" /> Home
               </Link>
             </li>
             <li>
               <Link to="/my-profile">
-                <i className="fa fa-table fa-fw" /> My Profile
+                <i className="fa fa-address-book fa-fw" /> My Profile
               </Link>
             </li>
             <li>
-              <Link to="/help">Help</Link>
+              <Link to="/help">
+                <i className="fa fa-question-circle fa-fw" /> Help
+              </Link>
             </li>
             <li>
-              <Link to="/admin/courses">Courses</Link>
+              <Link to="/admin/courses">
+                <i className="fa fa-graduation-cap fa-fw" /> Courses
+              </Link>
             </li>
             <li>
-              <Link to="/admin/Lessons">Lessons</Link>
+              <Link to="/admin/Lessons">
+                <i className="fa fa-book fa-fw" /> Lessons
+              </Link>
             </li>
             <li>
-              <Link to="/dashboard">Organisations</Link>
+              <Link to="/dashboard">
+                <i className="fa fa-sitemap fa-fw" /> Organisations
+              </Link>
             </li>
           </ul>
         </div>

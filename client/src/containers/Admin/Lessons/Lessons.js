@@ -15,11 +15,25 @@ class Lessons extends Component {
   componentDidMount() {
     getLessons().then(data => {
       this.setState({ lessons: data });
-    }); 
-    getCourses().then(res => res.data).then(data => {
-      this.setState({ courses: data });
     });
+    getCourses()
+      .then(res => res.data)
+      .then(data => {
+        this.setState({ courses: data });
+      });
   }
+
+  makeDate = date => {
+    const lessonDate =
+      JSON.stringify(date).slice(9, 11) +
+      "/" +
+      JSON.stringify(date).slice(6, 8) +
+      "/" +
+      JSON.stringify(date).slice(1, 5);
+    if (lessonDate === "//ull") return "Date doesn't exist";
+    else return lessonDate;
+  };
+
   deleteLesson = lesson_id => {
     try {
       const res = deleteLesson(lesson_id);
@@ -41,45 +55,50 @@ class Lessons extends Component {
   render() {
     return (
       <div>
-
         <h2 className="page-header">Lessons</h2>
         <div className="table-responsive">
-        {this.state.courses.map(course => (
-          <div>
-        <h2 className="page-header">{course.name}</h2>
-          <table className="table table-striped table-bordered table-hover">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Lesson Name</th>
-                <th>lesson_date</th>
-                <th>course_title</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {this.state.lessons.filter(lesson=>lesson.course_title===course.name).map(lesson => (
-                <tr key={lesson.lesson_id}>
-                  <td>{lesson.lesson_id}</td>
-                  <td> <Link to={`/admin/lessons/${lesson.lesson_id}/topics`}>
-                    {lesson.name}
-                  </Link></td>
-                  <td>{lesson.location}</td>
-                  <td>{lesson.course_title}</td>
-                  <td>
-                    <button
-                      onClick={() => this.deleteLesson(lesson.lesson_id)}
-                      className="btn btn-danger"
-                    >
-                      <i className="fa fa-trash " /> Delete
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          </div>
-
+          {this.state.courses.map(course => (
+            <div key={course.course_id}>
+              <h2 className="page-header">{course.name}</h2>
+              <table className="table table-striped table-bordered table-hover">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Lesson Name</th>
+                    <th>lesson_date</th>
+                    <th>course_title</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {this.state.lessons
+                    .filter(lesson => lesson.course_title === course.name)
+                    .map(lesson => (
+                      <tr key={lesson.lesson_id}>
+                        <td>{lesson.lesson_id}</td>
+                        <td>
+                          {" "}
+                          <Link
+                            to={`/admin/lessons/${lesson.lesson_id}/topics`}
+                          >
+                            {lesson.name}
+                          </Link>
+                        </td>
+                        <td>{this.makeDate(lesson.lesson_date)}</td>
+                        <td>{lesson.course_title}</td>
+                        <td>
+                          <button
+                            onClick={() => this.deleteLesson(lesson.lesson_id)}
+                            className="btn btn-danger"
+                          >
+                            <i className="fa fa-trash " /> Delete
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                </tbody>
+              </table>
+            </div>
           ))}
         </div>
         <div className="row">
