@@ -69,13 +69,16 @@ class Courses extends Component {
                       <td>{course.organisation_title}</td>
                       <td>
                         <Link to={`/admin/courses/edit/${course.course_id}`}>
-                          <button className="btn btn-success">Edit</button>
+                          <button className="btn btn-success">
+                            {" "}
+                            <i className="fa fa-edit fa-fw" /> Edit
+                          </button>
                         </Link>{" "}
                         <button
                           onClick={() => this.deleteCourse(course.course_id)}
                           className="btn btn-danger"
                         >
-                          Delete
+                          <i className="fa fa-trash " /> Delete
                         </button>
                       </td>
                     </tr>

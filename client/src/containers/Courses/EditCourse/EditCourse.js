@@ -123,7 +123,11 @@ class EditCourse extends React.Component {
             )}
           </div>
           <div className="col-lg-12">
-            <Link to="/admin/courses">View all courses</Link>
+            <Link to="/admin/courses">
+              <button className="btn btn-primary">
+                <i className="fa fa-eye fa-fw" /> View all courses
+              </button>
+            </Link>
           </div>
         </div>
       </div>
