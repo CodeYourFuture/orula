@@ -195,7 +195,6 @@ router.post("/topics", async (req, res) => {
 router.post("/users", async (req, res) => {
   const { name, email, password } = req.body;
   if (
-    (await db.checkUserByNameExist(name)) === false &&
     (await db.checkUserByEmailExist(email)) === false &&
     name !== "" &&
     name !== null &&

@@ -14,8 +14,7 @@ class Register extends React.Component {
     };
   }
   componentDidMount = async () => {
-    const res = await getUsers();
-    const data = res;
+    const data = await getUsers();
     this.setState({ users: data });
   };
 
@@ -23,19 +22,6 @@ class Register extends React.Component {
     const value = e.target.value;
     this.setState({ [input]: value });
   };
-
-  // setUser = e => {
-  //   const userName = e.target.value;
-  //   const user = this.state.users.find(
-  //     user => user.name === userName
-  //   );
-  //   // check if user is selected then set state
-  //   if (user) {
-  //     this.setState({ name: user.name });
-  //   } else {
-  //     this.setState({ name: "" });
-  //   }
-  // };
 
   // post it to /api/users
   onSubmit = async e => {
