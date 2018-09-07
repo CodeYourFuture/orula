@@ -118,10 +118,10 @@ export const addTopic = async (title, lesson_id) => {
   return await instance.post("/api/topics", { title, lesson_id });
 };
 
-export const updateTopics = async (topic_id, name) => {
+export const updateTopics = async (topic_id, title) => {
   return await instance.put(`/api/topics/${topic_id}`, {
     topic_id,
-    name
+    title
   });
 };
 

@@ -14,9 +14,9 @@ class EditTopics extends Component {
 
   componentDidMount = async () => {
     const topic_id = this.props.match.params.topicId;
-    const Id = await getTopicById(topic_id);
-    const { name } = Id.data[0];
-    this.setState({ topic_id, name });
+    const topic = await getTopicById(topic_id);
+    const { title } = topic.data[0];
+    this.setState({ topic_id, name: title });
   };
 
   onHandleChange = (input, e) => {
@@ -40,12 +40,12 @@ class EditTopics extends Component {
       });
     } else {
       try {
+        await updateTopics(topic_id, name);
+
         this.setState({
           message: "Topic has been successfully updated!",
           messageAlert: "alert alert-success"
         });
-        console.log(`topic_id= `, topic_id, `name= `, name);
-        await updateTopics(topic_id, name);
       } catch (err) {
         this.setState({
           message: [err.response.data],

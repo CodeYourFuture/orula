@@ -154,7 +154,7 @@ router.post("/lessons", async (req, res) => {
     res
       .status(403)
       .send("This lesson is already exist or lesson name field is empty");
-}
+  }
 });
 
 // Get topics by lessonId
@@ -205,6 +205,12 @@ router.put("/topics/:id", async (req, res) => {
   } else {
     res.status(403).send("This topic is already exists.");
   }
+});
+
+router.get("/topics/:id", async (req, res) => {
+  const topicId = req.params.id;
+  const data = await db.getTopicById(topicId);
+  res.send(data);
 });
 
 module.exports = router;

@@ -141,8 +141,7 @@ const getTopicById = async topic_id => {
   return await knex
     .select()
     .table("topics")
-    .where({ topic_id })
-    .orderBy("topic_id", "asc");
+    .where({ topic_id });
 };
 
 const checkTopicExist = async title => {
