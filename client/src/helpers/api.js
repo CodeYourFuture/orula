@@ -118,10 +118,6 @@ export const addTopic = async (title, lesson_id) => {
   return await instance.post("/api/topics", { title, lesson_id });
 };
 
-export const getUsers = async () => {
-  return await instance.get("/api/users").then(res => res.data);
-};
-
 // Add User
 export const addUser = async (name, email, password) => {
   return await instance.post("/api/users", {

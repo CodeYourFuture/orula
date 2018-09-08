@@ -1,5 +1,5 @@
 import React from "react";
-import { addUser, getUsers, loginUser } from "../../helpers/api";
+import { addUser, loginUser } from "../../helpers/api";
 
 class Register extends React.Component {
   constructor(props) {
@@ -8,15 +8,10 @@ class Register extends React.Component {
       name: "",
       email: "",
       password: "",
-      users: [],
       message: "",
       messageAlert: ""
     };
   }
-  componentDidMount = async () => {
-    const data = await getUsers();
-    this.setState({ users: data });
-  };
 
   handleOnchange = (input, e) => {
     const value = e.target.value;
