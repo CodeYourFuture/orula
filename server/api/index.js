@@ -143,7 +143,7 @@ router.put("/lessons/:id", async (req, res) => {
   const lesson_id = req.params.id;
   const { name, lesson_date, course_id } = req.body;
   if (
-    (await db.checkLessonExist(name, course_id)) === false &&
+    (await db.checkLessonExist(name, lesson_date, course_id)) === false &&
     name !== "" &&
     name !== null
   ) {
@@ -170,7 +170,7 @@ router.delete("/lessons/:id", async (req, res) => {
 router.post("/lessons", async (req, res) => {
   const { name, lesson_date, course_id } = req.body;
   if (
-    (await db.checkLessonExist(name, course_id)) === false &&
+    (await db.checkLessonExist(name, lesson_date, course_id)) === false &&
     name !== "" &&
     name !== null
   ) {
