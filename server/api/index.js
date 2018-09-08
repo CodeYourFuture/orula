@@ -211,6 +211,31 @@ router.get("/topics/:id", async (req, res) => {
   const topicId = req.params.id;
   const data = await db.getTopicById(topicId);
   res.send(data);
+
+  // Add User
+router.post("/users", async (req, res) => {
+  const { name, email, password } = req.body;
+  if (
+    (await db.checkUserByEmailExist(email)) === false &&
+    name !== "" &&
+    name !== null &&
+    email !== "" &&
+    email !== null
+  ) {
+    await db.addUser(name, email, password);
+    res.send("Successfully added course!");
+  } else {
+    res
+      .status(403)
+      .send("This course is already exist or course name field is empty");
+  }
+});
+
+// // Get All Users
+router.get("/users", (req, res) => {
+  db.getUsers().then(data => {
+    res.send(data);
+  });
 });
 
 module.exports = router;
