@@ -73,6 +73,21 @@ exports.seed = async (knex, Promise) => {
       name: "Islam",
       email: "islam@email.com",
       password: "islam123"
+    },
+    {
+      name: "student",
+      email: "student@student.com",
+      password: "password"
+    },
+    {
+      name: "admin",
+      email: "admin@admin.com",
+      password: "password"
+    },
+    {
+      name: "mentor",
+      email: "mentor@mentor.com",
+      password: "password"
     }
   ]);
 };
