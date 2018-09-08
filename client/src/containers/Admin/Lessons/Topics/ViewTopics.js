@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { withRouter, Link } from "react-router-dom";
 import { getTopicsByLessonId, deleteTopic } from "../../../../helpers/api";
+//import EditTopics from "./EditTopics/EditTopics";
 
 class ViewTopics extends Component {
   constructor(props) {
@@ -50,6 +51,12 @@ class ViewTopics extends Component {
             <li key={topic.topic_id} className="list-group-item">
               <div className="row">
                 <div className="col-lg-6">{topic.title}</div>
+                <div className="col-lg-3">
+                  <Link to={`/admin/topics/edit/${topic.topic_id}`}>
+                    {console.log(`Viewpage params= `, this.props)}
+                    <button className="btn btn-success">Edit</button>
+                  </Link>
+                </div>
                 <div className="col-lg-3">
                   <button
                     onClick={() => this.deleteTopic(topic.topic_id)}

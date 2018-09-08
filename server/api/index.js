@@ -122,6 +122,7 @@ router.put("/organisations/:organisation_id", async (req, res) => {
     res.status(403).send("This organisation is already exists.");
   }
 });
+
 // Get All Lessons
 router.get("/lessons", (req, res) => {
   db.getLessons().then(data => {
@@ -191,7 +192,27 @@ router.post("/topics", async (req, res) => {
   }
 });
 
-// // Add User
+router.put("/topics/:id", async (req, res) => {
+  const topicId = req.params.id;
+  const body = req.body;
+  if (
+    (await db.checkTopicExist(body.title)) === false &&
+    body.title !== "" &&
+    body.title !== null
+  ) {
+    await db.updateTopic(topicId, body.title);
+    res.send("Topic is successfully updated!");
+  } else {
+    res.status(403).send("This topic is already exists.");
+  }
+});
+
+router.get("/topics/:id", async (req, res) => {
+  const topicId = req.params.id;
+  const data = await db.getTopicById(topicId);
+  res.send(data);
+});
+// Add User
 router.post("/users", async (req, res) => {
   const { name, email, password } = req.body;
   if (
@@ -210,7 +231,7 @@ router.post("/users", async (req, res) => {
   }
 });
 
-// // Get All Users
+// Get All Users
 router.get("/users", (req, res) => {
   db.getUsers().then(data => {
     res.send(data);

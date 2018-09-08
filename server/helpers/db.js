@@ -137,6 +137,12 @@ const getTopicsByLessonId = async lesson_id => {
     .where({ lesson_id })
     .orderBy("topic_id", "asc");
 };
+const getTopicById = async topic_id => {
+  return await knex
+    .select()
+    .table("topics")
+    .where({ topic_id });
+};
 
 const checkTopicExist = async title => {
   const response = await knex("topics").where({ title });
@@ -169,6 +175,11 @@ const addTopics = async (title, lesson_id) => {
   });
 };
 
+const updateTopic = async (topic_id, name) => {
+  return await knex("topics")
+    .where({ topic_id })
+    .update({ title: name });
+};
 const getUsers = async () => {
   return await knex
     .select()
@@ -220,6 +231,8 @@ module.exports = {
   checkTopicExist,
   deleteTopic,
   addTopics,
+  updateTopic,
+  getTopicById,
   getUsers,
   addUser,
   checkUserByNameExist,
