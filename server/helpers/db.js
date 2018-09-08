@@ -179,7 +179,7 @@ const updateTopic = async (topic_id, name) => {
   return await knex("topics")
     .where({ topic_id })
     .update({ title: name });
-
+};
 const getUsers = async () => {
   return await knex
     .select()
@@ -232,7 +232,7 @@ module.exports = {
   deleteTopic,
   addTopics,
   updateTopic,
-  getTopicById
+  getTopicById,
   getUsers,
   addUser,
   checkUserByNameExist,

@@ -211,8 +211,8 @@ router.get("/topics/:id", async (req, res) => {
   const topicId = req.params.id;
   const data = await db.getTopicById(topicId);
   res.send(data);
-
-  // Add User
+});
+// Add User
 router.post("/users", async (req, res) => {
   const { name, email, password } = req.body;
   if (
@@ -231,7 +231,7 @@ router.post("/users", async (req, res) => {
   }
 });
 
-// // Get All Users
+// Get All Users
 router.get("/users", (req, res) => {
   db.getUsers().then(data => {
     res.send(data);
