@@ -117,3 +117,12 @@ export const deleteTopic = async topic_id => {
 export const addTopic = async (title, lesson_id) => {
   return await instance.post("/api/topics", { title, lesson_id });
 };
+
+// Add User
+export const addUser = async (name, email, password) => {
+  return await instance.post("/api/users", {
+    name,
+    email,
+    password
+  });
+};

@@ -153,7 +153,7 @@ router.post("/lessons", async (req, res) => {
     res
       .status(403)
       .send("This lesson is already exist or lesson name field is empty");
-}
+  }
 });
 
 // Get topics by lessonId
@@ -189,6 +189,32 @@ router.post("/topics", async (req, res) => {
       .status(403)
       .send("This topic is already exists or your name field is empty");
   }
+});
+
+// // Add User
+router.post("/users", async (req, res) => {
+  const { name, email, password } = req.body;
+  if (
+    (await db.checkUserByEmailExist(email)) === false &&
+    name !== "" &&
+    name !== null &&
+    email !== "" &&
+    email !== null
+  ) {
+    await db.addUser(name, email, password);
+    res.send("Successfully added course!");
+  } else {
+    res
+      .status(403)
+      .send("This course is already exist or course name field is empty");
+  }
+});
+
+// // Get All Users
+router.get("/users", (req, res) => {
+  db.getUsers().then(data => {
+    res.send(data);
+  });
 });
 
 module.exports = router;

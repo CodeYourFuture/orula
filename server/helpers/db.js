@@ -169,6 +169,31 @@ const addTopics = async (title, lesson_id) => {
   });
 };
 
+const getUsers = async () => {
+  return await knex
+    .select()
+    .table("users")
+    .orderBy("user_id", "asc");
+};
+
+const addUser = async (name, email, password) => {
+  return await knex("users").insert({
+    name,
+    email,
+    password
+  });
+};
+
+const checkUserByNameExist = async name => {
+  const response = await knex("users").where({ name });
+  return response.length === 0 ? false : true;
+};
+
+const checkUserByEmailExist = async email => {
+  const response = await knex("users").where({ email });
+  return response.length === 0 ? false : true;
+};
+
 module.exports = {
   getCourses,
   getCourseById,
@@ -194,5 +219,9 @@ module.exports = {
   getTopicsByLessonId,
   checkTopicExist,
   deleteTopic,
-  addTopics
+  addTopics,
+  getUsers,
+  addUser,
+  checkUserByNameExist,
+  checkUserByEmailExist
 };
