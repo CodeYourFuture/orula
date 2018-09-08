@@ -4,6 +4,7 @@ exports.seed = async (knex, Promise) => {
   await knex("lessons").del();
   await knex("courses").del();
   await knex("organisations").del();
+  await knex("roles").del();
 
   const organisations = await knex("organisations")
     .returning("organisation_id")
@@ -73,6 +74,34 @@ exports.seed = async (knex, Promise) => {
       name: "Islam",
       email: "islam@email.com",
       password: "islam123"
+    },
+    {
+      name: "student",
+      email: "student@student.com",
+      password: "password"
+    },
+    {
+      name: "admin",
+      email: "admin@admin.com",
+      password: "password"
+    },
+    {
+      name: "mentor",
+      email: "mentor@mentor.com",
+      password: "password"
     }
   ]);
+  await knex("roles")
+    .returning("role_id")
+    .insert([
+      {
+        name: "Admin"
+      },
+      {
+        name: "Mentor"
+      },
+      {
+        name: "Student"
+      }
+    ]);
 };
