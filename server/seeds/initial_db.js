@@ -90,4 +90,17 @@ exports.seed = async (knex, Promise) => {
       password: "password"
     }
   ]);
+  await knex("roles")
+    .returning("role_id")
+    .insert([
+      {
+        name: Admin
+      },
+      {
+        name: Mentor
+      },
+      {
+        name: Student
+      }
+    ]);
 };

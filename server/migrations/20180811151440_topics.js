@@ -78,6 +78,10 @@ exports.up = async (knex, Promise) => {
       .references("course_id")
       .inTable("courses");
   });
+  await knex.schema.createTable("roles", table => {
+    table.increments("role_id");
+    table.string("name");
+  });
 };
 
 exports.down = async (knex, Promise) => {
@@ -88,4 +92,5 @@ exports.down = async (knex, Promise) => {
   await knex.schema.dropTableIfExists("courses");
   await knex.schema.dropTableIfExists("organisations");
   await knex.schema.dropTableIfExists("users");
+  await knex.schema.dropTableIfExists("roles");
 };
