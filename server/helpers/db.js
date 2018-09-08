@@ -205,6 +205,16 @@ const checkUserByEmailExist = async email => {
   return response.length === 0 ? false : true;
 };
 
+const updateUserProfile = async (user_id, name, email, password) => {
+  return await knex("users")
+    .where("user_id", "=", `${user_id}`)
+    .update({
+      name: name,
+      email: email,
+      password: password
+    });
+};
+
 module.exports = {
   getCourses,
   getCourseById,
@@ -236,5 +246,6 @@ module.exports = {
   getUsers,
   addUser,
   checkUserByNameExist,
-  checkUserByEmailExist
+  checkUserByEmailExist,
+  updateUserProfile
 };
