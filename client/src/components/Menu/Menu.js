@@ -42,7 +42,7 @@ class Menu extends Component {
               </Link>
             </li>
             <li>
-              <Link to="/admin/Lessons">
+              <Link to="/admin/lessons">
                 <i className="fa fa-book fa-fw" /> Lessons
               </Link>
             </li>

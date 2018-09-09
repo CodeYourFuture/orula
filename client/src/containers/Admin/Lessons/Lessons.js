@@ -87,6 +87,12 @@ class Lessons extends Component {
                         <td>{this.makeDate(lesson.lesson_date)}</td>
                         <td>{lesson.course_title}</td>
                         <td>
+                          <Link to={`/admin/lessons/edit/${lesson.lesson_id}`}>
+                            <button className="btn btn-success">
+                              {" "}
+                              <i className="fa fa-edit fa-fw" /> Edit
+                            </button>
+                          </Link>{" "}
                           <button
                             onClick={() => this.deleteLesson(lesson.lesson_id)}
                             className="btn btn-danger"
