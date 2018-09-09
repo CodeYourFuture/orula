@@ -72,8 +72,14 @@ export const loginUser = async (email, password) => {
 };
 
 export const getUserProfile = async (name, email, password) => {
-  return await instance.get("/user/profile").then(res => res.data);
-  console.log(`user`, res.data);
+  return (
+    await instance.get("/user/profile"),
+    {
+      name,
+      email,
+      password
+    }
+  );
 };
 
 export const updateOrganisations = async (organisation_id, name) => {
