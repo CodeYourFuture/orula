@@ -51,6 +51,11 @@ class Menu extends Component {
                 <i className="fa fa-sitemap fa-fw" /> Organisations
               </Link>
             </li>
+            <li>
+              <Link to="/admin/users">
+                <i className="fa fa-users fa-fw" /> Users
+              </Link>
+            </li>
           </ul>
         </div>
       </div>
