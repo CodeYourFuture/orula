@@ -75,6 +75,10 @@ export const getUserProfile = () => {
   return instance.get("/user/profile");
 };
 
+export const getUsers = async () => {
+  return await instance.get("/users");
+};
+
 export const updateOrganisations = async (organisation_id, name) => {
   return await instance.put(`/api/organisations/${organisation_id}`, {
     organisation_id,
