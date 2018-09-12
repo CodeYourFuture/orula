@@ -100,12 +100,12 @@ exports.up = async (knex, Promise) => {
 
 exports.down = async (knex, Promise) => {
   await knex.schema.dropTableIfExists("users_courses");
+  await knex.schema.dropTableIfExists("user_roles");
+  await knex.schema.dropTableIfExists("roles");
   await knex.schema.dropTableIfExists("ratings");
+  await knex.schema.dropTableIfExists("users");
   await knex.schema.dropTableIfExists("topics");
   await knex.schema.dropTableIfExists("lessons");
   await knex.schema.dropTableIfExists("courses");
   await knex.schema.dropTableIfExists("organisations");
-  await knex.schema.dropTableIfExists("users");
-  await knex.schema.dropTableIfExists("roles");
-  await knex.schema.dropTableIfExists("user_roles");
 };
