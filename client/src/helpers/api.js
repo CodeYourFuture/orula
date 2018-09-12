@@ -75,8 +75,8 @@ export const getUserProfile = () => {
   return instance.get("/user/profile");
 };
 
-export const getUsers = async () => {
-  return await instance.get("/users");
+export const getUsersByRole = async () => {
+  return await instance.get("/api/user-roles");
 };
 
 export const updateOrganisations = async (organisation_id, name) => {

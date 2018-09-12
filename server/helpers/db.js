@@ -200,6 +200,7 @@ const getUsers = async () => {
 const getUsersByRole = () => {
   return knex
     .select(
+      "users.user_id as user_id",
       "users.name as name",
       "email",
       "roles.name as role"
