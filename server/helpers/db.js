@@ -197,6 +197,26 @@ const getUsers = async () => {
     .orderBy("user_id", "asc");
 };
 
+const getUsersByRole = () => {
+  return knex
+    .select(
+      "users.name as name",
+      "email",
+      "roles.name as role"
+    )
+    .from("users")
+    .innerJoin(
+      "user_roles",
+      "users.user_id",
+      "user_roles.user_id"
+    )
+    .innerJoin(
+      "roles",
+      "roles.role_id",
+      "user_roles.role_id"
+    )
+};
+
 const addUser = async (name, email, password) => {
   return await knex("users").insert({
     name,
@@ -255,6 +275,7 @@ module.exports = {
   updateTopic,
   getTopicById,
   getUsers,
+  getUsersByRole,
   addUser,
   checkUserByNameExist,
   checkUserByEmailExist,
