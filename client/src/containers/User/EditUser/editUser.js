@@ -14,15 +14,10 @@ class EditUser extends React.Component {
   }
 
   componentDidMount = async () => {
-    const user_id = this.props.match.params.courseId;
-    const course = await getCourseById(course_id);
-    const { name, location, organisation_id } = course.data[0];
-    this.setState({
-      course_id,
-      name,
-      location,
-      organisation_id
-    });
+    const user_id = this.props.match.params.userID;
+    const user = await getUserProfile(user_id);
+    const { name, email, password } = user.data[0];
+    this.setState({ user_id, name, email, password });
   };
 
   handleOnchange = (input, e) => {
@@ -33,20 +28,15 @@ class EditUser extends React.Component {
   // put it to /api/courses/:id
   onSubmit = async e => {
     e.preventDefault();
-    const { course_id, name, location, organisation_id } = this.state;
-    if (name === "" || location === "") {
+    const { user_id, name, email, password } = this.state;
+    if (name === "" || email === "") {
       this.setState({
         message: "You must fill all the fields!",
         messageAlert: "alert alert-danger"
       });
     } else {
       try {
-        const res = await editCourse(
-          course_id,
-          name,
-          location,
-          organisation_id
-        );
+        const res = await updateUserProfile(user_id, name, email, password);
         this.setState({
           message: res.data,
           messageAlert: "alert alert-success"
@@ -65,13 +55,13 @@ class EditUser extends React.Component {
       <div>
         <div className="row">
           <div className="col-lg-12">
-            <h2 className="page-header">Edit Course</h2>
+            <h2 className="page-header">Edit user profile</h2>
           </div>
         </div>
         <div className="row">
           <div className="col-lg-12">
             <div className="panel panel-default">
-              <div className="panel-heading">Course details</div>
+              <div className="panel-heading">User details</div>
               <div className="panel-body">
                 <div className="row">
                   <div className="col-lg-6">
@@ -90,16 +80,16 @@ class EditUser extends React.Component {
                         />
                       </div>
                       <div className="form-group">
-                        <label className="control-label" htmlFor="location">
-                          Location
+                        <label className="control-label" htmlFor="email">
+                          Email
                         </label>
                         <input
                           className="form-control"
                           type="text"
-                          name="location"
-                          id="location"
-                          onChange={e => this.handleOnchange("location", e)}
-                          value={this.state.location}
+                          name="email"
+                          id="email"
+                          onChange={e => this.handleOnchange("email", e)}
+                          value={this.state.email}
                         />
                       </div>
                       <button
@@ -121,9 +111,9 @@ class EditUser extends React.Component {
             )}
           </div>
           <div className="col-lg-12">
-            <Link to="/admin/courses">
+            <Link to="/user/profile">
               <button className="btn btn-primary">
-                <i className="fa fa-eye fa-fw" /> View all courses
+                <i className="fa fa-eye fa-fw" /> return
               </button>
             </Link>
           </div>
@@ -133,4 +123,4 @@ class EditUser extends React.Component {
   }
 }
 
-export default editUser;
+export default EditUser;
