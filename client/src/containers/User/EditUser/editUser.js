@@ -95,7 +95,7 @@ class EditUser extends React.Component {
                           name="email"
                           id="email"
                           onChange={e => this.handleOnchange("email", e)}
-                          value={this.state.name}
+                          value={this.state.email}
                         />
                       </div>
                       <div className="form-group">
