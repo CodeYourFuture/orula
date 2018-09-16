@@ -249,11 +249,11 @@ router.post("/users", async (req, res) => {
     email !== null
   ) {
     await db.addUser(name, email, password);
-    res.send("Successfully added course!");
+    res.send("Successfully added User!");
   } else {
     res
       .status(403)
-      .send("This course is already exist or course name field is empty");
+      .send("This user is already exist or user name field is empty");
   }
 });
 

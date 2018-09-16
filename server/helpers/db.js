@@ -171,10 +171,14 @@ const editLesson = async (lesson_id, name, lesson_date, course_id) => {
       lesson_date,
       course_id
     });
-}
+};
 
 const checkLessonExist = async (name, lesson_date, course_id) => {
-  const response = await knex("lessons").where({ name, lesson_date, course_id });
+  const response = await knex("lessons").where({
+    name,
+    lesson_date,
+    course_id
+  });
   return response.length === 0 ? false : true;
 };
 

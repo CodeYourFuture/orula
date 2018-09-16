@@ -18,8 +18,18 @@ router.get("/profile", async (req, res, next) => {
 router.put("/profile", async (req, res, next) => {
   const { user_id: userId } = req.user;
   const { name, email, password } = req.body;
-  await db.updateUserProfile(userId, name, email, password);
-  res.send("The user has been updated");
+  if (
+    (await db.checkUserByEmailExist(email)) === false &&
+    name !== "" &&
+    name !== null &&
+    email !== "" &&
+    email !== null
+  ) {
+    await db.updateUserProfile(userId, name, email, password);
+    res.send("The user has been updated");
+  } else {
+    res.status(403).send("This the email user is already exist");
+  }
 });
 
 module.exports = router;

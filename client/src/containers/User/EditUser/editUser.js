@@ -17,7 +17,7 @@ class EditUser extends React.Component {
   componentDidMount = async () => {
     const user = await getUserProfile();
     console.log(`Userdata= `, user);
-    const { user_id, email, name } = user;
+    const { user_id, email, name } = user.data;
     this.setState({
       user_id,
       name,
@@ -34,10 +34,10 @@ class EditUser extends React.Component {
   // put it to /api/courses/:id
   onSubmit = async e => {
     e.preventDefault();
-    const { user_id, name, email, password } = this.state;
-    if (name === "" || email === "" || password === "") {
+    const { name, email, password } = this.state;
+    if (name === "" || email === "") {
       this.setState({
-        message: "You must fill all the fields!",
+        message: "You must fill name and email fields!",
         messageAlert: "alert alert-danger"
       });
     } else {
@@ -102,6 +102,10 @@ class EditUser extends React.Component {
                         <label className="control-label" htmlFor="password">
                           Password
                         </label>
+                        <br />
+                        <span>
+                          Fill only if you want to change the password
+                        </span>
                         <input
                           className="form-control"
                           type="text"
@@ -133,7 +137,7 @@ class EditUser extends React.Component {
           <div className="col-lg-12">
             <Link to="/my-profile">
               <button className="btn btn-primary">
-                <i className="fa fa-eye fa-fw" /> return
+                <i className="fa fa-eye fa-fw" /> Return
               </button>
             </Link>
           </div>
