@@ -71,15 +71,13 @@ export const loginUser = async (email, password) => {
   return data.token;
 };
 
-export const getUserProfile = async (name, email, password) => {
-  return (
-    await instance.get("/user/profile"),
-    {
-      name,
-      email,
-      password
+export const getUserProfile = async () => {
+  const token = localStorage.getItem("jwtToken");
+  return await instance.get("/user/profile", {
+    headers: {
+      Authorization: `Bearer ${token}`
     }
-  );
+  });
 };
 
 export const updateOrganisations = async (organisation_id, name) => {
@@ -151,5 +149,18 @@ export const addUser = async (name, email, password) => {
     name,
     email,
     password
+  });
+};
+
+//Edit User
+export const updateUserProfile = async (name, email) => {
+  const token = localStorage.getItem("jwtToken");
+
+  return await instance.put(`/user/profile`, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    },
+    name,
+    email
   });
 };

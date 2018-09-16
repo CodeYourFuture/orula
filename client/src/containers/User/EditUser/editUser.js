@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { getUserProfile, updateUserProfile } from "../../../helpers/api";
 import { Link } from "react-router-dom";
 
@@ -8,20 +8,26 @@ class EditUser extends React.Component {
     this.state = {
       user_id: "",
       name: "",
+      password: "",
       message: "",
       messageAlert: ""
     };
   }
 
   componentDidMount = async () => {
-    const user_id = this.props.match.params.userID;
-    const user = await getUserProfile(user_id);
-    const { name, email, password } = user.data[0];
-    this.setState({ user_id, name, email, password });
+    const user = await getUserProfile();
+    console.log(`Userdata= `, user);
+    const { user_id, email, name } = user;
+    this.setState({
+      user_id,
+      name,
+      email
+    });
   };
 
   handleOnchange = (input, e) => {
     const value = e.target.value;
+    console.log("vlaue= ", value);
     this.setState({ [input]: value });
   };
 
@@ -29,14 +35,14 @@ class EditUser extends React.Component {
   onSubmit = async e => {
     e.preventDefault();
     const { user_id, name, email, password } = this.state;
-    if (name === "" || email === "") {
+    if (name === "" || email === "" || password === "") {
       this.setState({
         message: "You must fill all the fields!",
         messageAlert: "alert alert-danger"
       });
     } else {
       try {
-        const res = await updateUserProfile(user_id, name, email, password);
+        const res = await updateUserProfile(name, email);
         this.setState({
           message: res.data,
           messageAlert: "alert alert-success"
@@ -89,9 +95,23 @@ class EditUser extends React.Component {
                           name="email"
                           id="email"
                           onChange={e => this.handleOnchange("email", e)}
-                          value={this.state.email}
+                          value={this.state.name}
                         />
                       </div>
+                      <div className="form-group">
+                        <label className="control-label" htmlFor="password">
+                          Password
+                        </label>
+                        <input
+                          className="form-control"
+                          type="text"
+                          name="password"
+                          id="password"
+                          onChange={e => this.handleOnchange("password", e)}
+                          value={this.state.password}
+                        />
+                      </div>
+
                       <button
                         type="submit"
                         className="btn btn-primary"
@@ -111,7 +131,7 @@ class EditUser extends React.Component {
             )}
           </div>
           <div className="col-lg-12">
-            <Link to="/user/profile">
+            <Link to="/my-profile">
               <button className="btn btn-primary">
                 <i className="fa fa-eye fa-fw" /> return
               </button>
