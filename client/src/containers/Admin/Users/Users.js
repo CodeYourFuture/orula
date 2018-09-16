@@ -30,7 +30,7 @@ class Users extends Component {
                     <th>#</th>
                     <th>Name</th>
                     <th>Email</th>
-                    <th>Role</th>
+                    <th>Roles</th>
                     <th>Assign Roles</th>
                   </tr>
                 </thead>
@@ -40,7 +40,7 @@ class Users extends Component {
                       <td>{i + 1}</td>
                       <td>{user.name}</td>
                       <td>{user.email}</td>
-                      <td>{user.role}</td>
+                      <td>{user.roles.map(role => role + " ")}</td>
                       <td>
                         <Link to={`/admin/users/assign-role/${user.user_id}`}>
                           <button className="btn btn-primary">
