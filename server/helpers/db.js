@@ -171,10 +171,14 @@ const editLesson = async (lesson_id, name, lesson_date, course_id) => {
       lesson_date,
       course_id
     });
-}
+};
 
 const checkLessonExist = async (name, lesson_date, course_id) => {
-  const response = await knex("lessons").where({ name, lesson_date, course_id });
+  const response = await knex("lessons").where({
+    name,
+    lesson_date,
+    course_id
+  });
   return response.length === 0 ? false : true;
 };
 
@@ -206,16 +210,17 @@ const getUsersByRole = () => {
       "roles.name as role"
     )
     .from("users")
-    .innerJoin(
-      "user_roles",
-      "users.user_id",
-      "user_roles.user_id"
-    )
-    .innerJoin(
-      "roles",
-      "roles.role_id",
-      "user_roles.role_id"
-    )
+    .innerJoin("user_roles", "users.user_id", "user_roles.user_id")
+    .innerJoin("roles", "roles.role_id", "user_roles.role_id");
+};
+
+const getUserRoles = async user_id => {
+  return knex
+    .select("roles.name as role")
+    .from("users")
+    .innerJoin("user_roles", "users.user_id", "user_roles.user_id")
+    .innerJoin("roles", "roles.role_id", "user_roles.role_id")
+    .where({ "users.user_id": user_id });
 };
 
 const addUser = async (name, email, password) => {
@@ -277,6 +282,7 @@ module.exports = {
   getTopicById,
   getUsers,
   getUsersByRole,
+  getUserRoles,
   addUser,
   checkUserByNameExist,
   checkUserByEmailExist,

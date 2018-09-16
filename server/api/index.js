@@ -265,8 +265,14 @@ router.get("/users", (req, res) => {
 });
 
 router.get("/user-roles", async (req, res) => {
-  const data = await db.getUsersByRole()
-  res.send(data)
-})
+  const data = await db.getUsersByRole();
+  res.send(data);
+});
+
+router.get("/user-roles/:id", async (req, res) => {
+  const userId = req.params.id;
+  const data = await db.getUserRoles(userId);
+  res.send(data);
+});
 
 module.exports = router;

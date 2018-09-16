@@ -24,7 +24,7 @@ class AssignUserRole extends Component {
   };
 
   render() {
-    console.log(this.state.user_id)
+    // console.log(this.state.user_id)
     return (
       <div>
         <div className="row">
