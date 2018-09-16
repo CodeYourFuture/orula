@@ -223,7 +223,20 @@ const getUserRoles = async user_id => {
     .where({ "users.user_id": user_id });
 };
 
+const clearRolesByUser = async user_id => {
+  return await knex("user_roles")
+    .where({ user_id })
+    .del();
+};
 
+const checkUserHasRole = async user_id => {
+  const response = await knex("user_roles").where({ user_id });
+  return response.length === 0 ? false : true;
+};
+
+const addRoleToUser = async (user_id, role_id) => {
+  return await knex("user_roles").insert({ user_id, role_id });
+};
 
 const addUser = async (name, email, password) => {
   return await knex("users").insert({
@@ -292,6 +305,9 @@ module.exports = {
   getUsers,
   getUsersByRole,
   getUserRoles,
+  clearRolesByUser,
+  addRoleToUser,
+  checkUserHasRole,
   addUser,
   checkUserByNameExist,
   checkUserByEmailExist,

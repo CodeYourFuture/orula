@@ -79,9 +79,20 @@ export const getUsersByRole = async () => {
   return await instance.get("/api/user-roles");
 };
 
-export const getUserRoles = async (user_id) => {
+export const getUserRoles = async user_id => {
   return await instance.get(`/api/user-roles/${user_id}`, { user_id });
-}
+};
+
+export const clearRolesByUser = async user_id => {
+  return await instance.delete(`/api/user-roles/${user_id}`);
+};
+
+export const addRoleToUser = async (user_id, role_id) => {
+  return await instance.post("/api/user-roles", {
+    user_id,
+    role_id
+  });
+};
 
 export const getRoles = async () => {
   return await instance.get("/api/roles");
