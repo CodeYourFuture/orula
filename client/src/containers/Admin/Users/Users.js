@@ -31,7 +31,7 @@ class Users extends Component {
                     <th>Name</th>
                     <th>Email</th>
                     <th>Roles</th>
-                    <th>Assign Roles</th>
+                    <th>Actions</th>
                   </tr>
                 </thead>
                 <tbody>
