@@ -1,6 +1,6 @@
 import React from "react";
 
-class NavbarHEader extends React.Component {
+class NavbarHeader extends React.Component {
   render() {
     return (
       <div className="navbar-header">
@@ -23,4 +23,4 @@ class NavbarHEader extends React.Component {
   }
 }
 
-export default NavbarHEader;
+export default NavbarHeader;
