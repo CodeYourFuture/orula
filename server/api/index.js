@@ -32,7 +32,7 @@ router.post("/courses", async (req, res) => {
   } else {
     res
       .status(403)
-      .send("This course is already exist or course name field is empty");
+      .send("This course already exist or course name field is empty");
   }
 });
 
@@ -50,7 +50,7 @@ router.put("/courses/:id", async (req, res) => {
   } else {
     res
       .status(403)
-      .send("This course is already exist or course name field is empty");
+      .send("This course already exist or course name field is empty");
   }
 });
 
