@@ -46,7 +46,7 @@ class EditLesson extends React.Component {
   onSubmit = async e => {
     e.preventDefault();
     const { lesson_id, name, lesson_date, course_id } = this.state;
-    if (name === "" || lesson_date === "" || course_id === "") {
+    if (name === "" || moment(lesson_date) < new Date("12-12-1970")  || course_id === "") {
       this.setState({
         message: "You must fill all the fields!",
         messageAlert: "alert alert-danger"
