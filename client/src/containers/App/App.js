@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import Home from "../Home/Home";
 import Help from "../Help/Help";
-import MyProfile from "../../components/MyProfile/MyProfile";
+import MyProfile from "../../containers/MyProfile/MyProfile";
 import "./App.css";
 import Dashboard from "../Dashboard/Dashboard";
 import Courses from "../Courses/Courses";
