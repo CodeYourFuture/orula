@@ -48,6 +48,11 @@ exports.up = async (knex, Promise) => {
     table.string("name");
     table.string("email");
     table.string("password");
+    table.integer("role_id").defaultTo(3);
+    table
+      .foreign("role_id")
+      .references("role_id")
+      .inTable("roles");
   });
 
   await knex.schema.createTable("ratings", table => {
