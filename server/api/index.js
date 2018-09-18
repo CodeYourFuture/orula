@@ -78,7 +78,7 @@ router.post("/organisations", async (req, res) => {
   } else {
     res
       .status(403)
-      .send("This organisation is already exists or your name field is empty");
+      .send("This organisation already exists or your name field is empty");
   }
 });
 
@@ -119,7 +119,7 @@ router.put("/organisations/:organisation_id", async (req, res) => {
     await db.updateOrganisation(organisation_id, body.name);
     res.send("Organisation is successfully updated!");
   } else {
-    res.status(403).send("This organisation is already exists.");
+    res.status(403).send("This organisation already exists.");
   }
 });
 
