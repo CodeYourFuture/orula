@@ -27,14 +27,13 @@ class EditUser extends React.Component {
 
   handleOnchange = (input, e) => {
     const value = e.target.value;
-    console.log("vlaue= ", value);
     this.setState({ [input]: value });
   };
 
   // put it to /api/courses/:id
   onSubmit = async e => {
     e.preventDefault();
-    const { name, email, password } = this.state;
+    const { name, email } = this.state;
     if (name === "" || email === "") {
       this.setState({
         message: "You must fill name and email fields!",
