@@ -19,8 +19,12 @@ router.put("/profile", async (req, res, next) => {
   const { user_id: userId } = req.user;
   const { name, email, password } = req.body;
 
-  await db.updateUserProfile(userId, name, email, password);
-  res.send("The user has been updated");
+  if (await db.isEmailAvailableForCurrentUser(email, userId)) {
+    await db.updateUserProfile(userId, name, email, password);
+    res.send("The user has been updated");
+  } else {
+    res.status(403).send("The email exists in the database");
+  }
 });
 
 module.exports = router;
