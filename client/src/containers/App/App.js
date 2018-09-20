@@ -4,7 +4,7 @@ import Home from "../../components/Home/Home";
 import Help from "../../components/Help/Help";
 import MyProfile from "../../components/MyProfile/MyProfile";
 import "./App.css";
-import Dashboard from "../Dashboard/Dashboard";
+import Dashboard from "../../components/Dashboard/Dashboard";
 import Courses from "../Courses/Courses";
 import AddOrganisation from "../Admin/AddOrganisation/AddOrganisation";
 import AddCourse from "../Courses/AddCourse/AddCourse";
