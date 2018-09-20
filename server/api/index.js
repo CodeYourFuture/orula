@@ -152,7 +152,7 @@ router.put("/lessons/:id", async (req, res) => {
   } else {
     res
       .status(403)
-      .send("This lesson is already exist or lesson name field is empty");
+      .send("This lesson already exists or lesson name/date field is empty");
   }
 });
 
