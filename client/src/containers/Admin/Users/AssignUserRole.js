@@ -2,8 +2,7 @@ import React, { Component } from "react";
 import {
   getUserRoles,
   getRoles,
-  addRoleToUser,
-  clearRolesByUser
+  addRoleToUser
 } from "../../../helpers/api";
 
 class AssignUserRole extends Component {
@@ -60,11 +59,7 @@ class AssignUserRole extends Component {
       });
     } else {
       try {
-        let res = "";
-        await clearRolesByUser(user_id);
-        for (const role of roles) {
-          res = await addRoleToUser(user_id, role.role_id);
-        }
+        const res = await addRoleToUser(user_id, roles.map(r => r.role_id));
         this.setState({
           message: res.data,
           messageAlert: "alert alert-success"

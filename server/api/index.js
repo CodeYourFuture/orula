@@ -248,7 +248,8 @@ router.post("/users", async (req, res) => {
     email !== "" &&
     email !== null
   ) {
-    await db.addUser(name, email, password);
+    const userId = await db.addUser(name, email, password);
+    await db.addRoleToUser(userId[0], 3) // Add default role "Student" to new user
     res.send("Successfully added course!");
   } else {
     res
@@ -295,21 +296,12 @@ router.get("/user-roles/:id", async (req, res) => {
 router.post("/user-roles", async (req, res) => {
   const body = req.body;
   try {
-    await db.addRoleToUser(body.user_id, body.role_id);
+    await db.clearRolesByUser(body.user_id)
+    console.log(body.roles)
+    body.roles.forEach(async role_id => await db.addRoleToUser(body.user_id, role_id))
     res.send("Successfully assigned roles!");
   } catch (error) {
     res.status(403).send("Sorry, couldn't add roles.");
-  }
-});
-
-// Delete roles by user
-router.delete("/user-roles/:id", async (req, res) => {
-  const user_id = req.params.id;
-  if (await db.checkUserHasRole(user_id)) {
-    await db.clearRolesByUser(user_id);
-    res.send("Successfully deleted roles!");
-  } else {
-    res.status(403).send("A user doesn't have roles!");
   }
 });
 
