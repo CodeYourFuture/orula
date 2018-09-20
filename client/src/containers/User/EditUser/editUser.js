@@ -16,7 +16,6 @@ class EditUser extends React.Component {
 
   componentDidMount = async () => {
     const user = await getSessionUser();
-    console.log(`Userdata= `, user);
     const { user_id, email, name } = user;
     this.setState({
       user_id,
