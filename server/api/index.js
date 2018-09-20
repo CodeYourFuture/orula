@@ -297,7 +297,6 @@ router.post("/user-roles", async (req, res) => {
   const body = req.body;
   try {
     await db.clearRolesByUser(body.user_id)
-    console.log(body.roles)
     body.roles.forEach(async role_id => await db.addRoleToUser(body.user_id, role_id))
     res.send("Successfully assigned roles!");
   } catch (error) {

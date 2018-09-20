@@ -239,7 +239,7 @@ const addRoleToUser = async (user_id, role_id) => {
 };
 
 const addUser = async (name, email, password) => {
-  return await knex("users").insert({
+  return await knex("users").returning("user_id").insert({
     name,
     email,
     password
