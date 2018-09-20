@@ -5,10 +5,10 @@ import Help from "../../components/Help/Help";
 import MyProfile from "../../components/MyProfile/MyProfile";
 import "./App.css";
 import Dashboard from "../../components/Dashboard/Dashboard";
-import Courses from "../Courses/Courses";
+import Courses from "../Admin/Courses/Courses";
 import AddOrganisation from "../Admin/AddOrganisation/AddOrganisation";
-import AddCourse from "../Courses/AddCourse/AddCourse";
-import EditCourse from "../Courses/EditCourse/EditCourse";
+import AddCourse from "../Admin/Courses/AddCourse/AddCourse";
+import EditCourse from "../Admin/Courses/EditCourse/EditCourse";
 import Nav from "../../components/Nav/Nav";
 import Organisations from "../Admin/Organisations/Organisations";
 import axios from "axios";
@@ -19,7 +19,7 @@ import EditLesson from "../Admin/Lessons/EditLesson/EditLesson";
 import ViewTopics from "../Admin/Lessons/Topics/ViewTopics";
 import AddTopics from "../Admin/Lessons/Topics/AddTopics/AddTopics";
 import EditTopics from "../Admin/Lessons/Topics/EditTopics/EditTopics";
-import EditUser from "../User/EditUser/editUser";
+import EditUser from "../User/EditUser/EditUser";
 
 class App extends Component {
   componentDidMount = async () => {
