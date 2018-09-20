@@ -23,7 +23,7 @@ router.put("/profile", async (req, res, next) => {
     await db.updateUserProfile(userId, name, email, password);
     res.send("The user has been updated");
   } else {
-    res.status(403).send("The email exists in the database");
+    res.status(403).send("This email already exists in the database");
   }
 });
 
