@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import Home from "../Home/Home";
 import Help from "../Help/Help";
-import MyProfile from "../../components/MyProfile/MyProfile";
+import MyProfile from "../../containers/MyProfile/MyProfile";
 import "./App.css";
 import Dashboard from "../Dashboard/Dashboard";
 import Courses from "../Courses/Courses";
@@ -15,6 +15,7 @@ import axios from "axios";
 import UpdateOrganisation from "../Admin/Organisations/Edit/UpdateOrganisation";
 import Lessons from "../Admin/Lessons/Lessons";
 import AddLesson from "../Admin/Lessons/AddLesson/AddLesson";
+import EditLesson from "../Admin/Lessons/EditLesson/EditLesson";
 import ViewTopics from "../Admin/Lessons/Topics/ViewTopics";
 import AddTopics from "../Admin/Lessons/Topics/AddTopics/AddTopics";
 import EditTopics from "../Admin/Lessons/Topics/EditTopics/EditTopics";
@@ -64,6 +65,11 @@ class App extends Component {
             />
             <Route exact path="/admin/lessons" component={Lessons} />
             <Route exact path="/admin/lessons/add" component={AddLesson} />
+            <Route
+              exact
+              path="/admin/lessons/edit/:lessonId"
+              component={EditLesson}
+            />
             <Route
               exact
               path="/admin/lessons/:lessonId/topics"

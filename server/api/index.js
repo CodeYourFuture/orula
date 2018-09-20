@@ -130,6 +130,32 @@ router.get("/lessons", (req, res) => {
   });
 });
 
+// Get 1 Lesson
+router.get("/lessons/:id", (req, res) => {
+  const lesson_id = req.params.id;
+  db.getLessonsById(lesson_id).then(data => {
+    res.send(data);
+  });
+});
+
+// Edit Lesson
+router.put("/lessons/:id", async (req, res) => {
+  const lesson_id = req.params.id;
+  const { name, lesson_date, course_id } = req.body;
+  if (
+    (await db.checkLessonExist(name, lesson_date, course_id)) === false &&
+    name !== "" &&
+    name !== null
+  ) {
+    await db.editLesson(lesson_id, name, lesson_date, course_id);
+    res.send("Lesson is successfully updated!");
+  } else {
+    res
+      .status(403)
+      .send("This lesson already exists or lesson name/date field is empty");
+  }
+});
+
 router.delete("/lessons/:id", async (req, res) => {
   const lesson_id = req.params.id;
   if ((await db.checkLessonToDelete(lesson_id)) !== false) {
@@ -144,7 +170,7 @@ router.delete("/lessons/:id", async (req, res) => {
 router.post("/lessons", async (req, res) => {
   const { name, lesson_date, course_id } = req.body;
   if (
-    (await db.checkLessonExist(name, course_id)) === false &&
+    (await db.checkLessonExist(name, lesson_date, course_id)) === false &&
     name !== "" &&
     name !== null
   ) {

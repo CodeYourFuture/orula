@@ -163,8 +163,18 @@ const addLesson = async (name, lesson_date, course_id) => {
   });
 };
 
-const checkLessonExist = async (name, course_id) => {
-  const response = await knex("lessons").where({ name, course_id });
+const editLesson = async (lesson_id, name, lesson_date, course_id) => {
+  return await knex("lessons")
+    .where({ lesson_id })
+    .update({
+      name,
+      lesson_date,
+      course_id
+    });
+}
+
+const checkLessonExist = async (name, lesson_date, course_id) => {
+  const response = await knex("lessons").where({ name, lesson_date, course_id });
   return response.length === 0 ? false : true;
 };
 
@@ -236,6 +246,7 @@ module.exports = {
   checkLessonToDelete,
   deleteLesson,
   addLesson,
+  editLesson,
   checkLessonExist,
   getTopicsByLessonId,
   checkTopicExist,

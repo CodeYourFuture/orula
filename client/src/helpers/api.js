@@ -71,8 +71,15 @@ export const loginUser = async (email, password) => {
   return data.token;
 };
 
-export const getUserProfile = () => {
-  return instance.get("/user/profile");
+export const getSessionUser = async () => {
+  const token = localStorage.getItem("jwtToken");
+  return await instance
+    .get("/user/profile", {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+    .then(res => res.data);
 };
 
 export const updateOrganisations = async (organisation_id, name) => {
@@ -100,6 +107,15 @@ export const deleteLesson = async lesson_id => {
 
 export const addLesson = async (name, lesson_date, course_id) => {
   return await instance.post("/api/lessons", {
+    name,
+    lesson_date,
+    course_id
+  });
+};
+
+// Edit Lesson
+export const editLesson = async (lesson_id, name, lesson_date, course_id) => {
+  return await instance.put(`/api/lessons/${lesson_id}`, {
     name,
     lesson_date,
     course_id
