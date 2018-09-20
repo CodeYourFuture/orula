@@ -23,10 +23,7 @@ class MyProfile extends Component {
         <div className="col-lg-12">
           <h1 className="page-header">My profile</h1>
           <div className="table-responsive">
-            <table
-              className
-              className="table table-striped table-bordered table-hover"
-            >
+            <table className="table table-striped table-bordered table-hover">
               <thead>
                 <tr>
                   <th>#</th>
