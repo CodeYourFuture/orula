@@ -19,7 +19,7 @@ import EditLesson from "../Admin/Lessons/EditLesson/EditLesson";
 import ViewTopics from "../Admin/Lessons/Topics/ViewTopics";
 import AddTopics from "../Admin/Lessons/Topics/AddTopics/AddTopics";
 import EditTopics from "../Admin/Lessons/Topics/EditTopics/EditTopics";
-import EditUser from "../User/EditUser/editUser";
+import EditUser from "../User/EditUser/EditUser";
 
 class App extends Component {
   componentDidMount = async () => {
