@@ -1,5 +1,5 @@
 import React from "react";
-import { getUserProfile, updateUserProfile } from "../../../helpers/api";
+import { getSessionUser, updateUserProfile } from "../../../helpers/api";
 import { Link } from "react-router-dom";
 
 class EditUser extends React.Component {
@@ -15,9 +15,9 @@ class EditUser extends React.Component {
   }
 
   componentDidMount = async () => {
-    const user = await getUserProfile();
+    const user = await getSessionUser();
     console.log(`Userdata= `, user);
-    const { user_id, email, name } = user.data;
+    const { user_id, email, name } = user;
     this.setState({
       user_id,
       name,
