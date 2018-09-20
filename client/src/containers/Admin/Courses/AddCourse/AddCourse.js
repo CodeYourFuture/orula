@@ -1,5 +1,5 @@
 import React from "react";
-import { addCourse, getOrganisations } from "../../../helpers/api";
+import { addCourse, getOrganisations } from "../../../../helpers/api";
 
 class AddCourse extends React.Component {
   constructor(props) {

@@ -1,5 +1,5 @@
 import React from "react";
-import { editCourse, getCourseById } from "../../../helpers/api";
+import { editCourse, getCourseById } from "../../../../helpers/api";
 import { Link } from "react-router-dom";
 
 class EditCourse extends React.Component {
