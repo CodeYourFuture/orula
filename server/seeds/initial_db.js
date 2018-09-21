@@ -126,6 +126,15 @@ exports.seed = async (knex, Promise) => {
     {
       user_id: users[1],
       role_id: roles[2]
-    }
+    },
+    {
+      user_id: users[2],
+      role_id: roles[0]
+    },
+    {
+      user_id: users[3],
+      role_id: roles[1]
+    },
+    
   ]);
 };

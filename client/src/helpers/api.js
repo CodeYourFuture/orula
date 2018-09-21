@@ -86,9 +86,16 @@ export const getUsersByRole = async () => {
   return await instance.get("/api/user-roles");
 };
 
-export const getUserRoles = async (user_id) => {
+export const getUserRoles = async user_id => {
   return await instance.get(`/api/user-roles/${user_id}`, { user_id });
-}
+};
+
+export const addRoleToUser = async (user_id, roles) => {
+  return await instance.post("/api/user-roles", {
+    user_id,
+    roles
+  });
+};
 
 export const getRoles = async () => {
   return await instance.get("/api/roles");

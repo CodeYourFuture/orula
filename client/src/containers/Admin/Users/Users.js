@@ -8,8 +8,7 @@ class Users extends Component {
   };
 
   componentDidMount = async () => {
-    const res = await getUsersByRole();
-    const users = res.data;
+    const {data: users} = await getUsersByRole()
     this.setState({ users });
   };
 
@@ -35,9 +34,9 @@ class Users extends Component {
                   </tr>
                 </thead>
                 <tbody>
-                  {this.state.users.map((user, i) => (
-                    <tr key={i}>
-                      <td>{i + 1}</td>
+                  {this.state.users.map(user => (
+                    <tr key={user.user_id}>
+                      <td>{user.user_id}</td>
                       <td>{user.name}</td>
                       <td>{user.email}</td>
                       <td>{user.roles.map(role => role + " ")}</td>
