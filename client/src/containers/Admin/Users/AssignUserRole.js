@@ -23,7 +23,7 @@ class AssignUserRole extends Component {
     const user_id = this.props.match.params.userId;
     const { data: userRolesData } = await getUserRoles(user_id);
     const { data: allRoles } = await getRoles();
-    const userRoles = allRoles.map(role => role.role);
+    const userRoles = userRolesData.map(role => role.role);
     const { name, email } = userRolesData[0];
     this.setState({ user_id, userRoles, allRoles, name, email });
   };
