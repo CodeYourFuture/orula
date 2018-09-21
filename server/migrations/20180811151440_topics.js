@@ -82,15 +82,30 @@ exports.up = async (knex, Promise) => {
     table.increments("role_id");
     table.string("name");
   });
+  await knex.schema.createTable("user_roles", table => {
+    table.increments("user_roles_id");
+    table.integer("user_id");
+    table.integer("role_id");
+    table
+      .foreign("user_id")
+      .references("user_id")
+      .inTable("users");
+
+    table
+      .foreign("role_id")
+      .references("role_id")
+      .inTable("roles");
+  });
 };
 
 exports.down = async (knex, Promise) => {
   await knex.schema.dropTableIfExists("users_courses");
+  await knex.schema.dropTableIfExists("user_roles");
+  await knex.schema.dropTableIfExists("roles");
   await knex.schema.dropTableIfExists("ratings");
+  await knex.schema.dropTableIfExists("users");
   await knex.schema.dropTableIfExists("topics");
   await knex.schema.dropTableIfExists("lessons");
   await knex.schema.dropTableIfExists("courses");
   await knex.schema.dropTableIfExists("organisations");
-  await knex.schema.dropTableIfExists("users");
-  await knex.schema.dropTableIfExists("roles");
 };

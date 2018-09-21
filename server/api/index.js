@@ -262,4 +262,36 @@ router.get("/users", (req, res) => {
   });
 });
 
+router.get("/user-roles", async (req, res) => {
+  const data = await db.getUsersByRole();
+  const newData = data.reduce((result, current) => {
+    const userId = current.user_id;
+    if (result[userId]) {
+      result[userId]["roles"].push(current.role);
+    } else {
+      result[userId] = {
+        name: current.name,
+        user_id: current.user_id,
+        email: current.email
+      };
+      result[userId]["roles"] = [current.role];
+    }
+
+    return result;
+  }, {});
+
+  res.send(Object.values(newData));
+});
+
+router.get("/user-roles/:id", async (req, res) => {
+  const userId = req.params.id;
+  const data = await db.getUserRoles(userId);
+  res.send(data);
+});
+
+router.get("/roles", async (req, res) => {
+  const data = await db.getRoles();
+  res.send(data);
+});
+
 module.exports = router;

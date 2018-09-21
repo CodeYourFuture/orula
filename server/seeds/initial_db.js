@@ -1,10 +1,12 @@
 exports.seed = async (knex, Promise) => {
   // Deletes ALL existing entries
+  await knex("user_roles").del();
+  await knex("roles").del();
+  await knex("users").del();
   await knex("topics").del();
   await knex("lessons").del();
   await knex("courses").del();
   await knex("organisations").del();
-  await knex("roles").del();
 
   const organisations = await knex("organisations")
     .returning("organisation_id")
@@ -73,34 +75,32 @@ exports.seed = async (knex, Promise) => {
       }
     ]);
 
-  await knex("users").insert([
-    {
-      name: "Islam",
-      email: "islam@email.com",
-      password: "islam123"
-    },
-    {
-      name: "shawki",
-      email: "shawki@email.com",
-      password: "shawki123"
-    },
-    {
-      name: "student",
-      email: "student@student.com",
-      password: "password"
-    },
-    {
-      name: "admin",
-      email: "admin@admin.com",
-      password: "password"
-    },
-    {
-      name: "mentor",
-      email: "mentor@mentor.com",
-      password: "password"
-    }
-  ]);
-  await knex("roles")
+  const users = await knex("users")
+    .returning("user_id")
+    .insert([
+      {
+        name: "Islam",
+        email: "islam@email.com",
+        password: "islam123"
+      },
+      {
+        name: "student",
+        email: "student@student.com",
+        password: "password"
+      },
+      {
+        name: "admin",
+        email: "admin@admin.com",
+        password: "password"
+      },
+      {
+        name: "mentor",
+        email: "mentor@mentor.com",
+        password: "password"
+      }
+    ]);
+
+  const roles = await knex("roles")
     .returning("role_id")
     .insert([
       {
@@ -113,4 +113,19 @@ exports.seed = async (knex, Promise) => {
         name: "Student"
       }
     ]);
+
+  await knex("user_roles").insert([
+    {
+      user_id: users[0],
+      role_id: roles[0]
+    },
+    {
+      user_id: users[0],
+      role_id: roles[1]
+    },
+    {
+      user_id: users[1],
+      role_id: roles[2]
+    }
+  ]);
 };
