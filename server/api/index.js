@@ -265,24 +265,28 @@ router.get("/users", (req, res) => {
   });
 });
 
+// Get user roles
 router.get("/user-roles", async (req, res) => {
-  const data = await db.getUsersByRole();
+  const data = await db.getUsersWithRoles();
   const newData = data.reduce((result, current) => {
     const userId = current.user_id;
     if (result[userId]) {
+      // create roles array inside user roles object and push current role to it
       result[userId]["roles"].push(current.role);
     } else {
+      //create an object with user id, name, email
       result[userId] = {
         name: current.name,
         user_id: current.user_id,
         email: current.email
       };
+      // add current role to roles array inside the object
       result[userId]["roles"] = [current.role];
     }
-
+    
     return result;
   }, {});
-
+  // send only values of newData
   res.send(Object.values(newData));
 });
 

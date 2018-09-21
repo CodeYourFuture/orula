@@ -201,7 +201,7 @@ const getUsers = async () => {
     .orderBy("user_id", "asc");
 };
 
-const getUsersByRole = () => {
+const getUsersWithRoles = () => {
   return knex
     .select(
       "users.user_id as user_id",
@@ -303,7 +303,7 @@ module.exports = {
   updateTopic,
   getTopicById,
   getUsers,
-  getUsersByRole,
+  getUsersWithRoles,
   getUserRoles,
   clearRolesByUser,
   addRoleToUser,

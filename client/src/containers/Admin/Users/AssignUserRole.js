@@ -21,11 +21,10 @@ class AssignUserRole extends Component {
 
   componentDidMount = async () => {
     const user_id = this.props.match.params.userId;
-    const userRolesData = await getUserRoles(user_id);
-    const allRolesData = await getRoles();
-    const allRoles = allRolesData.data;
-    const userRoles = userRolesData.data.map(role => role.role);
-    const { name, email } = userRolesData.data[0];
+    const { data: userRolesData } = await getUserRoles(user_id);
+    const { data: allRoles } = await getRoles();
+    const userRoles = allRoles.map(role => role.role);
+    const { name, email } = userRolesData[0];
     this.setState({ user_id, userRoles, allRoles, name, email });
   };
 
