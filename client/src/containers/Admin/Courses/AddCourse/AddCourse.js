@@ -1,30 +1,23 @@
 import React from "react";
-import { editCourse, getCourseById } from "../../../helpers/api";
-import { Link } from "react-router-dom";
+import { addCourse, getOrganisations } from "../../../../helpers/api";
 
-class EditCourse extends React.Component {
+class AddCourse extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      course_id: "",
       name: "",
       location: "",
       organisation_id: "",
+      organisations: [],
       message: "",
       messageAlert: ""
     };
   }
 
   componentDidMount = async () => {
-    const course_id = this.props.match.params.courseId;
-    const course = await getCourseById(course_id);
-    const { name, location, organisation_id } = course.data[0];
-    this.setState({
-      course_id,
-      name,
-      location,
-      organisation_id
-    });
+    const res = await getOrganisations();
+    const data = res;
+    this.setState({ organisations: data });
   };
 
   handleOnchange = (input, e) => {
@@ -32,24 +25,34 @@ class EditCourse extends React.Component {
     this.setState({ [input]: value });
   };
 
-  // put it to /api/courses/:id
+  setOrganisation = e => {
+    const organisationName = e.target.value;
+    const organisation = this.state.organisations.find(
+      organisation => organisation.name === organisationName
+    );
+    // check if organisation is selected then set state
+    if (organisation) {
+      this.setState({ organisation_id: organisation.organisation_id });
+    } else {
+      this.setState({ organisation_id: "" });
+    }
+  };
+
+  // post it to /api/organisation
   onSubmit = async e => {
     e.preventDefault();
-    const { course_id, name, location, organisation_id } = this.state;
-    if (name === "" || location === "") {
+    const { name, location, organisation_id } = this.state;
+    if (name === "" || location === "" || organisation_id === "") {
       this.setState({
         message: "You must fill all the fields!",
         messageAlert: "alert alert-danger"
       });
     } else {
       try {
-        const res = await editCourse(
-          course_id,
-          name,
-          location,
-          organisation_id
-        );
+        const res = await addCourse(name, location, organisation_id);
         this.setState({
+          name: "",
+          location: "",
           message: res.data,
           messageAlert: "alert alert-success"
         });
@@ -67,7 +70,7 @@ class EditCourse extends React.Component {
       <div>
         <div className="row">
           <div className="col-lg-12">
-            <h2 className="page-header">Edit Course</h2>
+            <h2 className="page-header">Add Course</h2>
           </div>
         </div>
         <div className="row">
@@ -104,12 +107,33 @@ class EditCourse extends React.Component {
                           value={this.state.location}
                         />
                       </div>
+                      <div className="form-group">
+                        <label
+                          className="control-label"
+                          htmlFor="organisation_id"
+                        >
+                          Organisation
+                        </label>
+                        <select
+                          className="form-control"
+                          name="organisation_id"
+                          id="organisation_id"
+                          onChange={e => this.setOrganisation(e)}
+                        >
+                          <option>Select</option>
+                          {this.state.organisations.map(organisation => (
+                            <option key={organisation.organisation_id}>
+                              {organisation.name}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
                       <button
                         type="submit"
                         className="btn btn-primary"
                         onClick={e => this.onSubmit(e)}
                       >
-                        Save
+                        Submit
                       </button>
                     </form>
                   </div>
@@ -122,17 +146,10 @@ class EditCourse extends React.Component {
               </div>
             )}
           </div>
-          <div className="col-lg-12">
-            <Link to="/admin/courses">
-              <button className="btn btn-primary">
-                <i className="fa fa-eye fa-fw" /> View all courses
-              </button>
-            </Link>
-          </div>
         </div>
       </div>
     );
   }
 }
 
-export default EditCourse;
+export default AddCourse;

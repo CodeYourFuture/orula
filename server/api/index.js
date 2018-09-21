@@ -32,7 +32,7 @@ router.post("/courses", async (req, res) => {
   } else {
     res
       .status(403)
-      .send("This course is already exist or course name field is empty");
+      .send("This course already exist or course name field is empty");
   }
 });
 
@@ -50,7 +50,7 @@ router.put("/courses/:id", async (req, res) => {
   } else {
     res
       .status(403)
-      .send("This course is already exist or course name field is empty");
+      .send("This course already exist or course name field is empty");
   }
 });
 
@@ -78,7 +78,7 @@ router.post("/organisations", async (req, res) => {
   } else {
     res
       .status(403)
-      .send("This organisation is already exists or your name field is empty");
+      .send("This organisation already exists or your name field is empty");
   }
 });
 
@@ -119,7 +119,7 @@ router.put("/organisations/:organisation_id", async (req, res) => {
     await db.updateOrganisation(organisation_id, body.name);
     res.send("Organisation is successfully updated!");
   } else {
-    res.status(403).send("This organisation is already exists.");
+    res.status(403).send("This organisation already exists.");
   }
 });
 
@@ -179,7 +179,7 @@ router.post("/lessons", async (req, res) => {
   } else {
     res
       .status(403)
-      .send("This lesson is already exist or lesson name field is empty");
+      .send("This lesson already exist or lesson name field is empty");
   }
 });
 
@@ -214,7 +214,7 @@ router.post("/topics", async (req, res) => {
   } else {
     res
       .status(403)
-      .send("This topic is already exists or your name field is empty");
+      .send("This topic already exists or your name field is empty");
   }
 });
 
@@ -229,7 +229,7 @@ router.put("/topics/:id", async (req, res) => {
     await db.updateTopic(topicId, body.title);
     res.send("Topic is successfully updated!");
   } else {
-    res.status(403).send("This topic is already exists.");
+    res.status(403).send("This topic already exists.");
   }
 });
 
@@ -249,11 +249,9 @@ router.post("/users", async (req, res) => {
     email !== null
   ) {
     await db.addUser(name, email, password);
-    res.send("Successfully added course!");
+    res.send("Successfully added User!");
   } else {
-    res
-      .status(403)
-      .send("This course is already exist or course name field is empty");
+    res.status(403).send("This user already exist or user name field is empty");
   }
 });
 
