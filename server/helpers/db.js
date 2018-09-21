@@ -171,10 +171,14 @@ const editLesson = async (lesson_id, name, lesson_date, course_id) => {
       lesson_date,
       course_id
     });
-}
+};
 
 const checkLessonExist = async (name, lesson_date, course_id) => {
-  const response = await knex("lessons").where({ name, lesson_date, course_id });
+  const response = await knex("lessons").where({
+    name,
+    lesson_date,
+    course_id
+  });
   return response.length === 0 ? false : true;
 };
 
@@ -213,6 +217,13 @@ const checkUserByNameExist = async name => {
 const checkUserByEmailExist = async email => {
   const response = await knex("users").where({ email });
   return response.length === 0 ? false : true;
+};
+
+const isEmailAvailableForCurrentUser = async (email, userId) => {
+  const response = await knex("users")
+    .whereNot("user_id", userId)
+    .andWhere("email", email);
+  return response.length === 0 ? true : false;
 };
 
 const updateUserProfile = async (user_id, name, email, password) => {
@@ -258,5 +269,6 @@ module.exports = {
   addUser,
   checkUserByNameExist,
   checkUserByEmailExist,
-  updateUserProfile
+  updateUserProfile,
+  isEmailAvailableForCurrentUser
 };
