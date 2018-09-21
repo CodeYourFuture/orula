@@ -248,8 +248,9 @@ router.post("/users", async (req, res) => {
     email !== "" &&
     email !== null
   ) {
-    await db.addUser(name, email, password);
-    res.send("Successfully added User!");
+    const userId = await db.addUser(name, email, password);
+    await db.addRoleToUser(userId[0], 3) // Add default role "Student" to new user
+    res.send("Successfully added course!");
   } else {
     res.status(403).send("This user already exist or user name field is empty");
   }
@@ -260,6 +261,54 @@ router.get("/users", (req, res) => {
   db.getUsers().then(data => {
     res.send(data);
   });
+});
+
+// Get user roles
+router.get("/user-roles", async (req, res) => {
+  const data = await db.getUsersWithRoles();
+  const newData = data.reduce((result, current) => {
+    const userId = current.user_id;
+    if (result[userId]) {
+      // create roles array inside user roles object and push current role to it
+      result[userId]["roles"].push(current.role);
+    } else {
+      //create an object with user id, name, email
+      result[userId] = {
+        name: current.name,
+        user_id: current.user_id,
+        email: current.email
+      };
+      // add current role to roles array inside the object
+      result[userId]["roles"] = [current.role];
+    }
+    
+    return result;
+  }, {});
+  // send only values of newData
+  res.send(Object.values(newData));
+});
+
+router.get("/user-roles/:id", async (req, res) => {
+  const userId = req.params.id;
+  const data = await db.getUserRoles(userId);
+  res.send(data);
+});
+
+// Add user roles to the user_roles table
+router.post("/user-roles", async (req, res) => {
+  const body = req.body;
+  try {
+    await db.clearRolesByUser(body.user_id)
+    body.roles.forEach(async role_id => await db.addRoleToUser(body.user_id, role_id))
+    res.send("Successfully assigned roles!");
+  } catch (error) {
+    res.status(403).send("Sorry, couldn't add roles.");
+  }
+});
+
+router.get("/roles", async (req, res) => {
+  const data = await db.getRoles();
+  res.send(data);
 });
 
 module.exports = router;

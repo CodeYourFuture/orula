@@ -19,6 +19,8 @@ import EditLesson from "../Admin/Lessons/EditLesson/EditLesson";
 import ViewTopics from "../Admin/Lessons/Topics/ViewTopics";
 import AddTopics from "../Admin/Lessons/Topics/AddTopics/AddTopics";
 import EditTopics from "../Admin/Lessons/Topics/EditTopics/EditTopics";
+import Users from "../Admin/Users/Users";
+import AssignUserRole from "../Admin/Users/AssignUserRole";
 import EditUser from "../User/EditUser/EditUser";
 
 class App extends Component {
@@ -78,6 +80,11 @@ class App extends Component {
             />
             <Route path="/admin/topics/add" component={AddTopics} />
             <Route path="/admin/topics/edit/:topicId" component={EditTopics} />
+            <Route exact path="/admin/users" component={Users} />
+            <Route
+              path="/admin/users/assign-role/:userId"
+              component={AssignUserRole}
+            />
             <Route path="/user/profile/edit" component={EditUser} />
           </div>
         </div>

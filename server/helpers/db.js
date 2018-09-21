@@ -201,8 +201,45 @@ const getUsers = async () => {
     .orderBy("user_id", "asc");
 };
 
+const getUsersWithRoles = () => {
+  return knex
+    .select(
+      "users.user_id as user_id",
+      "users.name as name",
+      "email",
+      "roles.name as role"
+    )
+    .from("users")
+    .innerJoin("user_roles", "users.user_id", "user_roles.user_id")
+    .innerJoin("roles", "roles.role_id", "user_roles.role_id");
+};
+
+const getUserRoles = async user_id => {
+  return knex
+    .select("users.name as name", "email", "roles.name as role")
+    .from("users")
+    .innerJoin("user_roles", "users.user_id", "user_roles.user_id")
+    .innerJoin("roles", "roles.role_id", "user_roles.role_id")
+    .where({ "users.user_id": user_id });
+};
+
+const clearRolesByUser = async user_id => {
+  return await knex("user_roles")
+    .where({ user_id })
+    .del();
+};
+
+const checkUserHasRole = async user_id => {
+  const response = await knex("user_roles").where({ user_id });
+  return response.length === 0 ? false : true;
+};
+
+const addRoleToUser = async (user_id, role_id) => {
+  return await knex("user_roles").insert({ user_id, role_id });
+};
+
 const addUser = async (name, email, password) => {
-  return await knex("users").insert({
+  return await knex("users").returning("user_id").insert({
     name,
     email,
     password
@@ -236,6 +273,13 @@ const updateUserProfile = async (user_id, name, email, password) => {
     });
 };
 
+const getRoles = async () => {
+  return await knex
+    .select()
+    .table("roles")
+    .orderBy("role_id", "asc");
+};
+
 module.exports = {
   getCourses,
   getCourseById,
@@ -266,9 +310,15 @@ module.exports = {
   updateTopic,
   getTopicById,
   getUsers,
+  getUsersWithRoles,
+  getUserRoles,
+  clearRolesByUser,
+  addRoleToUser,
+  checkUserHasRole,
   addUser,
   checkUserByNameExist,
   checkUserByEmailExist,
   updateUserProfile,
+  getRoles,
   isEmailAvailableForCurrentUser
 };

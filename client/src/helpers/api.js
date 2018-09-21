@@ -82,6 +82,25 @@ export const getSessionUser = async () => {
     .then(res => res.data);
 };
 
+export const getUsersByRole = async () => {
+  return await instance.get("/api/user-roles");
+};
+
+export const getUserRoles = async user_id => {
+  return await instance.get(`/api/user-roles/${user_id}`, { user_id });
+};
+
+export const addRoleToUser = async (user_id, roles) => {
+  return await instance.post("/api/user-roles", {
+    user_id,
+    roles
+  });
+};
+
+export const getRoles = async () => {
+  return await instance.get("/api/roles");
+};
+
 export const updateOrganisations = async (organisation_id, name) => {
   return await instance.put(`/api/organisations/${organisation_id}`, {
     organisation_id,
