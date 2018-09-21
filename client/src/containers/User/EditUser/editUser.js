@@ -1,39 +1,26 @@
 import React from "react";
-import { editLesson, getLessonsById } from "../../../../helpers/api";
+import { getSessionUser, updateUserProfile } from "../../../helpers/api";
 import { Link } from "react-router-dom";
-import DatePicker from "react-datepicker";
-import moment from "moment";
-import "react-datepicker/dist/react-datepicker.css";
-import "./EditLesson.css";
 
-class EditLesson extends React.Component {
+class EditUser extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      lesson_id: "",
-      course_id: "",
+      user_id: "",
       name: "",
-      lesson_date: "",
+      password: "",
       message: "",
       messageAlert: ""
     };
   }
 
   componentDidMount = async () => {
-    const lesson_id = this.props.match.params.lessonId;
-    const lesson = await getLessonsById(lesson_id);
-    const { name, lesson_date, course_id } = lesson.data[0];
+    const user = await getSessionUser();
+    const { user_id, email, name } = user;
     this.setState({
-      lesson_id,
-      course_id,
+      user_id,
       name,
-      lesson_date
-    });
-  };
-
-  handleDateChange = lesson_date => {
-    this.setState({
-      lesson_date: new Date(lesson_date)
+      email
     });
   };
 
@@ -42,18 +29,18 @@ class EditLesson extends React.Component {
     this.setState({ [input]: value });
   };
 
-  // put it to /api/lessons/:id
+  // put it to /api/courses/:id
   onSubmit = async e => {
     e.preventDefault();
-    const { lesson_id, name, lesson_date, course_id } = this.state;
-    if (name === "" || moment(lesson_date) < new Date("12-12-1970")  || course_id === "") {
+    const { name, email } = this.state;
+    if (name === "" || email === "") {
       this.setState({
-        message: "You must fill all the fields!",
+        message: "You must fill name and email fields!",
         messageAlert: "alert alert-danger"
       });
     } else {
       try {
-        const res = await editLesson(lesson_id, name, lesson_date, course_id);
+        const res = await updateUserProfile(name, email);
         this.setState({
           message: res.data,
           messageAlert: "alert alert-success"
@@ -72,13 +59,13 @@ class EditLesson extends React.Component {
       <div>
         <div className="row">
           <div className="col-lg-12">
-            <h2 className="page-header">Edit Lesson</h2>
+            <h2 className="page-header">Edit user profile</h2>
           </div>
         </div>
         <div className="row">
           <div className="col-lg-12">
             <div className="panel panel-default">
-              <div className="panel-heading">Lesson details</div>
+              <div className="panel-heading">User details</div>
               <div className="panel-body">
                 <div className="row">
                   <div className="col-lg-6">
@@ -97,13 +84,33 @@ class EditLesson extends React.Component {
                         />
                       </div>
                       <div className="form-group">
-                        <label className="control-label" htmlFor="lesson_date">
-                          Pick Date (DD/MM/YYYY)
+                        <label className="control-label" htmlFor="email">
+                          Email
                         </label>
-
-                        <DatePicker
-                          selected={moment(this.state.lesson_date)}
-                          onChange={this.handleDateChange}
+                        <input
+                          className="form-control"
+                          type="text"
+                          name="email"
+                          id="email"
+                          onChange={e => this.handleOnchange("email", e)}
+                          value={this.state.email}
+                        />
+                      </div>
+                      <div className="form-group">
+                        <label className="control-label" htmlFor="password">
+                          Password
+                        </label>
+                        <br />
+                        <span>
+                          Fill only if you want to change the password
+                        </span>
+                        <input
+                          className="form-control"
+                          type="text"
+                          name="password"
+                          id="password"
+                          onChange={e => this.handleOnchange("password", e)}
+                          value={this.state.password}
                         />
                       </div>
 
@@ -126,9 +133,9 @@ class EditLesson extends React.Component {
             )}
           </div>
           <div className="col-lg-12">
-            <Link to="/admin/lessons">
+            <Link to="/my-profile">
               <button className="btn btn-primary">
-                <i className="fa fa-eye fa-fw" /> View all lessons
+                <i className="fa fa-eye fa-fw" /> Return
               </button>
             </Link>
           </div>
@@ -138,4 +145,4 @@ class EditLesson extends React.Component {
   }
 }
 
-export default EditLesson;
+export default EditUser;

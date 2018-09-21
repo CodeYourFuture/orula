@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { getCourses, deleteCourse } from "../../helpers/api";
+import { getCourses, deleteCourse } from "../../../helpers/api";
 import { Link } from "react-router-dom";
 
 class Courses extends Component {
