@@ -39,8 +39,7 @@ class Users extends Component {
                       <td>{user.user_id}</td>
                       <td>{user.name}</td>
                       <td>{user.email}</td>
-                      <td>{const {roles = [] } = user
-                        user.roles.map(role => role + " ")}</td>
+                      <td>{user.roles.map(role => role + " ")}</td>
                       <td>
                         <Link to={`/admin/users/assign-role/${user.user_id}`}>
                           <button className="btn btn-primary">

@@ -256,6 +256,13 @@ const checkUserByEmailExist = async email => {
   return response.length === 0 ? false : true;
 };
 
+const isEmailAvailableForCurrentUser = async (email, userId) => {
+  const response = await knex("users")
+    .whereNot("user_id", userId)
+    .andWhere("email", email);
+  return response.length === 0 ? true : false;
+};
+
 const updateUserProfile = async (user_id, name, email, password) => {
   return await knex("users")
     .where("user_id", "=", `${user_id}`)
@@ -312,5 +319,6 @@ module.exports = {
   checkUserByNameExist,
   checkUserByEmailExist,
   updateUserProfile,
-  getRoles
+  getRoles,
+  isEmailAvailableForCurrentUser
 };

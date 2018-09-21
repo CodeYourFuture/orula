@@ -172,3 +172,16 @@ export const addUser = async (name, email, password) => {
     password
   });
 };
+
+//Edit User
+export const updateUserProfile = async (name, email) => {
+  const token = localStorage.getItem("jwtToken");
+
+  return await instance.put(`/user/profile`, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    },
+    name,
+    email
+  });
+};

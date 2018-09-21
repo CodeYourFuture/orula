@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import Home from "../Home/Home";
-import Help from "../Help/Help";
-import MyProfile from "../../containers/MyProfile/MyProfile";
+import Home from "../../components/Home/Home";
+import Help from "../../components/Help/Help";
+import MyProfile from "../../components/MyProfile/MyProfile";
 import "./App.css";
-import Dashboard from "../Dashboard/Dashboard";
-import Courses from "../Courses/Courses";
+import Dashboard from "../../components/Dashboard/Dashboard";
+import Courses from "../Admin/Courses/Courses";
 import AddOrganisation from "../Admin/AddOrganisation/AddOrganisation";
-import AddCourse from "../Courses/AddCourse/AddCourse";
-import EditCourse from "../Courses/EditCourse/EditCourse";
+import AddCourse from "../Admin/Courses/AddCourse/AddCourse";
+import EditCourse from "../Admin/Courses/EditCourse/EditCourse";
 import Nav from "../../components/Nav/Nav";
 import Organisations from "../Admin/Organisations/Organisations";
 import axios from "axios";
@@ -21,6 +21,7 @@ import AddTopics from "../Admin/Lessons/Topics/AddTopics/AddTopics";
 import EditTopics from "../Admin/Lessons/Topics/EditTopics/EditTopics";
 import Users from "../Admin/Users/Users";
 import AssignUserRole from "../Admin/Users/AssignUserRole";
+import EditUser from "../User/EditUser/EditUser";
 
 class App extends Component {
   componentDidMount = async () => {
@@ -84,6 +85,7 @@ class App extends Component {
               path="/admin/users/assign-role/:userId"
               component={AssignUserRole}
             />
+            <Route path="/user/profile/edit" component={EditUser} />
           </div>
         </div>
       </Router>
