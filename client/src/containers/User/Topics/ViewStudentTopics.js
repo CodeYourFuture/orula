@@ -8,6 +8,8 @@ class ViewStudentTopics extends Component {
     this.state = {
       topics: [],
       lessonName: "",
+      rating: 0,
+      range: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
       message: "",
       messageAlert: ""
     };
@@ -17,6 +19,11 @@ class ViewStudentTopics extends Component {
     const response = await getTopicsByLessonId(lessonId);
     const { data: lesson } = await getLessonsById(lessonId);
     this.setState({ topics: response.data, lessonName: lesson[0].name });
+  };
+
+  setRating = async e => {
+    const rating = e.target.value;
+    this.setState({ rating });
   };
 
   onSave = async e => {
@@ -52,10 +59,38 @@ class ViewStudentTopics extends Component {
                   {this.state.topics.map(topic => (
                     <tr key={topic.topic_id}>
                       <td>{topic.title}</td>
-                      <td>sadf</td>
-                      <td>sadf</td>
-                      <td>sadf</td>
-                      <td>sadf</td>
+                      <td>
+                        <select onChange={e => this.setRating(e)}>
+                          <option>Select Rating</option>
+                          {this.state.range.map(rating => (
+                            <option key={rating}>{rating}</option>
+                          ))}
+                        </select>
+                      </td>
+                      <td>
+                        <select onChange={e => this.setRating(e)}>
+                          <option>Select Rating</option>
+                          {this.state.range.map(rating => (
+                            <option key={rating}>{rating}</option>
+                          ))}
+                        </select>
+                      </td>
+                      <td>
+                        <select onChange={e => this.setRating(e)}>
+                          <option>Select Rating</option>
+                          {this.state.range.map(rating => (
+                            <option key={rating}>{rating}</option>
+                          ))}
+                        </select>
+                      </td>
+                      <td>
+                        <select onChange={e => this.setRating(e)}>
+                          <option>Select Rating</option>
+                          {this.state.range.map(rating => (
+                            <option key={rating}>{rating}</option>
+                          ))}
+                        </select>
+                      </td>
                     </tr>
                   ))}
                 </tbody>
@@ -63,8 +98,7 @@ class ViewStudentTopics extends Component {
             </div>
             <button className="btn btn-success" onClick={e => this.onSave(e)}>
               Save Ratings
-            </button>
-            {" "}
+            </button>{" "}
             <Link to="/">
               <button className="btn btn-info">Go back</button>
             </Link>
