@@ -22,6 +22,7 @@ import EditTopics from "../Admin/Lessons/Topics/EditTopics/EditTopics";
 import Users from "../Admin/Users/Users";
 import AssignUserRole from "../Admin/Users/AssignUserRole";
 import EditUser from "../User/EditUser/EditUser";
+import ViewStudentTopics from "../User/Topics/ViewStudentTopics";
 
 class App extends Component {
   componentDidMount = async () => {
@@ -77,6 +78,11 @@ class App extends Component {
               exact
               path="/admin/lessons/:lessonId/topics"
               component={ViewTopics}
+            />
+            <Route
+              exact
+              path="/lessons/:lessonId/topics"
+              component={ViewStudentTopics}
             />
             <Route path="/admin/topics/add" component={AddTopics} />
             <Route path="/admin/topics/edit/:topicId" component={EditTopics} />
