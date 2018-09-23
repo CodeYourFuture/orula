@@ -45,8 +45,8 @@ export const deleteCourse = async course_id => {
   return await instance.delete(`api/courses/${course_id}`);
 };
 
-export const getStudents = () => {
-  // To Do
+export const getStudents = async () => {
+  return await instance.get(`api/students`);
 };
 
 export const getOrganisations = async () => {
@@ -184,4 +184,12 @@ export const updateUserProfile = async (name, email) => {
     name,
     email
   });
+};
+
+export const getStudentsByCourseId = async course_id => {
+  return await instance.get(`api/courses/${course_id}/students`);
+};
+
+export const assignUserToCourse = async (course_id, user_id) => {
+  return await instance.post("/api/enrol", { course_id, user_id });
 };

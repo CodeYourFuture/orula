@@ -330,4 +330,9 @@ router.get("/courses/:id/students", (req, res) => {
   });
 });
 
+router.get("/students", async (req, res) => {
+  const data = await db.getStudents();
+  res.send(data);
+});
+
 module.exports = router;
