@@ -228,6 +228,14 @@ const clearRolesByUser = async user_id => {
     .where({ user_id })
     .del();
 };
+const assignUserToCourse = async (course_id, user_id) => {
+  return await knex("users_courses")
+    .returning("user_id")
+    .insert({
+      course_id,
+      user_id
+    });
+};
 
 const checkUserHasRole = async user_id => {
   const response = await knex("user_roles").where({ user_id });
@@ -239,11 +247,13 @@ const addRoleToUser = async (user_id, role_id) => {
 };
 
 const addUser = async (name, email, password) => {
-  return await knex("users").returning("user_id").insert({
-    name,
-    email,
-    password
-  });
+  return await knex("users")
+    .returning("user_id")
+    .insert({
+      name,
+      email,
+      password
+    });
 };
 
 const checkUserByNameExist = async name => {
@@ -278,6 +288,15 @@ const getRoles = async () => {
     .select()
     .table("roles")
     .orderBy("role_id", "asc");
+};
+
+const getStudentsByCourseId = async course_id => {
+  return knex
+    .select("users.name as userName")
+    .from("users")
+    .innerJoin("users_courses", "users.user_id", "users_courses.user_id")
+    .innerJoin("courses", "courses.course_id", "users_courses.course_id")
+    .where({ "courses.course_id": course_id });
 };
 
 module.exports = {
@@ -320,5 +339,7 @@ module.exports = {
   checkUserByEmailExist,
   updateUserProfile,
   getRoles,
-  isEmailAvailableForCurrentUser
+  isEmailAvailableForCurrentUser,
+  assignUserToCourse,
+  getStudentsByCourseId
 };
