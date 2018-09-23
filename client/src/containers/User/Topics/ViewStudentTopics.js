@@ -1,18 +1,25 @@
 import React, { Component } from "react";
-import { getTopicsByLessonId } from "../../../helpers/api";
+import { getTopicsByLessonId, getLessonsById } from "../../../helpers/api";
 
 class ViewStudentTopics extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      topics: []
+      topics: [],
+      lessonName: "",
+      message: "",
+      messageAlert: ""
     };
   }
   componentDidMount = async () => {
-    const response = await getTopicsByLessonId(
-      this.props.match.params.lessonId
-    );
-    this.setState({ topics: response.data });
+    const lessonId = this.props.match.params.lessonId;
+    const response = await getTopicsByLessonId(lessonId);
+    const { data: lesson } = await getLessonsById(lessonId);
+    this.setState({ topics: response.data, lessonName: lesson[0].name });
+  };
+
+  onSave = async e => {
+    e.preventDefault();
   };
 
   render() {
@@ -20,18 +27,44 @@ class ViewStudentTopics extends Component {
       <div>
         <div className="row">
           <div className="col-lg-12">
-            <h2 className="page-header">Topics</h2>
+            <h2 className="page-header">{this.state.lessonName}</h2>
           </div>
         </div>
-        <ul className="list-group">
-          {this.state.topics.map(topic => (
-            <li key={topic.topic_id} className="list-group-item">
-              <div className="row">
-                <div className="col-lg-6">{topic.title}</div>
-              </div>
-            </li>
-          ))}
-        </ul>
+
+        {this.state.message && (
+          <div className={this.state.messageAlert}>{this.state.message}</div>
+        )}
+        <div className="row">
+          <div className="col-md-12">
+            <div className="table-responsive">
+              <table className="table table-striped table-bordered table-hover">
+                <thead>
+                  <tr>
+                    <th>Topic name</th>
+                    <th>Rating before the class</th>
+                    <th>Rating after the class</th>
+                    <th>Rating 3 days later</th>
+                    <th>Rating 1 week later</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {this.state.topics.map(topic => (
+                    <tr key={topic.topic_id}>
+                      <td>{topic.title}</td>
+                      <td>sadf</td>
+                      <td>sadf</td>
+                      <td>sadf</td>
+                      <td>sadf</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <button className="btn btn-primary" onClick={e => this.onSave(e)}>
+              Save Ratings
+            </button>
+          </div>
+        </div>
       </div>
     );
   }
