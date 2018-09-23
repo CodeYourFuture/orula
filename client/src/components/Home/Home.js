@@ -1,23 +1,32 @@
 import React, { Component } from "react";
-import { getStatus } from "../../helpers/api";
+import { getSessionUser } from "../../helpers/api";
 import "./Home.css";
+
 class Home extends Component {
   state = {
-    status: ""
+    user_id: "",
+    course: "My course name"
   };
+
   componentDidMount() {
-    getStatus().then(data => {
-      this.setState({ status: JSON.stringify(data) });
+    getSessionUser().then(data => {
+      this.setState({ user_id: data.user_id });
     });
   }
+
   render() {
     return (
       <div>
-        <p className="home-intro">
-          We're building this system to help CYF, and other organisations, to
-          manage a Classroom during the lifetime of a course.
-        </p>
-        <p>{this.state.status}</p>
+        <div className="row">
+          <div className="col-lg-12">
+            <h2 className="page-header">{this.state.course}</h2>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-md-8">
+            list of lessons
+          </div>
+        </div>
       </div>
     );
   }
