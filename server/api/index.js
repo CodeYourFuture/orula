@@ -311,4 +311,12 @@ router.get("/roles", async (req, res) => {
   res.send(data);
 });
 
+router.get("/user-courses/:id", async (req, res) => {
+  const userId = req.params.id;
+  const data = await db.getCoursesByUser(userId)
+  res.send(data)
+})
+
+
+
 module.exports = router;
