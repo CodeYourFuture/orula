@@ -1,5 +1,6 @@
 exports.seed = async (knex, Promise) => {
   // Deletes ALL existing entries
+  await knex("users_courses").del();
   await knex("user_roles").del();
   await knex("roles").del();
   await knex("users").del();
@@ -134,7 +135,22 @@ exports.seed = async (knex, Promise) => {
     {
       user_id: users[3],
       role_id: roles[1]
-    },
-    
+    }
   ]);
+
+  await knex("users_courses").insert([
+    {
+      course_id: courses[0],
+      user_id: users[0]
+    },
+    {
+      course_id: courses[1],
+      user_id: users[1]
+    },
+    {
+      course_id: courses[0],
+      user_id: users[2]
+    }
+  ]);
+
 };
