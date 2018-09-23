@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { getTopicsByLessonId, getLessonsById } from "../../../helpers/api";
+import { Link } from "react-router-dom";
 
 class ViewStudentTopics extends Component {
   constructor(props) {
@@ -60,9 +61,13 @@ class ViewStudentTopics extends Component {
                 </tbody>
               </table>
             </div>
-            <button className="btn btn-primary" onClick={e => this.onSave(e)}>
+            <button className="btn btn-success" onClick={e => this.onSave(e)}>
               Save Ratings
             </button>
+            {" "}
+            <Link to="/">
+              <button className="btn btn-info">Go back</button>
+            </Link>
           </div>
         </div>
       </div>

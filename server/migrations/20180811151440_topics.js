@@ -52,6 +52,7 @@ exports.up = async (knex, Promise) => {
 
   await knex.schema.createTable("ratings", table => {
     table.increments("rating_id");
+    table.integer("rating");
     table.integer("user_id");
     table.integer("topic_id");
     table
