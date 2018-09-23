@@ -185,3 +185,7 @@ export const updateUserProfile = async (name, email) => {
     email
   });
 };
+
+export const getCoursesByUser = async userId => {
+  return await instance.get(`/api/user-courses/${userId}`)
+}

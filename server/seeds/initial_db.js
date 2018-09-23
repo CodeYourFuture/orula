@@ -1,5 +1,6 @@
 exports.seed = async (knex, Promise) => {
   // Deletes ALL existing entries
+  await knex("users_courses").del();
   await knex("user_roles").del();
   await knex("roles").del();
   await knex("users").del();

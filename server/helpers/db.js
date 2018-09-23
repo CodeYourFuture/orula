@@ -330,5 +330,6 @@ module.exports = {
   updateUserProfile,
   getRoles,
   isEmailAvailableForCurrentUser,
-  getCoursesByUser
+  getCoursesByUser,
+  getLessonsByCourseId
 };

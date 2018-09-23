@@ -1,32 +1,56 @@
 import React, { Component } from "react";
-import { getSessionUser } from "../../helpers/api";
+import { getSessionUser, getCoursesByUser, getLessons } from "../../helpers/api";
+import { Link } from "react-router-dom";
 import "./Home.css";
 
 class Home extends Component {
   state = {
-    user_id: "",
-    course: "My course name"
+    courses: [],
+    lessons: []
   };
 
-  componentDidMount() {
-    getSessionUser().then(data => {
-      this.setState({ user_id: data.user_id });
+  async componentDidMount() {
+    getLessons().then(data => {
+      this.setState({ lessons: data });
     });
+    const userData = await getSessionUser();
+    const { data: courses } = await getCoursesByUser(userData.user_id);
+    this.setState({ courses });
   }
 
   render() {
     return (
-      <div>
-        <div className="row">
-          <div className="col-lg-12">
-            <h2 className="page-header">{this.state.course}</h2>
-          </div>
+      <div className="row">
+      {this.state.courses.map(course => (
+        <div key={course.courseId}>
+          <h2 className="page-header">{course.courseName}</h2>
+          <table className="table table-striped table-bordered table-hover">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Lesson Name</th>
+              </tr>
+            </thead>
+            <tbody>
+              {this.state.lessons
+                .filter(lesson => lesson.course_title === course.courseName)
+                .map(lesson => (
+                  <tr key={lesson.lesson_id}>
+                    <td>{lesson.lesson_id}</td>
+                    <td>
+                      {" "}
+                      <Link
+                        to={`/admin/lessons/${lesson.lesson_id}/topics`}
+                      >
+                        {lesson.name}
+                      </Link>
+                    </td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>
         </div>
-        <div className="row">
-          <div className="col-md-8">
-            list of lessons
-          </div>
-        </div>
+      ))}
       </div>
     );
   }
