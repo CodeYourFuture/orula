@@ -22,6 +22,7 @@ import EditTopics from "../Admin/Lessons/Topics/EditTopics/EditTopics";
 import Users from "../Admin/Users/Users";
 import AssignUserRole from "../Admin/Users/AssignUserRole";
 import EditUser from "../User/EditUser/EditUser";
+import AssignCourseToStudent from "../Admin/Courses/AssignCourseToStudent/AssignCourseToStudent";
 import ViewStudentTopics from "../User/Topics/ViewStudentTopics";
 
 class App extends Component {
@@ -92,6 +93,11 @@ class App extends Component {
               component={AssignUserRole}
             />
             <Route path="/user/profile/edit" component={EditUser} />
+            <Route
+              exact
+              path="/admin/courses/:courseId"
+              component={AssignCourseToStudent}
+            />
           </div>
         </div>
       </Router>
