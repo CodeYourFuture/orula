@@ -10,7 +10,6 @@ router.get("/", function(req, res, next) {
 /* GET user profile. */
 router.get("/profile", async (req, res, next) => {
   const { user_id: userId } = req.user;
-
   const profile = await db.getUserProfile(userId);
   res.send(profile);
 });
@@ -18,7 +17,6 @@ router.get("/profile", async (req, res, next) => {
 router.put("/profile", async (req, res, next) => {
   const { user_id: userId } = req.user;
   const { name, email, password } = req.body;
-
   if (await db.isEmailAvailableForCurrentUser(email, userId)) {
     await db.updateUserProfile(userId, name, email, password);
     res.send("The user has been updated");

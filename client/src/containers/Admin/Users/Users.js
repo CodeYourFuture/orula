@@ -8,7 +8,7 @@ class Users extends Component {
   };
 
   componentDidMount = async () => {
-    const {data: users} = await getUsersByRole()
+    const { data: users } = await getUsersByRole();
     this.setState({ users });
   };
 

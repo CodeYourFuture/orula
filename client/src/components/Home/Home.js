@@ -40,7 +40,7 @@ class Home extends Component {
                   .map(lesson => (
                     <tr key={lesson.lesson_id}>
                       <td>
-                        <Link to={`/lessons/${lesson.lesson_id}/topics`}>
+                        <Link to={`/lesson/${lesson.lesson_id}`}>
                           {lesson.name}
                         </Link>
                       </td>

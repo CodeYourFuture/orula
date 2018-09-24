@@ -52,6 +52,10 @@ exports.up = async (knex, Promise) => {
 
   await knex.schema.createTable("ratings", table => {
     table.increments("rating_id");
+    table.integer("rating_before");
+    table.integer("rating_after");
+    table.integer("rating_3days");
+    table.integer("rating_1week");
     table.integer("user_id");
     table.integer("topic_id");
     table
@@ -63,6 +67,8 @@ exports.up = async (knex, Promise) => {
       .foreign("topic_id")
       .references("topic_id")
       .inTable("topics");
+
+    table.timestamps();
   });
 
   await knex.schema.createTable("users_courses", table => {

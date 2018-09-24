@@ -81,7 +81,7 @@ class App extends Component {
             />
             <Route
               exact
-              path="/lessons/:lessonId/topics"
+              path="/lesson/:lessonId"
               component={ViewStudentTopics}
             />
             <Route path="/admin/topics/add" component={AddTopics} />
