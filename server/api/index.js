@@ -311,6 +311,28 @@ router.get("/roles", async (req, res) => {
   const data = await db.getRoles();
   res.send(data);
 });
+// Add user to the course table
+router.post("/enrol", async (req, res) => {
+  const body = req.body;
+  try {
+    await db.assignUserToCourse(body.course_id, body.user_id);
+    res.send("Successfully assigned course!");
+  } catch (error) {
+    res.send("Error, please try again!");
+  }
+});
+// Get students by Id
+router.get("/courses/:id/students", (req, res) => {
+  const course_id = req.params.id;
+  db.getStudentsByCourseId(course_id).then(data => {
+    res.send(data);
+  });
+});
+
+router.get("/students", async (req, res) => {
+  const data = await db.getStudents();
+  res.send(data);
+});
 
 router.get("/user-courses/:id", async (req, res) => {
   const userId = req.params.id;

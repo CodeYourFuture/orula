@@ -24,6 +24,7 @@ import AssignUserRole from "../Admin/Users/AssignUserRole";
 import EditUser from "../User/EditUser/EditUser";
 import { isAdminLoggedIn } from "../../helpers/api.js";
 import IsntAdmin from "../Admin/IsntAdmin/IsntAdmin";
+import AssignCourseToStudent from "../Admin/Courses/AssignCourseToStudent/AssignCourseToStudent";
 import ViewStudentTopics from "../User/Topics/ViewStudentTopics";
 
 class App extends Component {

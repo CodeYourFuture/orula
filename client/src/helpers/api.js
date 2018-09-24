@@ -53,8 +53,8 @@ export const deleteCourse = async course_id => {
   return await createInstance().delete(`api/courses/${course_id}`);
 };
 
-export const getStudents = () => {
-  // To Do
+export const getStudents = async () => {
+  return await createInstance().get(`api/students`);
 };
 
 export const getOrganisations = async () => {
@@ -203,7 +203,7 @@ export const updateUserProfile = async (name, email) => {
 
 export const isAdminLoggedIn = async () => {
   const token = localStorage.getItem("jwtToken");
-  const currentUserId = await instance
+  const currentUserId = await createInstance
     .get("/user/profile", {
       headers: {
         Authorization: `Bearer ${token}`
@@ -211,7 +211,7 @@ export const isAdminLoggedIn = async () => {
     })
     .then(res => res.data.user_id);
 
-  const result = await instance.get(`/api/user-roles/${currentUserId}`, {
+  const result = await createInstance.get(`/api/user-roles/${currentUserId}`, {
     currentUserId
   });
   const currentUserRole = result.data;
@@ -221,6 +221,13 @@ export const isAdminLoggedIn = async () => {
     return (await (currentUserRole.role === "Admin")) ? true : false;
   }
 
+export const getStudentsByCourseId = async course_id => {
+  return await createInstance().get(`api/courses/${course_id}/students`);
+};
+
+export const assignUserToCourse = async (course_id, user_id) => {
+  return await createInstance().post("/api/enrol", { course_id, user_id });
+};
 export const getCoursesByUser = async userId => {
   return await createInstance().get(`/api/user-courses/${userId}`);
 };

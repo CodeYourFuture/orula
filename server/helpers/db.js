@@ -201,6 +201,15 @@ const getUsers = async () => {
     .orderBy("user_id", "asc");
 };
 
+const getStudents = async () => {
+  return await knex
+    .select("users.user_id as userId", "users.name as studentName")
+    .table("users")
+    .innerJoin("user_roles", "users.user_id", "user_roles.user_id")
+    .innerJoin("roles", "roles.role_id", "user_roles.role_id")
+    .where("roles.name", "=", "Student");
+};
+
 const getUsersWithRoles = () => {
   return knex
     .select(
@@ -236,6 +245,14 @@ const clearRolesByUser = async user_id => {
   return await knex("user_roles")
     .where({ user_id })
     .del();
+};
+const assignUserToCourse = async (course_id, user_id) => {
+  return await knex("users_courses")
+    .returning("user_id")
+    .insert({
+      course_id,
+      user_id
+    });
 };
 
 const checkUserHasRole = async user_id => {
@@ -289,6 +306,15 @@ const getRoles = async () => {
     .select()
     .table("roles")
     .orderBy("role_id", "asc");
+};
+
+const getStudentsByCourseId = async course_id => {
+  return knex
+    .select("users.user_id as userId", "users.name as userName")
+    .from("users")
+    .innerJoin("users_courses", "users.user_id", "users_courses.user_id")
+    .innerJoin("courses", "courses.course_id", "users_courses.course_id")
+    .where({ "courses.course_id": course_id });
 };
 
 const getRatings = async (user_id, lesson_id) => {
@@ -359,6 +385,10 @@ module.exports = {
   updateUserProfile,
   getRoles,
   isEmailAvailableForCurrentUser,
+  assignUserToCourse,
+  getStudentsByCourseId,
+  getStudents,
+  getCoursesByUser,
   getCoursesByUser,
   getRatings,
   addRatings
