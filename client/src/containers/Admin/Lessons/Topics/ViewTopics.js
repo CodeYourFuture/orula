@@ -53,7 +53,6 @@ class ViewTopics extends Component {
                 <div className="col-lg-6">{topic.title}</div>
                 <div className="col-lg-3">
                   <Link to={`/admin/topics/edit/${topic.topic_id}`}>
-                    {console.log(`Viewpage params= `, this.props)}
                     <button className="btn btn-success">Edit</button>
                   </Link>
                 </div>

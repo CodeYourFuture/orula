@@ -32,7 +32,7 @@ router.post("/courses", async (req, res) => {
   } else {
     res
       .status(403)
-      .send("This course already exist or course name field is empty");
+      .send("This course already exists or course name field is empty");
   }
 });
 
@@ -50,7 +50,7 @@ router.put("/courses/:id", async (req, res) => {
   } else {
     res
       .status(403)
-      .send("This course already exist or course name field is empty");
+      .send("This course already exists or course name field is empty");
   }
 });
 
@@ -310,6 +310,75 @@ router.post("/user-roles", async (req, res) => {
 router.get("/roles", async (req, res) => {
   const data = await db.getRoles();
   res.send(data);
+});
+// Add user to the course table
+router.post("/enrol", async (req, res) => {
+  const body = req.body;
+  try {
+    await db.assignUserToCourse(body.course_id, body.user_id);
+    res.send("Successfully assigned course!");
+  } catch (error) {
+    res.send("Error, please try again!");
+  }
+});
+// Get students by Id
+router.get("/courses/:id/students", (req, res) => {
+  const course_id = req.params.id;
+  db.getStudentsByCourseId(course_id).then(data => {
+    res.send(data);
+  });
+});
+
+router.get("/students", async (req, res) => {
+  const data = await db.getStudents();
+  res.send(data);
+});
+
+router.get("/user-courses/:id", async (req, res) => {
+  const userId = req.params.id;
+  const data = await db.getCoursesByUser(userId);
+  res.send(data);
+});
+
+router.get("/ratings/:lesson_id", async (req, res) => {
+  const { user_id } = req.user;
+  const { lesson_id } = req.params;
+  const data = await db.getRatings(user_id, lesson_id);
+  res.send(data);
+});
+
+router.post("/ratings/:lessonId", async (req, res) => {
+  const { user_id } = req.user;
+  const { ratings } = req.body;
+  const { lessonId } = req.params;
+
+  const ratingsToSave = ratings.map(rating => {
+    const {
+      topic_id,
+      rating_before,
+      rating_after,
+      rating_3days,
+      rating_1week
+    } = rating;
+    return {
+      topic_id,
+      rating_before,
+      rating_after,
+      rating_3days,
+      rating_1week,
+      user_id
+    };
+  });
+
+  try {
+    await db.addRatings(user_id, lessonId, ratingsToSave);
+
+    const data = await db.getRatings(user_id, lessonId);
+    res.send(data);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Sorry, couldn't save ratings.");
+  }
 });
 
 module.exports = router;

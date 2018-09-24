@@ -64,7 +64,11 @@ class Courses extends Component {
                   {this.state.courses.map(course => (
                     <tr key={course.course_id}>
                       <td>{course.course_id}</td>
-                      <td>{course.name}</td>
+                      <td>
+                        <Link to={`/admin/courses/${course.course_id}`}>
+                          {course.name}
+                        </Link>
+                      </td>
                       <td>{course.location}</td>
                       <td>{course.organisation_title}</td>
                       <td>
