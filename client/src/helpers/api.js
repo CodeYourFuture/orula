@@ -185,3 +185,24 @@ export const updateUserProfile = async (name, email) => {
     email
   });
 };
+
+export const isAdminLoggedIn = async () => {
+  const token = localStorage.getItem("jwtToken");
+  const currentUserId = await instance
+    .get("/user/profile", {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+    .then(res => res.data.user_id);
+
+  const result = await instance.get(`/api/user-roles/${currentUserId}`, {
+    currentUserId
+  });
+  const currentUserRole = result.data;
+  if (currentUserRole.length > 1) {
+    return currentUserRole[0].role === "Admin" ? true : false;
+  } else {
+    return (await (currentUserRole.role === "Admin")) ? true : false;
+  }
+};

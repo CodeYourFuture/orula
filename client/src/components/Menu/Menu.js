@@ -1,7 +1,12 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { isAdminLoggedIn } from "../../helpers/api.js";
 
 class Menu extends Component {
+  state = { admin: null };
+  componentDidMount = async () => {
+    isAdminLoggedIn().then(res => this.setState({ admin: res }));
+  };
   render() {
     return (
       <div className="navbar-default sidebar" role="navigation">
@@ -36,26 +41,34 @@ class Menu extends Component {
                 <i className="fa fa-question-circle fa-fw" /> Help
               </Link>
             </li>
-            <li>
-              <Link to="/admin/courses">
-                <i className="fa fa-graduation-cap fa-fw" /> Courses
-              </Link>
-            </li>
-            <li>
-              <Link to="/admin/lessons">
-                <i className="fa fa-book fa-fw" /> Lessons
-              </Link>
-            </li>
-            <li>
-              <Link to="/dashboard">
-                <i className="fa fa-sitemap fa-fw" /> Organisations
-              </Link>
-            </li>
-            <li>
-              <Link to="/admin/users">
-                <i className="fa fa-users fa-fw" /> Users
-              </Link>
-            </li>
+            {this.state.admin ? (
+              <li>
+                <Link to="/admin/courses">
+                  <i className="fa fa-graduation-cap fa-fw" /> Courses
+                </Link>
+              </li>
+            ) : null}
+            {this.state.admin ? (
+              <li>
+                <Link to="/admin/lessons">
+                  <i className="fa fa-book fa-fw" /> Lessons
+                </Link>
+              </li>
+            ) : null}
+            {this.state.admin ? (
+              <li>
+                <Link to="/dashboard">
+                  <i className="fa fa-sitemap fa-fw" /> Organisations
+                </Link>
+              </li>
+            ) : null}
+            {this.state.admin ? (
+              <li>
+                <Link to="/admin/users">
+                  <i className="fa fa-users fa-fw" /> Users
+                </Link>
+              </li>
+            ) : null}
           </ul>
         </div>
       </div>
