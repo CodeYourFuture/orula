@@ -152,5 +152,4 @@ exports.seed = async (knex, Promise) => {
       user_id: users[2]
     }
   ]);
-
 };

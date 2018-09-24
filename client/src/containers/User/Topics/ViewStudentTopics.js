@@ -1,6 +1,12 @@
 import React, { Component } from "react";
-import { getTopicsByLessonId, getLessonsById } from "../../../helpers/api";
+import {
+  getTopicsByLessonId,
+  getLessonsById,
+  getRatings,
+  addRatings
+} from "../../../helpers/api";
 import { Link } from "react-router-dom";
+import RatingsSelect from "../../../components/User/RatingsSelect";
 
 class ViewStudentTopics extends Component {
   constructor(props) {
@@ -8,26 +14,72 @@ class ViewStudentTopics extends Component {
     this.state = {
       topics: [],
       lessonName: "",
-      rating: 0,
-      range: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+      ratings: [],
       message: "",
       messageAlert: ""
     };
   }
-  componentDidMount = async () => {
-    const lessonId = this.props.match.params.lessonId;
-    const response = await getTopicsByLessonId(lessonId);
-    const { data: lesson } = await getLessonsById(lessonId);
-    this.setState({ topics: response.data, lessonName: lesson[0].name });
+
+  generateInitialRatings = topics => {
+    const ratings = topics.map(topic => {
+      return {
+        topic_id: topic.topic_id,
+        title: topic.title,
+        rating_before: -1,
+        rating_after: -1,
+        rating_3days: -1,
+        rating_1week: -1
+      };
+    });
+    return ratings;
   };
 
-  setRating = async e => {
-    const rating = e.target.value;
-    this.setState({ rating });
+  componentDidMount = async () => {
+    const lessonId = this.props.match.params.lessonId;
+    const { data: topics } = await getTopicsByLessonId(lessonId);
+    const { data: lesson } = await getLessonsById(lessonId);
+    this.setState({ topics, lessonName: lesson[0].name });
+    const { data: ratings } = await getRatings(lessonId);
+    if (ratings.length === 0) {
+      const newRatings = this.generateInitialRatings(topics);
+      this.setState({ ratings: newRatings });
+    } else {
+      this.setState({ ratings });
+    }
+  };
+
+  setRating = (topic_id, column, e) => {
+    const value = e.target.value;
+    this.setState(({ ratings: prevRatings }) => {
+      const newRatings = [...prevRatings];
+      const ratingIndex = newRatings.findIndex(rating => {
+        return rating.topic_id === topic_id;
+      });
+      newRatings[ratingIndex][column] = value;
+      return {
+        ratings: newRatings
+      };
+    });
   };
 
   onSave = async e => {
     e.preventDefault();
+
+    const ratings = this.state.ratings;
+    try {
+      const lessonId = this.props.match.params.lessonId;
+      const { data } = await addRatings(lessonId, ratings);
+      this.setState({
+        message: "Successfully saved ratings!",
+        messageAlert: "alert alert-success",
+        ratings: data
+      });
+    } catch (err) {
+      this.setState({
+        message: err.response.data,
+        messageAlert: "alert alert-danger"
+      });
+    }
   };
 
   render() {
@@ -38,7 +90,6 @@ class ViewStudentTopics extends Component {
             <h2 className="page-header">{this.state.lessonName}</h2>
           </div>
         </div>
-
         {this.state.message && (
           <div className={this.state.messageAlert}>{this.state.message}</div>
         )}
@@ -56,47 +107,51 @@ class ViewStudentTopics extends Component {
                   </tr>
                 </thead>
                 <tbody>
-                  {this.state.topics.map(topic => (
-                    <tr key={topic.topic_id}>
-                      <td>{topic.title}</td>
+                  {this.state.ratings.map((rating, index) => (
+                    <tr key={index}>
+                      <td>{rating.title}</td>
                       <td>
-                        <select onChange={e => this.setRating(e)}>
-                          <option>Select Rating</option>
-                          {this.state.range.map(rating => (
-                            <option key={rating}>{rating}</option>
-                          ))}
-                        </select>
+                        <RatingsSelect
+                          onChange={e =>
+                            this.setRating(rating.topic_id, "rating_before", e)
+                          }
+                          rating={rating.rating_before}
+                          group="rating_before"
+                        />
                       </td>
                       <td>
-                        <select onChange={e => this.setRating(e)}>
-                          <option>Select Rating</option>
-                          {this.state.range.map(rating => (
-                            <option key={rating}>{rating}</option>
-                          ))}
-                        </select>
+                        <RatingsSelect
+                          onChange={e =>
+                            this.setRating(rating.topic_id, "rating_after", e)
+                          }
+                          rating={rating.rating_after}
+                          group="rating_after"
+                        />
                       </td>
                       <td>
-                        <select onChange={e => this.setRating(e)}>
-                          <option>Select Rating</option>
-                          {this.state.range.map(rating => (
-                            <option key={rating}>{rating}</option>
-                          ))}
-                        </select>
+                        <RatingsSelect
+                          onChange={e =>
+                            this.setRating(rating.topic_id, "rating_3days", e)
+                          }
+                          rating={rating.rating_3days}
+                          group="rating_3days"
+                        />
                       </td>
                       <td>
-                        <select onChange={e => this.setRating(e)}>
-                          <option>Select Rating</option>
-                          {this.state.range.map(rating => (
-                            <option key={rating}>{rating}</option>
-                          ))}
-                        </select>
+                        <RatingsSelect
+                          onChange={e =>
+                            this.setRating(rating.topic_id, "rating_1week", e)
+                          }
+                          rating={rating.rating_1week}
+                          group="rating_1week"
+                        />
                       </td>
                     </tr>
                   ))}
                 </tbody>
               </table>
             </div>
-            <button className="btn btn-success" onClick={e => this.onSave(e)}>
+            <button className="btn btn-success" onClick={this.onSave}>
               Save Ratings
             </button>{" "}
             <Link to="/">
