@@ -29,7 +29,7 @@ app.use(cors());
 
 app.use("/admin", admin);
 
-app.use("/api",  api);
+app.use("/api", passport.authenticate("jwt", { session: false }), api);
 
 app.use("/auth", auth);
 app.use("/user", passport.authenticate("jwt", { session: false }), user);

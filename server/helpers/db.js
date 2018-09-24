@@ -317,6 +317,33 @@ const getStudentsByCourseId = async course_id => {
     .where({ "courses.course_id": course_id });
 };
 
+const getRatings = async (user_id, lesson_id) => {
+  return await knex
+    .select()
+    .table("ratings")
+    .innerJoin("topics", "topics.topic_id", "ratings.topic_id")
+    .where({
+      "topics.lesson_id": lesson_id,
+      "ratings.user_id": user_id
+    });
+};
+
+const addRatings = async (user_id, lesson_id, ratings) => {
+  // Deleting ratings that belong to that specific topic
+  if (lesson_id) {
+    await knex("ratings")
+      .where("ratings.user_id", user_id)
+      .whereIn("topic_id", function() {
+        this.select("topic_id")
+          .from("topics")
+          .where({ lesson_id });
+      })
+      .delete();
+  }
+
+  return await knex("ratings").insert(ratings);
+};
+
 module.exports = {
   getCourses,
   getCourseById,
@@ -361,5 +388,8 @@ module.exports = {
   assignUserToCourse,
   getStudentsByCourseId,
   getStudents,
-  getCoursesByUser
+  getCoursesByUser,
+  getCoursesByUser,
+  getRatings,
+  addRatings
 };
