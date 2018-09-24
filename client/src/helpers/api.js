@@ -203,7 +203,7 @@ export const updateUserProfile = async (name, email) => {
 
 export const isAdminLoggedIn = async () => {
   const token = localStorage.getItem("jwtToken");
-  const currentUserId = await createInstance
+  const currentUserId = await createInstance()
     .get("/user/profile", {
       headers: {
         Authorization: `Bearer ${token}`
@@ -211,7 +211,7 @@ export const isAdminLoggedIn = async () => {
     })
     .then(res => res.data.user_id);
 
-  const result = await createInstance.get(`/api/user-roles/${currentUserId}`, {
+  const result = await createInstance().get(`/api/user-roles/${currentUserId}`, {
     currentUserId
   });
   const currentUserRole = result.data;
