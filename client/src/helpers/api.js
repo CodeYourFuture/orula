@@ -193,3 +193,6 @@ export const getStudentsByCourseId = async course_id => {
 export const assignUserToCourse = async (course_id, user_id) => {
   return await instance.post("/api/enrol", { course_id, user_id });
 };
+export const getCoursesByUser = async userId => {
+  return await instance.get(`/api/user-courses/${userId}`);
+};

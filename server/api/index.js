@@ -32,7 +32,7 @@ router.post("/courses", async (req, res) => {
   } else {
     res
       .status(403)
-      .send("This course already exist or course name field is empty");
+      .send("This course already exists or course name field is empty");
   }
 });
 
@@ -50,7 +50,7 @@ router.put("/courses/:id", async (req, res) => {
   } else {
     res
       .status(403)
-      .send("This course already exist or course name field is empty");
+      .send("This course already exists or course name field is empty");
   }
 });
 
@@ -334,5 +334,12 @@ router.get("/students", async (req, res) => {
   const data = await db.getStudents();
   res.send(data);
 });
+
+router.get("/user-courses/:id", async (req, res) => {
+  const userId = req.params.id;
+  const data = await db.getCoursesByUser(userId)
+  res.send(data)
+})
+
 
 module.exports = router;

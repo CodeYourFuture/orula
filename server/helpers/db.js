@@ -223,6 +223,15 @@ const getUsersWithRoles = () => {
     .innerJoin("roles", "roles.role_id", "user_roles.role_id");
 };
 
+const getCoursesByUser = async user_id => {
+  return await knex
+    .select("courses.course_id as courseId", "courses.name as courseName")
+    .from("courses")
+    .innerJoin("users_courses", "courses.course_id", "users_courses.course_id")
+    .innerJoin("users", "users.user_id", "users_courses.user_id")
+    .where({ "users.user_id": user_id });
+};
+
 const getUserRoles = async user_id => {
   return knex
     .select("users.name as name", "email", "roles.name as role")
@@ -351,5 +360,6 @@ module.exports = {
   isEmailAvailableForCurrentUser,
   assignUserToCourse,
   getStudentsByCourseId,
-  getStudents
+  getStudents,
+  getCoursesByUser
 };

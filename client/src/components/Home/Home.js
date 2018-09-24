@@ -1,23 +1,55 @@
 import React, { Component } from "react";
-import { getStatus } from "../../helpers/api";
+import {
+  getSessionUser,
+  getCoursesByUser,
+  getLessons
+} from "../../helpers/api";
+import { Link } from "react-router-dom";
 import "./Home.css";
+
 class Home extends Component {
   state = {
-    status: ""
+    courses: [],
+    lessons: []
   };
-  componentDidMount() {
-    getStatus().then(data => {
-      this.setState({ status: JSON.stringify(data) });
+
+  async componentDidMount() {
+    getLessons().then(data => {
+      this.setState({ lessons: data });
     });
+    const userData = await getSessionUser();
+    const { data: courses } = await getCoursesByUser(userData.user_id);
+    this.setState({ courses });
   }
+
   render() {
     return (
-      <div>
-        <p className="home-intro">
-          We're building this system to help CYF, and other organisations, to
-          manage a Classroom during the lifetime of a course.
-        </p>
-        <p>{this.state.status}</p>
+      <div className="row">
+        {this.state.courses.map(course => (
+          <div key={course.courseId}>
+            <h2 className="page-header">{course.courseName}</h2>
+            <table className="table table-striped table-bordered">
+              <thead>
+                <tr>
+                  <th>Lessons</th>
+                </tr>
+              </thead>
+              <tbody>
+                {this.state.lessons
+                  .filter(lesson => lesson.course_title === course.courseName)
+                  .map(lesson => (
+                    <tr key={lesson.lesson_id}>
+                      <td>
+                        <Link to={`/lessons/${lesson.lesson_id}/topics`}>
+                          {lesson.name}
+                        </Link>
+                      </td>
+                    </tr>
+                  ))}
+              </tbody>
+            </table>
+          </div>
+        ))}
       </div>
     );
   }
