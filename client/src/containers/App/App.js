@@ -22,12 +22,9 @@ import EditTopics from "../Admin/Lessons/Topics/EditTopics/EditTopics";
 import Users from "../Admin/Users/Users";
 import AssignUserRole from "../Admin/Users/AssignUserRole";
 import EditUser from "../User/EditUser/EditUser";
-<<<<<<< HEAD
 import AssignCourseToStudent from "../Admin/Courses/AssignCourseToStudent/AssignCourseToStudent";
-=======
 import ViewStudentTopics from "../User/Topics/ViewStudentTopics";
 
->>>>>>> edc9aabdb71440d577099d8c268267108e406692
 class App extends Component {
   componentDidMount = async () => {
     // get token from local storage
