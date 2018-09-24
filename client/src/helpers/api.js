@@ -220,7 +220,7 @@ export const isAdminLoggedIn = async () => {
   } else {
     return (await (currentUserRole.role === "Admin")) ? true : false;
   }
-
+};
 export const getStudentsByCourseId = async course_id => {
   return await createInstance().get(`api/courses/${course_id}/students`);
 };
