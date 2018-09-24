@@ -31,6 +31,7 @@ class AssignCourseToStudent extends Component {
     const allStudentsData = await getStudents();
     const studentsData = await getStudentsByCourseId(courseId);
     const { name } = res.data[0];
+
     this.setState({
       name,
       course_id: courseId,
@@ -42,19 +43,18 @@ class AssignCourseToStudent extends Component {
   onSubmit = async e => {
     e.preventDefault();
     const { course_id, user_id } = this.state;
-    // let user = "";
-    // if (this.state.students.length !== 0) {
-    //   user = this.state.students.find(s => s.userId == user_id);
-    //   if (user.userId == user_id) {
-    //     this.setState({
-    //       message: "This student has been already assigned to this course.",
-    //       messageAlert: "alert alert-danger"
-    //     });
-    //   }
-    // }
+    let user = "";
+
+    user = this.state.students.map(s => s.userId).includes(Number(user_id));
+
     if (course_id === "" || user_id === "") {
       this.setState({
         message: "You must select a student!",
+        messageAlert: "alert alert-danger"
+      });
+    } else if (user !== false) {
+      this.setState({
+        message: "This student has been already assigned to this course.",
         messageAlert: "alert alert-danger"
       });
     } else {
@@ -64,6 +64,8 @@ class AssignCourseToStudent extends Component {
           message: res.data,
           messageAlert: "alert alert-success"
         });
+
+        window.location.reload();
       } catch (err) {
         this.setState({
           message: err.response.data,
