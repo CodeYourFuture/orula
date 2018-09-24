@@ -1,9 +1,5 @@
 import React, { Component } from "react";
-import {
-  getUserRoles,
-  getRoles,
-  addRoleToUser
-} from "../../../helpers/api";
+import { getUserRoles, getRoles, addRoleToUser } from "../../../helpers/api";
 
 class AssignUserRole extends Component {
   constructor(props) {

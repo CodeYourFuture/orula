@@ -134,7 +134,6 @@ exports.seed = async (knex, Promise) => {
     {
       user_id: users[3],
       role_id: roles[1]
-    },
-    
+    }
   ]);
 };
