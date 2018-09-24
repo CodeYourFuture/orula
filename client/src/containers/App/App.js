@@ -24,6 +24,7 @@ import AssignUserRole from "../Admin/Users/AssignUserRole";
 import EditUser from "../User/EditUser/EditUser";
 import { isAdminLoggedIn } from "../../helpers/api.js";
 import IsntAdmin from "../Admin/IsntAdmin/IsntAdmin";
+import ViewStudentTopics from "../User/Topics/ViewStudentTopics";
 
 class App extends Component {
   state = { admin: null };
@@ -171,7 +172,7 @@ class App extends Component {
                 component={IsntAdmin}
               />
             )}
-            <Route path="/user/profile/edit" component={EditUser} />
+       <Route path="/user/profile/edit" component={EditUser} />
           </div>
         </div>
       </Router>
