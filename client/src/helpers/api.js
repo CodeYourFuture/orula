@@ -201,26 +201,6 @@ export const updateUserProfile = async (name, email) => {
   });
 };
 
-export const isAdminLoggedIn = async () => {
-  const token = localStorage.getItem("jwtToken");
-  const currentUserId = await createInstance()
-    .get("/user/profile", {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    })
-    .then(res => res.data.user_id);
-
-  const result = await createInstance().get(`/api/user-roles/${currentUserId}`, {
-    currentUserId
-  });
-  const currentUserRole = result.data;
-  if (currentUserRole.length > 1) {
-    return currentUserRole[0].role === "Admin" ? true : false;
-  } else {
-    return (await (currentUserRole.role === "Admin")) ? true : false;
-  }
-};
 export const getStudentsByCourseId = async course_id => {
   return await createInstance().get(`api/courses/${course_id}/students`);
 };
