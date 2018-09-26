@@ -57,6 +57,10 @@ export const getStudents = async () => {
   return await createInstance().get(`api/students`);
 };
 
+export const getStudentRatingsByTopic = async topic_id => {
+  return await createInstance().get(`api/student-ratings/${topic_id}`);
+};
+
 export const getOrganisations = async () => {
   return await createInstance()
     .get("/api/organisations")
