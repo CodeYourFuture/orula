@@ -281,7 +281,6 @@ router.get("/user-roles", async (req, res) => {
       // add current role to roles array inside the object
       result[userId]["roles"] = [current.role];
     }
-
     return result;
   }, {});
   // send only values of newData
