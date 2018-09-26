@@ -37,13 +37,12 @@ class App extends Component {
     if (!token) {
       return this.props.history.push("/login");
     }
-    await isAdminLoggedIn().then(res => this.setState({ admin: res }));
+    this.setState({ admin: isAdminLoggedIn() });
   };
 
   render() {
     const token = localStorage.getItem("jwtToken");
     if (!token) return null;
-
     return (
       <Router>
         <div id="wrapper">
@@ -52,16 +51,13 @@ class App extends Component {
             <Route exact path="/" component={Home} />
             <Route exact path="/my-profile" component={MyProfile} />
             <Route exact path="/help" component={Help} />
-            {this.state.admin ? (
-              <Route exact path="/dashboard" component={Dashboard} />
-            ) : (
-              <Route exact path="/dashboard" component={IsntAdmin} />
-            )}
-            {this.state.admin ? (
-              <Route exact path="/admin/courses" component={Courses} />
-            ) : (
-              <Route exact path="/admin/courses" component={IsntAdmin} />
-            )}
+            
+            {this.state.admin ? (<Route exact path="/dashboard" component={Dashboard} />) : 
+            (<Route exact path="/dashboard" component={IsntAdmin} />)}
+            
+            {this.state.admin ? (<Route exact path="/admin/courses" component={Courses} />) : 
+            (<Route exact path="/admin/courses" component={IsntAdmin} />)}
+           
             {this.state.admin ? (
               <Route
                 exact
@@ -173,12 +169,25 @@ class App extends Component {
                 component={IsntAdmin}
               />
             )}
-            <Route path="/user/profile/edit" component={EditUser} />
             <Route
               exact
-              path="/admin/courses/:courseId"
-              component={AssignCourseToStudent}
+              path="/lesson/:lessonId"
+              component={ViewStudentTopics}
             />
+            <Route path="/user/profile/edit" component={EditUser} />
+            {this.state.admin ? (
+              <Route
+                exact
+                path="/admin/courses/:courseId"
+                component={AssignCourseToStudent}
+              />
+            ) : (
+              <Route
+                exact
+                path="/admin/courses/:courseId"
+                component={IsntAdmin}
+              />
+            )}
           </div>
         </div>
       </Router>
