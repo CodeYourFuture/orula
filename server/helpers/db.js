@@ -389,7 +389,6 @@ module.exports = {
   getStudentsByCourseId,
   getStudents,
   getCoursesByUser,
-  getCoursesByUser,
   getRatings,
   addRatings
 };
