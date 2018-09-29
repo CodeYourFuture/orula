@@ -25,36 +25,39 @@ class AssignCourseToStudent extends Component {
     this.setState({ user_id: studentId });
   };
 
+  loadStudents = async () => {
+    const courseId = this.props.match.params.courseId;
+    const allStudentsData = await getStudents();
+    const studentsData = await getStudentsByCourseId(courseId);
+    this.setState({
+      students: studentsData.data,
+      allStudents: allStudentsData.data
+    });
+  };
+
   componentDidMount = async () => {
     const courseId = this.props.match.params.courseId;
     const res = await getCourseById(courseId);
-    const allStudentsData = await getStudents();
-    const studentsData = await getStudentsByCourseId(courseId);
     const { name } = res.data[0];
+    this.loadStudents();
 
     this.setState({
       name,
-      course_id: courseId,
-      students: studentsData.data,
-      allStudents: allStudentsData.data
+      course_id: courseId
     });
   };
 
   onSubmit = async e => {
     e.preventDefault();
     const { course_id, user_id } = this.state;
-    let user = "";
+    let user = this.state.students.map(s => s.userId).includes(Number(user_id));
 
-    user = this.state.students.map(s => s.userId).includes(Number(user_id));
-
-    if (course_id === "" || user_id === "") {
+    if (course_id === "" || user_id === "" || user !== false) {
       this.setState({
-        message: "You must select a student!",
-        messageAlert: "alert alert-danger"
-      });
-    } else if (user !== false) {
-      this.setState({
-        message: "This student has been already assigned to this course.",
+        message:
+          user !== false
+            ? "This student has been already assigned to this course."
+            : "You must select a student!",
         messageAlert: "alert alert-danger"
       });
     } else {
@@ -64,8 +67,7 @@ class AssignCourseToStudent extends Component {
           message: res.data,
           messageAlert: "alert alert-success"
         });
-
-        window.location.reload();
+        this.loadStudents();
       } catch (err) {
         this.setState({
           message: err.response.data,
