@@ -45,7 +45,6 @@ class App extends Component {
     }
     const userData = await getSessionUser();
     const { data: roles } = await getUserRoles(userData.user_id);
-    console.log("data_roles", roles);
     const userRoles = roles.map(role => role.role);
     if (userRoles.includes("Mentor")) {
       this.setState({ isMentor: true });
