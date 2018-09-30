@@ -17,8 +17,7 @@ class ViewMentorTopics extends Component {
   }
 
   componentDidMount = async () => {
-    console.log(this.props)
-    const lessonId = this.props.match.params.lessonId;
+    const lessonId = this.props.lessonId;
     const { data: topics } = await getTopicsByLessonId(lessonId);
     const { data: lesson } = await getLessonsById(lessonId);
     var ratings = [];
@@ -41,8 +40,6 @@ class ViewMentorTopics extends Component {
         </div>
         <div className="row">
           <div className="col-md-12">
-            {ratings.forEach(rating => console.log(rating))}
-
             {topics.map(topic => (
               <div key={topic.topic_id} className="table-responsive">
                 <h4>{topic.title}</h4>

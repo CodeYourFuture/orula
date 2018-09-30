@@ -7,7 +7,7 @@ class TopicsHome extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isMentor: false
+      isMentor: null
     };
   }
 
@@ -21,10 +21,14 @@ class TopicsHome extends Component {
   };
 
   render() {
-    console.log(this.state.isMentor)
+    const lessonId = this.props.match.params.lessonId;
     return (
       <div>
-        {this.state.isMentor ? <ViewMentorTopics /> : <ViewStudentTopics />}
+        {this.state.isMentor && this.state.isMentor !== null ? (
+          <ViewMentorTopics lessonId={lessonId} />
+        ) : (
+          <ViewStudentTopics lessonId={lessonId} />
+        )}
       </div>
     );
   }

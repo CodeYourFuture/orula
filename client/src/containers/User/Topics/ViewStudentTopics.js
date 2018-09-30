@@ -35,7 +35,7 @@ class ViewStudentTopics extends Component {
   };
 
   componentDidMount = async () => {
-    const lessonId = this.props.match.params.lessonId;
+    const lessonId = this.props.lessonId;
     const { data: topics } = await getTopicsByLessonId(lessonId);
     const { data: lesson } = await getLessonsById(lessonId);
     this.setState({ topics, lessonName: lesson[0].name });
