@@ -134,8 +134,8 @@ class EditUser extends React.Component {
           </div>
           <div className="col-lg-12">
             <Link to="/my-profile">
-              <button className="btn btn-primary">
-                <i className="fa fa-eye fa-fw" /> Return
+              <button className="btn btn-info">
+                <i className="fa fa-eye fa-fw" /> Go Back
               </button>
             </Link>
           </div>
