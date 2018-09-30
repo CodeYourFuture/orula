@@ -46,36 +46,30 @@ class Menu extends Component {
               <Link to="/help">
                 <i className="fa fa-question-circle fa-fw" /> Help
               </Link>
-            </li>
-            {this.state.admin ? (
+            </li></ul>
+            {this.state.admin ? (<ul className="nav" id="side-menu">
               <li>
                 <Link to="/admin/courses">
                   <i className="fa fa-graduation-cap fa-fw" /> Courses
                 </Link>
               </li>
-            ) : null}
-            {this.state.admin ? (
               <li>
                 <Link to="/admin/lessons">
                   <i className="fa fa-book fa-fw" /> Lessons
                 </Link>
               </li>
-            ) : null}
-            {this.state.admin ? (
               <li>
                 <Link to="/dashboard">
                   <i className="fa fa-sitemap fa-fw" /> Organisations
                 </Link>
               </li>
-            ) : null}
-            {this.state.admin ? (
               <li>
                 <Link to="/admin/users">
                   <i className="fa fa-users fa-fw" /> Users
                 </Link>
               </li>
-            ) : null}
           </ul>
+            ) : null}
         </div>
       </div>
     );
