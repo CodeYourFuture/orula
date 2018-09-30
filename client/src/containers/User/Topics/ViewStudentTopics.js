@@ -67,7 +67,7 @@ class ViewStudentTopics extends Component {
 
     const ratings = this.state.ratings;
     try {
-      const lessonId = this.props.match.params.lessonId;
+      const lessonId = this.props.lessonId;
       const { data } = await addRatings(lessonId, ratings);
       this.setState({
         message: "Successfully saved ratings!",

@@ -30,7 +30,7 @@ class ViewMentorTopics extends Component {
 
   render() {
     const { ratings, topics, lessonName } = this.state;
-    console.log(ratings)
+    console.log(ratings);
     return (
       <div>
         <div className="row">
@@ -54,17 +54,15 @@ class ViewMentorTopics extends Component {
                     </tr>
                   </thead>
                   <tbody>
-                    {ratings.forEach(rating => {
-                      console.log(rating)(
-                        <tr>
-                          <td>{rating.name}</td>
-                          <td />
-                          <td />
-                          <td />
-                          <td />
-                        </tr>
-                      );
-                    })}
+                    {ratings.forEach(rating => (
+                      <tr>
+                        <td>{rating.name}</td>
+                        <td>{rating.rating_before}</td>
+                        <td>{rating.rating_after}</td>
+                        <td>{rating.rating_3days}</td>
+                        <td>{rating.rating_1week}</td>
+                      </tr>
+                    ))}
                   </tbody>
                 </table>
               </div>
