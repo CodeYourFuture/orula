@@ -22,13 +22,13 @@ import EditTopics from "../Admin/Lessons/Topics/EditTopics/EditTopics";
 import Users from "../Admin/Users/Users";
 import AssignUserRole from "../Admin/Users/AssignUserRole";
 import EditUser from "../User/EditUser/EditUser";
-import { isAdminLoggedIn } from "../../helpers/api.js";
+import { getSessionUser, getUserRoles } from "../../helpers/api.js";
 import IsntAdmin from "../Admin/IsntAdmin/IsntAdmin";
 import AssignCourseToStudent from "../Admin/Courses/AssignCourseToStudent/AssignCourseToStudent";
 import ViewStudentTopics from "../User/Topics/ViewStudentTopics";
 
 class App extends Component {
-  state = { admin: null };
+  state = { admin: false };
   componentDidMount = async () => {
     // get token from local storage
     const token = localStorage.getItem("jwtToken");
@@ -37,12 +37,21 @@ class App extends Component {
     if (!token) {
       return this.props.history.push("/login");
     }
-    this.setState({ admin: isAdminLoggedIn() });
-  };
+    
+  };	  
+   isThisAdmin = async ()=>{
+    const userData = await getSessionUser();
+    const { data: roles } = await getUserRoles(userData.user_id);
+    const userRoles = roles.map(role => role.role);
+    if (userRoles.includes("Admin")) {
+      this.setState({ admin: true });    }
+   }
+
 
   render() {
     const token = localStorage.getItem("jwtToken");
     if (!token) return null;
+    this.isThisAdmin();
     return (
       <Router>
         <div id="wrapper">

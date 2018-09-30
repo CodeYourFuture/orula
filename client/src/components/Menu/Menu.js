@@ -1,13 +1,19 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { isAdminLoggedIn } from "../../helpers/api.js";
+import { getSessionUser, getUserRoles } from "../../helpers/api.js";
 
 class Menu extends Component {
-  state = { admin: null };
-  componentDidMount = async () => {
-    isAdminLoggedIn().then(res => this.setState({ admin: res }));
-  };
+  state = { admin: false };
+  isThisAdmin = async ()=>{
+    const userData = await getSessionUser();
+    const { data: roles } = await getUserRoles(userData.user_id);
+    const userRoles = roles.map(role => role.role);
+    if (userRoles.includes("Admin")) {
+      this.setState({ admin: true });    }
+   }
+
   render() {
+    this.isThisAdmin();
     return (
       <div className="navbar-default sidebar" role="navigation">
         <div className="sidebar-nav navbar-collapse">
