@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import Home from "../../components/Home/Home";
+import StudentHome from "../../components/Home/StudentHome";
 import Help from "../../components/Help/Help";
 import MyProfile from "../../components/MyProfile/MyProfile";
 import "./App.css";
@@ -62,7 +62,7 @@ class App extends Component {
             {this.state.isMentor ? (
               <Route exact path="/" component={MentorHome} />
             ) : (
-              <Route exact path="/" component={Home} />
+              <Route exact path="/" component={StudentHome} />
             )}
             <Route exact path="/my-profile" component={MyProfile} />
             <Route exact path="/help" component={Help} />
