@@ -2,14 +2,18 @@ import React, { Component } from "react";
 import {
   getSessionUser,
   getCoursesByUser,
-  getLessons
+  getLessons,
+  getStudentsByCourseId
 } from "../../helpers/api";
 import { Link } from "react-router-dom";
 
 class MentorHome extends Component {
   state = {
     courses: [],
-    lessons: []
+    lessons: [],
+    students: [],
+    newArray: [],
+    userName: ""
   };
 
   async componentDidMount() {
@@ -18,7 +22,10 @@ class MentorHome extends Component {
     });
     const userData = await getSessionUser();
     const { data: courses } = await getCoursesByUser(userData.user_id);
-    this.setState({ courses });
+    const courseId = courses.map(course => course.courseId);
+
+    const studentsData = await getStudentsByCourseId(courseId);
+    this.setState({ courses, students: studentsData.data });
   }
 
   render() {
@@ -27,10 +34,19 @@ class MentorHome extends Component {
         {this.state.courses.map(course => (
           <div key={course.courseId}>
             <h2 className="page-header">{course.courseName}</h2>
+            <div className="row">
+              <div className="col-lg-8">
+                {this.state.students.length} students are assigned to this
+                course.
+              </div>
+            </div>
+            <br />
             <table className="table table-striped table-bordered">
               <thead>
                 <tr>
                   <th>Lessons</th>
+
+                  <th>Names</th>
                 </tr>
               </thead>
               <tbody>
@@ -43,6 +59,9 @@ class MentorHome extends Component {
                           {lesson.name}
                         </Link>
                       </td>
+                      {this.state.students.map(user => (
+                        <td>{user.userName}</td>
+                      ))}
                     </tr>
                   ))}
               </tbody>
