@@ -17,6 +17,7 @@ class ViewMentorTopics extends Component {
   }
 
   componentDidMount = async () => {
+    console.log(this.props)
     const lessonId = this.props.match.params.lessonId;
     const { data: topics } = await getTopicsByLessonId(lessonId);
     const { data: lesson } = await getLessonsById(lessonId);
