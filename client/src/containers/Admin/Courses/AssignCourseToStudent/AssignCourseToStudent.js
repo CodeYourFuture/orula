@@ -99,7 +99,7 @@ class AssignCourseToStudent extends Component {
           <div className="col-lg-6">
             <form className="form-inline">
               <div className="form-group">
-                <label className="control-label">Assign a new student:</label>
+                <label className="control-label">Assign a New User: </label>
                 <select
                   className="form-control"
                   onChange={e => this.setStudent(e)}
