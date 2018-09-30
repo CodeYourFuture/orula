@@ -6,6 +6,7 @@ import { getSessionUser, getUserRoles } from "../../../helpers/api";
 class TopicsHome extends Component {
   constructor(props) {
     super(props);
+    this.lessonId = props.match.params.lessonId;
     this.state = {
       isMentor: null
     };
@@ -15,22 +16,22 @@ class TopicsHome extends Component {
     const userData = await getSessionUser();
     const { data: roles } = await getUserRoles(userData.user_id);
     const userRoles = roles.map(role => role.role);
-    if (userRoles.includes("Mentor")) {
-      this.setState({ isMentor: true });
+    this.setState({ isMentor: userRoles.includes("Mentor") });
+  };
+
+  renderTopics = () => {
+    if (this.state.isMentor === null) {
+      return null;
+    }
+    if (this.state.isMentor) {
+      return <ViewMentorTopics lessonId={this.lessonId} />;
+    } else {
+      return <ViewStudentTopics lessonId={this.lessonId} />;
     }
   };
 
   render() {
-    const lessonId = this.props.match.params.lessonId;
-    return (
-      <div>
-        {this.state.isMentor && this.state.isMentor !== null ? (
-          <ViewMentorTopics lessonId={lessonId} />
-        ) : (
-          <ViewStudentTopics lessonId={lessonId} />
-        )}
-      </div>
-    );
+    return this.renderTopics();
   }
 }
 

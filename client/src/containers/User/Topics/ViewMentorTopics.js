@@ -21,16 +21,21 @@ class ViewMentorTopics extends Component {
     const { data: topics } = await getTopicsByLessonId(lessonId);
     const { data: lesson } = await getLessonsById(lessonId);
     var ratings = [];
-    topics.map(async topic => {
-      const { data: rating } = await getStudentRatingsByTopic(topic.topic_id);
-      Array.prototype.push.apply(ratings, rating);
+    topics.forEach(topic => {
+      const rating = getStudentRatingsByTopic(topic.topic_id);
+      ratings.push(rating);
     });
-    this.setState({ ratings, topics, lessonName: lesson[0].name });
+    const responses = await Promise.all(ratings)
+    var newRatings = []
+    responses.forEach(res => {
+      const { data } = res;
+      newRatings.push(data)
+    })
+    this.setState({ ratings: newRatings, topics, lessonName: lesson[0].name });
   };
 
   render() {
     const { ratings, topics, lessonName } = this.state;
-    console.log(ratings);
     return (
       <div>
         <div className="row">
@@ -54,15 +59,22 @@ class ViewMentorTopics extends Component {
                     </tr>
                   </thead>
                   <tbody>
-                    {ratings.forEach(rating => (
-                      <tr>
-                        <td>{rating.name}</td>
-                        <td>{rating.rating_before}</td>
-                        <td>{rating.rating_after}</td>
-                        <td>{rating.rating_3days}</td>
-                        <td>{rating.rating_1week}</td>
-                      </tr>
-                    ))}
+                    {ratings.length > 0
+                      ? ratings.map(rating => {
+                          if (topic.topic_id === rating[0].topic_id) {
+                            return (
+                              <tr key={rating[0].rating_id}>
+                                <td>{rating[0].name}</td>
+                                <td>{rating[0].rating_before}</td>
+                                <td>{rating[0].rating_after}</td>
+                                <td>{rating[0].rating_3days}</td>
+                                <td>{rating[0].rating_1week}</td>
+                              </tr>
+                            );
+                          }
+                          return null;
+                        })
+                      : null}
                   </tbody>
                 </table>
               </div>
