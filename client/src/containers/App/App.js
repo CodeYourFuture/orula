@@ -25,7 +25,7 @@ import EditUser from "../User/EditUser/EditUser";
 import AssignCourseToStudent from "../Admin/Courses/AssignCourseToStudent/AssignCourseToStudent";
 import ViewStudentTopics from "../User/Topics/ViewStudentTopics";
 import { getSessionUser, getUserRoles } from "../../helpers/api.js";
-import MentorHome from "../../components/MentorHome/MentorHome";
+import MentorHome from "../../components/Home/MentorHome";
 
 class App extends Component {
   constructor(props) {
