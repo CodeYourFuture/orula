@@ -12,7 +12,7 @@ class Home extends Component {
   componentDidMount = async () => {
     const userData = await getSessionUser();
     const { data: roles } = await getUserRoles(userData.user_id);
-    const userRoles = roles.map(role => role.role);
+    const userRoles = roles.map(user => user.role);
     this.setState({ isMentor: userRoles.includes("Mentor") });
   };
   renderTopics = () => {
