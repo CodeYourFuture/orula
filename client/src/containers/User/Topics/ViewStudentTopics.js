@@ -35,7 +35,7 @@ class ViewStudentTopics extends Component {
   };
 
   componentDidMount = async () => {
-    const lessonId = this.props.match.params.lessonId;
+    const lessonId = this.props.lessonId;
     const { data: topics } = await getTopicsByLessonId(lessonId);
     const { data: lesson } = await getLessonsById(lessonId);
     this.setState({ topics, lessonName: lesson[0].name });
@@ -67,7 +67,7 @@ class ViewStudentTopics extends Component {
 
     const ratings = this.state.ratings;
     try {
-      const lessonId = this.props.match.params.lessonId;
+      const lessonId = this.props.lessonId;
       const { data } = await addRatings(lessonId, ratings);
       this.setState({
         message: "Successfully saved ratings!",

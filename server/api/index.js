@@ -348,6 +348,12 @@ router.get("/ratings/:lesson_id", async (req, res) => {
   res.send(data);
 });
 
+router.get("/student-ratings/:topic_id", async (req, res) => {
+  const { topic_id } = req.params;
+  const data = await db.getStudentRatingsByTopic(topic_id);
+  res.send(data);
+});
+
 router.post("/ratings/:lessonId", async (req, res) => {
   const { user_id } = req.user;
   const { ratings } = req.body;
