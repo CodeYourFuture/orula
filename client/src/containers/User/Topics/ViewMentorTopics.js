@@ -25,17 +25,18 @@ class ViewMentorTopics extends Component {
       const rating = getStudentRatingsByTopic(topic.topic_id);
       ratings.push(rating);
     });
-    const responses = await Promise.all(ratings)
-    var newRatings = []
+    const responses = await Promise.all(ratings);
+    var newRatings = [];
     responses.forEach(res => {
       const { data } = res;
-      newRatings.push(data)
-    })
+      newRatings.push(data);
+    });
     this.setState({ ratings: newRatings, topics, lessonName: lesson[0].name });
   };
 
   render() {
     const { ratings, topics, lessonName } = this.state;
+    console.log(ratings);
     return (
       <div>
         <div className="row">
@@ -59,16 +60,32 @@ class ViewMentorTopics extends Component {
                     </tr>
                   </thead>
                   <tbody>
-                    {ratings.length > 0
+                    {ratings[0].length > 0
                       ? ratings.map(rating => {
                           if (topic.topic_id === rating[0].topic_id) {
                             return (
                               <tr key={rating[0].rating_id}>
                                 <td>{rating[0].name}</td>
-                                <td>{rating[0].rating_before === -1 ? "Not rated" : rating[0].rating_before}</td>
-                                <td>{rating[0].rating_after === -1 ? "Not rated" : rating[0].rating_after}</td>
-                                <td>{rating[0].rating_3days === -1 ? "Not rated" : rating[0].rating_3days}</td>
-                                <td>{rating[0].rating_1week === -1 ? "Not rated" : rating[0].rating_1week}</td>
+                                <td>
+                                  {rating[0].rating_before === -1
+                                    ? "Not rated"
+                                    : rating[0].rating_before}
+                                </td>
+                                <td>
+                                  {rating[0].rating_after === -1
+                                    ? "Not rated"
+                                    : rating[0].rating_after}
+                                </td>
+                                <td>
+                                  {rating[0].rating_3days === -1
+                                    ? "Not rated"
+                                    : rating[0].rating_3days}
+                                </td>
+                                <td>
+                                  {rating[0].rating_1week === -1
+                                    ? "Not rated"
+                                    : rating[0].rating_1week}
+                                </td>
                               </tr>
                             );
                           }

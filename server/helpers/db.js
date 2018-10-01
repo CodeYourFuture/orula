@@ -210,13 +210,13 @@ const getStudents = async () => {
     .where("roles.name", "=", "Student");
 };
 
-const getStudentRatingsByTopic = async (topic_id) => {
+const getStudentRatingsByTopic = async topic_id => {
   return await knex
     .select()
     .table("ratings")
     .innerJoin("users", "users.user_id", "ratings.user_id")
-    .where("ratings.topic_id", "=", topic_id)
-}
+    .where("ratings.topic_id", "=", topic_id);
+};
 
 const getUsersWithRoles = () => {
   return knex

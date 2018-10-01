@@ -80,11 +80,7 @@ class App extends Component {
               path="/admin/lessons/:lessonId/topics"
               component={ViewTopics}
             />
-            <Route
-              exact
-              path="/lesson/:lessonId"
-              component={TopicsHome}
-            />
+            <Route exact path="/lesson/:lessonId" component={TopicsHome} />
             <Route path="/admin/topics/add" component={AddTopics} />
             <Route path="/admin/topics/edit/:topicId" component={EditTopics} />
             <Route exact path="/admin/users" component={Users} />
