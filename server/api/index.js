@@ -331,7 +331,7 @@ router.get("/courses/:id/students", (req, res) => {
 });
 
 router.get("/students", async (req, res) => {
-  const data = await db.getStudents();
+  const data = await db.getStudentsAndMentor();
   res.send(data);
 });
 

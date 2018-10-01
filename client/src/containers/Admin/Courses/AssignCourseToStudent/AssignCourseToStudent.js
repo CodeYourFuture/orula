@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import {
   getCourseById,
   getStudentsByCourseId,
-  getStudents,
+  getStudentsAndMentor,
   assignUserToCourse
 } from "../../../../helpers/api";
 
@@ -27,7 +27,7 @@ class AssignCourseToStudent extends Component {
 
   loadStudents = async () => {
     const courseId = this.props.match.params.courseId;
-    const allStudentsData = await getStudents();
+    const allStudentsData = await getStudentsAndMentor();
     const studentsData = await getStudentsByCourseId(courseId);
     this.setState({
       students: studentsData.data,

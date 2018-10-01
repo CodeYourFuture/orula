@@ -201,13 +201,13 @@ const getUsers = async () => {
     .orderBy("user_id", "asc");
 };
 
-const getStudents = async () => {
+const getStudentsAndMentor = async () => {
   return await knex
     .select("users.user_id as userId", "users.name as studentName")
     .table("users")
     .innerJoin("user_roles", "users.user_id", "user_roles.user_id")
     .innerJoin("roles", "roles.role_id", "user_roles.role_id")
-    .where("roles.name", "=", "Student");
+    .whereNot("roles.name", "=", "Admin");
 };
 
 const getUsersWithRoles = () => {
@@ -387,7 +387,7 @@ module.exports = {
   isEmailAvailableForCurrentUser,
   assignUserToCourse,
   getStudentsByCourseId,
-  getStudents,
+  getStudentsAndMentor,
   getCoursesByUser,
   getRatings,
   addRatings
