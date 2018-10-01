@@ -36,7 +36,6 @@ class ViewMentorTopics extends Component {
 
   render() {
     const { ratings, topics, lessonName } = this.state;
-    console.log(ratings);
     return (
       <div>
         <div className="row">
