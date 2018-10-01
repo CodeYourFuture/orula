@@ -66,7 +66,13 @@ class ViewMentorTopics extends Component {
                             if (topic.topic_id === rating.topic_id) {
                               return (
                                 <tr key={rating.rating_id}>
-                                  <td>{rating.name}</td>
+                                  <td>
+                                    <Link
+                                      to={`/student-profile/${rating.user_id}`}
+                                    >
+                                      {rating.name}
+                                    </Link>
+                                  </td>
                                   <td>
                                     {rating.rating_before === -1
                                       ? "Not rated"
