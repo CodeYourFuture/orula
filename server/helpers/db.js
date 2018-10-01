@@ -210,6 +210,14 @@ const getStudentsAndMentor = async () => {
     .whereNot("roles.name", "=", "Admin");
 };
 
+const getStudentRatingsByTopic = async topic_id => {
+  return await knex
+    .select()
+    .table("ratings")
+    .innerJoin("users", "users.user_id", "ratings.user_id")
+    .where("ratings.topic_id", "=", topic_id);
+};
+
 const getUsersWithRoles = () => {
   return knex
     .select(
@@ -390,5 +398,6 @@ module.exports = {
   getStudentsAndMentor,
   getCoursesByUser,
   getRatings,
-  addRatings
+  addRatings,
+  getStudentRatingsByTopic
 };
