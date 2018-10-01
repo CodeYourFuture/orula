@@ -65,10 +65,10 @@ class ViewMentorTopics extends Component {
                             return (
                               <tr key={rating[0].rating_id}>
                                 <td>{rating[0].name}</td>
-                                <td>{rating[0].rating_before}</td>
-                                <td>{rating[0].rating_after}</td>
-                                <td>{rating[0].rating_3days}</td>
-                                <td>{rating[0].rating_1week}</td>
+                                <td>{rating[0].rating_before === -1 ? "Not rated" : rating[0].rating_before}</td>
+                                <td>{rating[0].rating_after === -1 ? "Not rated" : rating[0].rating_after}</td>
+                                <td>{rating[0].rating_3days === -1 ? "Not rated" : rating[0].rating_3days}</td>
+                                <td>{rating[0].rating_1week === -1 ? "Not rated" : rating[0].rating_1week}</td>
                               </tr>
                             );
                           }
