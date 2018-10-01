@@ -88,7 +88,7 @@ class AssignCourseToStudent extends Component {
 
         <div className="row">
           <div className="col-lg-8">
-            {this.state.students.length} students are assigned to this course.
+            {this.state.students.length} users are assigned to this course.
           </div>
         </div>
         <br />
