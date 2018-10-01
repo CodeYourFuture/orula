@@ -6,21 +6,28 @@ import { getSessionUser, getUserRoles } from "../../helpers/api";
 
 class Home extends Component {
   state = {
-    isMentor: false
+    isMentor: null
   };
 
-  async componentDidMount() {
+  componentDidMount = async () => {
     const userData = await getSessionUser();
     const { data: roles } = await getUserRoles(userData.user_id);
     const userRoles = roles.map(role => role.role);
-
-    if (userRoles.includes("Mentor")) {
-      this.setState({ isMentor: true });
+    this.setState({ isMentor: userRoles.includes("Mentor") });
+  };
+  renderTopics = () => {
+    if (this.state.isMentor === null) {
+      return null;
     }
-  }
+    if (this.state.isMentor) {
+      return <MentorHome />;
+    } else {
+      return <StudentHome />;
+    }
+  };
 
   render() {
-    return <div>{this.state.isMentor ? <MentorHome /> : <StudentHome />}</div>;
+    return this.renderTopics();
   }
 }
 export default Home;
