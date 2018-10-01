@@ -12,9 +12,7 @@ class MentorHome extends Component {
     courses: [],
     lessons: [],
     students: [],
-    newArray: [],
-    userName: "",
-    isMentor: false
+    userName: ""
   };
 
   async componentDidMount() {

@@ -6,11 +6,6 @@ import { getSessionUser, getUserRoles } from "../../helpers/api";
 
 class Home extends Component {
   state = {
-    courses: [],
-    lessons: [],
-    students: [],
-    newArray: [],
-    userName: "",
     isMentor: false
   };
 
