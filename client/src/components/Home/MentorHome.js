@@ -22,7 +22,6 @@ class MentorHome extends Component {
     const userData = await getSessionUser();
     const { data: courses } = await getCoursesByUser(userData.user_id);
     const courseId = courses.map(course => course.courseId);
-
     const studentsData = await getStudentsByCourseId(courseId);
     this.setState({ courses, students: studentsData.data });
   }
