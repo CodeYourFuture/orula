@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import StudentHome from "../../components/Home/StudentHome";
+import Home from "../../components/Home/Home";
 import Help from "../../components/Help/Help";
 import MyProfile from "../../components/MyProfile/MyProfile";
 import "./App.css";
@@ -24,17 +24,8 @@ import AssignUserRole from "../Admin/Users/AssignUserRole";
 import EditUser from "../User/EditUser/EditUser";
 import AssignCourseToStudent from "../Admin/Courses/AssignCourseToStudent/AssignCourseToStudent";
 import ViewStudentTopics from "../User/Topics/ViewStudentTopics";
-import { getSessionUser, getUserRoles } from "../../helpers/api.js";
-import MentorHome from "../../components/Home/MentorHome";
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isMentor: false
-    };
-  }
-
   componentDidMount = async () => {
     // get token from local storage
     const token = localStorage.getItem("jwtToken");
@@ -42,12 +33,6 @@ class App extends Component {
     // if there is no token redirect to login page
     if (!token) {
       return this.props.history.push("/login");
-    }
-    const userData = await getSessionUser();
-    const { data: roles } = await getUserRoles(userData.user_id);
-    const userRoles = roles.map(role => role.role);
-    if (userRoles.includes("Mentor")) {
-      this.setState({ isMentor: true });
     }
   };
 
@@ -59,11 +44,7 @@ class App extends Component {
         <div id="wrapper">
           <Nav />
           <div id="page-wrapper">
-            {this.state.isMentor ? (
-              <Route exact path="/" component={MentorHome} />
-            ) : (
-              <Route exact path="/" component={StudentHome} />
-            )}
+            <Route exact path="/" component={Home} />
             <Route exact path="/my-profile" component={MyProfile} />
             <Route exact path="/help" component={Help} />
             <Route exact path="/dashboard" component={Dashboard} />

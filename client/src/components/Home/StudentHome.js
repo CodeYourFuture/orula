@@ -2,19 +2,15 @@ import React, { Component } from "react";
 import {
   getSessionUser,
   getCoursesByUser,
-  getLessons,
-  getStudentsByCourseId
+  getLessons
 } from "../../helpers/api";
 import { Link } from "react-router-dom";
+import "./StudentHome.css";
 
-class MentorHome extends Component {
+class Home extends Component {
   state = {
     courses: [],
-    lessons: [],
-    students: [],
-    newArray: [],
-    userName: "",
-    isMentor: false
+    lessons: []
   };
 
   async componentDidMount() {
@@ -23,10 +19,7 @@ class MentorHome extends Component {
     });
     const userData = await getSessionUser();
     const { data: courses } = await getCoursesByUser(userData.user_id);
-    const courseId = courses.map(course => course.courseId);
-
-    const studentsData = await getStudentsByCourseId(courseId);
-    this.setState({ courses, students: studentsData.data });
+    this.setState({ courses });
   }
 
   render() {
@@ -35,14 +28,6 @@ class MentorHome extends Component {
         {this.state.courses.map(course => (
           <div key={course.courseId}>
             <h2 className="page-header">{course.courseName}</h2>
-            <div className="row">
-              <div className="col-lg-8">
-                {this.state.students.length} students are assigned to this
-                course:{" "}
-                {this.state.students.map(user => user.userName).join(", ")}
-              </div>
-            </div>
-            <br />
             <table className="table table-striped table-bordered">
               <thead>
                 <tr>
@@ -70,4 +55,4 @@ class MentorHome extends Component {
   }
 }
 
-export default MentorHome;
+export default Home;
