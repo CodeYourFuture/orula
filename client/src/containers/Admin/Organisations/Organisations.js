@@ -10,14 +10,14 @@ class Organisations extends Component {
     message: "",
     messageAlert: ""
   };
-  componentDidMount() {
-    getOrganisations().then(data => {
-      this.setState({ organisations: data });
-    });
-  }
-  deleteOrganisation = organisation_id => {
+  componentDidMount = async ()=>{
+    const res = await  getOrganisations()
+    const organisations =res.data;
+    this.setState({organisations});
+  };
+  deleteOrganisation = async organisation_id => {
     try {
-      const res = deleteOrganisation(organisation_id);
+      const res = await deleteOrganisation(organisation_id);
       const organisations = this.state.organisations.filter(
         organisation => organisation.organisation_id !== organisation_id
       );
@@ -25,7 +25,7 @@ class Organisations extends Component {
         organisations,
         message: res.data,
         messageAlert: "alert alert-success"
-      });
+      }); 
     } catch (err) {
       this.setState({
         message: err.response.data,
@@ -37,6 +37,11 @@ class Organisations extends Component {
     return (
       <div>
         <h2 className="page-header">Admin Dashboard</h2>
+        <div>{this.state.message && (
+              <div className={this.state.messageAlert}>
+                {this.state.message}
+              </div>
+            )}</div>
         <ul className="list-group">
           <li className="list-group-item active">Organisation</li>
           {this.state.organisations.map((data, index) => (
