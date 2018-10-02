@@ -25,7 +25,7 @@ import EditUser from "../User/EditUser/EditUser";
 import { getSessionUser, getUserRoles } from "../../helpers/api.js";
 import IsntAdmin from "../Admin/IsntAdmin/IsntAdmin";
 import AssignCourseToStudent from "../Admin/Courses/AssignCourseToStudent/AssignCourseToStudent";
-import ViewStudentTopics from "../User/Topics/ViewStudentTopics";
+import TopicsHome from "../User/Topics/TopicsHome";
 
 class App extends Component {
   state = { admin: false };
@@ -60,143 +60,43 @@ class App extends Component {
             <Route exact path="/" component={Home} />
             <Route exact path="/my-profile" component={MyProfile} />
             <Route exact path="/help" component={Help} />
-            
-            {this.state.admin ? (<Route exact path="/dashboard" component={Dashboard} />) : 
-            (<Route exact path="/dashboard" component={IsntAdmin} />)}
-            
-            {this.state.admin ? (<Route exact path="/admin/courses" component={Courses} />) : 
-            (<Route exact path="/admin/courses" component={IsntAdmin} />)}
-           
-            {this.state.admin ? (
-              <Route
-                exact
-                path="/admin/organisations"
-                component={Organisations}
-              />
-            ) : (
-              <Route exact path="/admin/organisations" component={IsntAdmin} />
-            )}
-            {this.state.admin ? (
-              <Route
-                path="/admin/organisations/add"
-                component={AddOrganisation}
-              />
-            ) : (
-              <Route path="/admin/organisations/add" component={IsntAdmin} />
-            )}
-            {this.state.admin ? (
-              <Route exact path="/admin/courses/add" component={AddCourse} />
-            ) : (
-              <Route exact path="/admin/courses/add" component={IsntAdmin} />
-            )}
-            {this.state.admin ? (
-              <Route
-                path="/admin/organisation/edit/:organisation_id"
-                component={UpdateOrganisation}
-              />
-            ) : (
-              <Route
-                path="/admin/organisation/edit/:organisation_id"
-                component={IsntAdmin}
-              />
-            )}
-            {this.state.admin ? (
-              <Route
-                exact
-                path="/admin/courses/edit/:courseId"
-                component={EditCourse}
-              />
-            ) : (
-              <Route
-                exact
-                path="/admin/courses/edit/:courseId"
-                component={IsntAdmin}
-              />
-            )}
-            {this.state.admin ? (
-              <Route exact path="/admin/lessons" component={Lessons} />
-            ) : (
-              <Route exact path="/admin/lessons" component={IsntAdmin} />
-            )}
-            {this.state.admin ? (
-              <Route exact path="/admin/lessons/add" component={AddLesson} />
-            ) : (
-              <Route exact path="/admin/lessons/add" component={IsntAdmin} />
-            )}
-            {this.state.admin ? (
-              <Route
-                exact
-                path="/admin/lessons/edit/:lessonId"
-                component={EditLesson}
-              />
-            ) : (
-              <Route
-                exact
-                path="/admin/lessons/edit/:lessonId"
-                component={IsntAdmin}
-              />
-            )}
-            {this.state.admin ? (
-              <Route
-                exact
-                path="/admin/lessons/:lessonId/topics"
-                component={ViewTopics}
-              />
-            ) : (
-              <Route
-                exact
-                path="/admin/lessons/:lessonId/topics"
-                component={IsntAdmin}
-              />
-            )}
-            {this.state.admin ? (
-              <Route path="/admin/topics/add" component={AddTopics} />
-            ) : (
-              <Route path="/admin/topics/add" component={IsntAdmin} />
-            )}
-            {this.state.admin ? (
-              <Route
-                path="/admin/topics/edit/:topicId"
-                component={EditTopics}
-              />
-            ) : (
-              <Route path="/admin/topics/edit/:topicId" component={IsntAdmin} />
-            )}
-            {this.state.admin ? (
-              <Route exact path="/admin/users" component={Users} />
-            ) : (
-              <Route exact path="/admin/users" component={IsntAdmin} />
-            )}
-            {this.state.admin ? (
-              <Route
-                path="/admin/users/assign-role/:userId"
-                component={AssignUserRole}
-              />
-            ) : (
-              <Route
-                path="/admin/users/assign-role/:userId"
-                component={IsntAdmin}
-              />
-            )}
-            <Route
-              exact
-              path="/lesson/:lessonId"
-              component={ViewStudentTopics}
-            />
+            {this.state.admin ? ([
+            <Route key={1} exact path="/dashboard" component={Dashboard} />,
+            <Route key={2} exact path="/admin/courses" component={Courses} />,
+            <Route key={3} exact path="/admin/organisations" component={Organisations}/>,
+            <Route key={4} path="/admin/organisations/add" component={AddOrganisation}/>,
+            <Route key={5} exact path="/admin/courses/add" component={AddCourse} />,
+            <Route key={6} path="/admin/organisation/edit/:organisation_id" component={UpdateOrganisation}/>,
+            <Route key={7} exact path="/admin/courses/edit/:courseId" component={EditCourse}/>,
+            <Route key={8} exact path="/admin/lessons" component={Lessons} />,
+            <Route key={9} exact path="/admin/lessons/add" component={AddLesson} />,
+            <Route key={10} exact path="/admin/lessons/edit/:lessonId" component={EditLesson}/>,
+            <Route key={11} exact path="/admin/lessons/:lessonId/topics" component={ViewTopics}/>,
+            <Route key={12} path="/admin/topics/add" component={AddTopics} />,
+            <Route key={13} path="/admin/topics/edit/:topicId" component={EditTopics} />,
+            <Route key={14} exact path="/admin/users" component={Users} />,
+            <Route key={15} path="/admin/users/assign-role/:userId" component={AssignUserRole}/>,
+            <Route key={16} exact path="/admin/courses/:courseId" component={AssignCourseToStudent}/>
+            ]) : ([
+              <Route key={1} exact path="/dashboard" component={IsntAdmin} />,
+              <Route key={2} exact path="/admin/courses" component={IsntAdmin} />,
+              <Route key={3} exact path="/admin/organisations" component={IsntAdmin}/>,
+              <Route key={4} path="/admin/organisations/add" component={IsntAdmin}/>,
+              <Route key={5} exact path="/admin/courses/add" component={IsntAdmin} />,
+              <Route key={6} path="/admin/organisation/edit/:organisation_id" component={IsntAdmin}/>,
+              <Route key={7} exact path="/admin/courses/edit/:courseId" component={ IsntAdmin }/>,
+              <Route key={8} exact path="/admin/lessons" component={IsntAdmin} />,
+              <Route key={9} exact path="/admin/lessons/add" component={IsntAdmin} />,
+              <Route key={10} exact path="/admin/lessons/edit/:lessonId" component={IsntAdmin}/>,
+              <Route key={11} exact path="/admin/lessons/:lessonId/topics" component={IsntAdmin}/>,
+              <Route key={12} path="/admin/topics/add" component={IsntAdmin} />,
+              <Route key={13} path="/admin/topics/edit/:topicId" component={IsntAdmin} />,
+              <Route key={14} exact path="/admin/users" component={IsntAdmin} />,
+              <Route key={15} path="/admin/users/assign-role/:userId" component={IsntAdmin}/>,
+              <Route key={16} exact path="/admin/courses/:courseId" component={IsntAdmin}/>
+              ])}
+            <Route exact path="/lesson/:lessonId" component={TopicsHome} />
             <Route path="/user/profile/edit" component={EditUser} />
-            {this.state.admin ? (
-              <Route
-                exact
-                path="/admin/courses/:courseId"
-                component={AssignCourseToStudent}
-              />
-            ) : (
-              <Route
-                exact
-                path="/admin/courses/:courseId"
-                component={IsntAdmin}
-              />
-            )}
           </div>
         </div>
       </Router>

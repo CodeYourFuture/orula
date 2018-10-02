@@ -150,6 +150,14 @@ exports.seed = async (knex, Promise) => {
     {
       course_id: courses[0],
       user_id: users[2]
+    },
+    {
+      course_id: courses[0],
+      user_id: users[3]
+    },
+    {
+      course_id: courses[1],
+      user_id: users[3]
     }
   ]);
 };
