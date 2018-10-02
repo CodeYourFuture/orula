@@ -27,5 +27,8 @@
   "bugs": {
     "url": "https://github.com/CodeYourFuture/orula/issues"
   },
-  "homepage": "https://github.com/CodeYourFuture/orula#readme"
+  "homepage": "https://github.com/CodeYourFuture/orula#readme",
+  "dependencies": {
+    "npm": "^6.4.1"
+  }
 }

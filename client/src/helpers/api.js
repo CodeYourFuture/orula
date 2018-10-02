@@ -63,8 +63,7 @@ export const getStudentRatingsByTopic = async topic_id => {
 
 export const getOrganisations = async () => {
   return await createInstance()
-    .get("/api/organisations")
-    .then(res => res.data);
+    .get("/api/organisations");
 };
 
 export const getOrganisationsById = async organisation_id => {
