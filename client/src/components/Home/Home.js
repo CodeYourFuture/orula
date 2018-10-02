@@ -15,7 +15,7 @@ class Home extends Component {
     const userRoles = roles.map(user => user.role);
     this.setState({ isMentor: userRoles.includes("Mentor") });
   };
-  renderTopics = () => {
+  renderHome = () => {
     if (this.state.isMentor === null) {
       return null;
     }
@@ -27,7 +27,8 @@ class Home extends Component {
   };
 
   render() {
-    return this.renderTopics();
+    console.log("isMentor= ", this.state.isMentor);
+    return this.renderHome();
   }
 }
 export default Home;
