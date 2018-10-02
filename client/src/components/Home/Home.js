@@ -1,58 +1,34 @@
 import React, { Component } from "react";
-import {
-  getSessionUser,
-  getCoursesByUser,
-  getLessons
-} from "../../helpers/api";
-import { Link } from "react-router-dom";
-import "./Home.css";
+import MentorHome from "./MentorHome";
+import StudentHome from "./StudentHome";
+
+import { getSessionUser, getUserRoles } from "../../helpers/api";
 
 class Home extends Component {
   state = {
-    courses: [],
-    lessons: []
+    isMentor: null
   };
 
-  async componentDidMount() {
-    getLessons().then(data => {
-      this.setState({ lessons: data });
-    });
+  componentDidMount = async () => {
     const userData = await getSessionUser();
-    const { data: courses } = await getCoursesByUser(userData.user_id);
-    this.setState({ courses });
-  }
+    const { data: roles } = await getUserRoles(userData.user_id);
+    const userRoles = roles.map(user => user.role);
+    this.setState({ isMentor: userRoles.includes("Mentor") });
+  };
+  renderHome = () => {
+    if (this.state.isMentor === null) {
+      return null;
+    }
+    if (this.state.isMentor) {
+      return <MentorHome />;
+    } else {
+      return <StudentHome />;
+    }
+  };
 
   render() {
-    return (
-      <div className="row">
-        {this.state.courses.map(course => (
-          <div key={course.courseId}>
-            <h2 className="page-header">{course.courseName}</h2>
-            <table className="table table-striped table-bordered">
-              <thead>
-                <tr>
-                  <th>Lessons</th>
-                </tr>
-              </thead>
-              <tbody>
-                {this.state.lessons
-                  .filter(lesson => lesson.course_title === course.courseName)
-                  .map(lesson => (
-                    <tr key={lesson.lesson_id}>
-                      <td>
-                        <Link to={`/lesson/${lesson.lesson_id}`}>
-                          {lesson.name}
-                        </Link>
-                      </td>
-                    </tr>
-                  ))}
-              </tbody>
-            </table>
-          </div>
-        ))}
-      </div>
-    );
+    console.log("isMentor= ", this.state.isMentor);
+    return this.renderHome();
   }
 }
-
 export default Home;

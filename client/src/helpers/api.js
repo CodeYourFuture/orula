@@ -53,7 +53,7 @@ export const deleteCourse = async course_id => {
   return await createInstance().delete(`api/courses/${course_id}`);
 };
 
-export const getStudents = async () => {
+export const getStudentsAndMentor = async () => {
   return await createInstance().get(`api/students`);
 };
 
