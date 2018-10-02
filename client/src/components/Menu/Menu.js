@@ -1,8 +1,19 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { getSessionUser, getUserRoles } from "../../helpers/api.js";
 
 class Menu extends Component {
+  state = { admin: false };
+  isThisAdmin = async ()=>{
+    const userData = await getSessionUser();
+    const { data: roles } = await getUserRoles(userData.user_id);
+    const userRoles = roles.map(role => role.role);
+    if (userRoles.includes("Admin")) {
+      this.setState({ admin: true });    }
+   }
+
   render() {
+    this.isThisAdmin();
     return (
       <div className="navbar-default sidebar" role="navigation">
         <div className="sidebar-nav navbar-collapse">
@@ -35,28 +46,30 @@ class Menu extends Component {
               <Link to="/help">
                 <i className="fa fa-question-circle fa-fw" /> Help
               </Link>
-            </li>
-            <li>
-              <Link to="/admin/courses">
-                <i className="fa fa-graduation-cap fa-fw" /> Courses
-              </Link>
-            </li>
-            <li>
-              <Link to="/admin/lessons">
-                <i className="fa fa-book fa-fw" /> Lessons
-              </Link>
-            </li>
-            <li>
-              <Link to="/dashboard">
-                <i className="fa fa-sitemap fa-fw" /> Organisations
-              </Link>
-            </li>
-            <li>
-              <Link to="/admin/users">
-                <i className="fa fa-users fa-fw" /> Users
-              </Link>
-            </li>
+            </li></ul>
+            {this.state.admin ? (<ul className="nav" id="side-menu">
+              <li>
+                <Link to="/admin/courses">
+                  <i className="fa fa-graduation-cap fa-fw" /> Courses
+                </Link>
+              </li>
+              <li>
+                <Link to="/admin/lessons">
+                  <i className="fa fa-book fa-fw" /> Lessons
+                </Link>
+              </li>
+              <li>
+                <Link to="/dashboard">
+                  <i className="fa fa-sitemap fa-fw" /> Organisations
+                </Link>
+              </li>
+              <li>
+                <Link to="/admin/users">
+                  <i className="fa fa-users fa-fw" /> Users
+                </Link>
+              </li>
           </ul>
+            ) : null}
         </div>
       </div>
     );
