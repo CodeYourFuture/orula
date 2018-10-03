@@ -98,6 +98,16 @@ exports.seed = async (knex, Promise) => {
         name: "mentor",
         email: "mentor@mentor.com",
         password: "password"
+      },
+      {
+        name: "harun",
+        email: "harun@mentor.com",
+        password: "password"
+      },
+      {
+        name: "eymen",
+        email: "eymen@student.com",
+        password: "password"
       }
     ]);
 
@@ -135,6 +145,14 @@ exports.seed = async (knex, Promise) => {
     {
       user_id: users[3],
       role_id: roles[1]
+    },
+    {
+      user_id: users[4],
+      role_id: roles[1]
+    },
+    {
+      user_id: users[5],
+      role_id: roles[2]
     }
   ]);
 

@@ -224,3 +224,6 @@ export const addRatings = async (lessonId, ratings) => {
     ratings
   });
 };
+export const getUserProfileById = async user_id => {
+  return await createInstance().get(`/api/user/${user_id}`);
+};

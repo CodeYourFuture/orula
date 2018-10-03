@@ -263,6 +263,13 @@ router.get("/users", (req, res) => {
   });
 });
 
+router.get("/user/:id", async (req, res) => {
+  const userId = req.params.id;
+  const data = await db.getUserProfile(userId);
+  res.send(data);
+});
+
+
 // Get user roles
 router.get("/user-roles", async (req, res) => {
   const data = await db.getUsersWithRoles();
