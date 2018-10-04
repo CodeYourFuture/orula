@@ -4,16 +4,16 @@ import { getSessionUser, getUserRoles } from "../../helpers/api.js";
 
 class Menu extends Component {
   state = { admin: false };
-  isThisAdmin = async ()=>{
+  componentDidMount = async () => {
     const userData = await getSessionUser();
     const { data: roles } = await getUserRoles(userData.user_id);
     const userRoles = roles.map(role => role.role);
     if (userRoles.includes("Admin")) {
-      this.setState({ admin: true });    }
-   }
+      this.setState({ admin: true });
+    }
+  };
 
   render() {
-    this.isThisAdmin();
     return (
       <div className="navbar-default sidebar" role="navigation">
         <div className="sidebar-nav navbar-collapse">
@@ -46,8 +46,10 @@ class Menu extends Component {
               <Link to="/help">
                 <i className="fa fa-question-circle fa-fw" /> Help
               </Link>
-            </li></ul>
-            {this.state.admin ? (<ul className="nav" id="side-menu">
+            </li>
+          </ul>
+          {this.state.admin ? (
+            <ul className="nav" id="side-menu">
               <li>
                 <Link to="/admin/courses">
                   <i className="fa fa-graduation-cap fa-fw" /> Courses
@@ -68,8 +70,8 @@ class Menu extends Component {
                   <i className="fa fa-users fa-fw" /> Users
                 </Link>
               </li>
-          </ul>
-            ) : null}
+            </ul>
+          ) : null}
         </div>
       </div>
     );
