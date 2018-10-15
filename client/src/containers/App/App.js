@@ -26,6 +26,7 @@ import { getSessionUser, getUserRoles } from "../../helpers/api.js";
 import IsntAdmin from "../Admin/IsntAdmin/IsntAdmin";
 import AssignCourseToStudent from "../Admin/Courses/AssignCourseToStudent/AssignCourseToStudent";
 import TopicsHome from "../User/Topics/TopicsHome";
+import StudentProfile from "../../components/MyProfile/StudentProfile";
 
 class App extends Component {
   state = { admin: false };
@@ -37,21 +38,16 @@ class App extends Component {
     if (!token) {
       return this.props.history.push("/login");
     }
-    
-  };	  
-   isThisAdmin = async ()=>{
     const userData = await getSessionUser();
     const { data: roles } = await getUserRoles(userData.user_id);
     const userRoles = roles.map(role => role.role);
     if (userRoles.includes("Admin")) {
       this.setState({ admin: true });    }
-   }
-
-
+  };	  
+   
   render() {
     const token = localStorage.getItem("jwtToken");
     if (!token) return null;
-    this.isThisAdmin();
     return (
       <Router>
         <div id="wrapper">
@@ -97,6 +93,7 @@ class App extends Component {
               ])}
             <Route exact path="/lesson/:lessonId" component={TopicsHome} />
             <Route path="/user/profile/edit" component={EditUser} />
+            <Route path="/student-profile/:userId" component={StudentProfile} />
           </div>
         </div>
       </Router>

@@ -27,7 +27,6 @@ class Home extends Component {
   };
 
   render() {
-    console.log("isMentor= ", this.state.isMentor);
     return this.renderHome();
   }
 }
